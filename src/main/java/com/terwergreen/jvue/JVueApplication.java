@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class JvueApplication {
+public class JVueApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(JvueApplication.class, args);
+        SpringApplication.run(JVueApplication.class, args);
     }
 
 }
