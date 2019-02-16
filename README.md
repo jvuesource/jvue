@@ -38,14 +38,24 @@ notice:You can run ``yarn dev`` in development mode to show vue error logs
 
 2、Run java maven build
 
+return root forder
+
+```
+cd ../../../
+```
+
 ```bash
-mvn clean package -f pom_linux_x86_64.xml -DskipTests
+# 安装j2v8并打包
+mvn install:install-file -Dfile=./libs/j2v8_linux_x86_64-4.8.3.jar -Dpackaging=jar \
+&& mvn clean package -f pom_linux_x86_64.xml -DskipTests
 ```
 
 # compile && run cli
 
 ```bash
-mvn -v && mvn compile -f pom_linux_x86_64.xml && mvn exec:java -f pom_linux_x86_64.xml
+mvn -v                                                \
+&& mvn compile -f pom_linux_x86_64.xml                \
+&& mvn exec:java -f pom_linux_x86_64.xml              
 ```
 
 # run && deploy
