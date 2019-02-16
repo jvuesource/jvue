@@ -44,29 +44,52 @@ return root forder
 cd ../../../
 ```
 
-```bash
 # 安装j2v8并打包
+
+## linux
+```bash
 mvn install:install-file -Dfile=./libs/j2v8_linux_x86_64-4.8.3.jar -Dpackaging=jar \
 && mvn clean package -f pom_linux_x86_64.xml -DskipTests
 ```
 
+## windows
+```bash
+mvn install:install-file -Dfile=./libs/j2v8_win32_x86_64-4.8.3.jar -Dpackaging=jar
+mvn clean package -f pom_win32_x86_64.xml -DskipTests
+```
+
 # compile && run cli
 
+## linux
 ```bash
 mvn -v                                                \
 && mvn compile -f pom_linux_x86_64.xml                \
 && mvn exec:java -f pom_linux_x86_64.xml              
 ```
 
+## windows
+```bash
+mvn -v                                                \
+&& mvn compile -f pom_win32_x86_64.xml                \
+&& mvn exec:java -f pom_win32_x86_64.xml              
+```
+
 # run && deploy
 
 ## run
 
+## linux
 ```bash
-mvn clean spring-boot:run -f pom_linux_x86_64.xml
+mvn spring-boot:run -f pom_linux_x86_64.xml
 ```
 
-## deploy
+## windows
+
+```bash
+mvn spring-boot:run -f pom_win32_x86_64.xml
+```
+
+# deploy
 
 Copy ``target/ROOT.war`` to ``${TOMCAT_HOME}/webapps``
 
