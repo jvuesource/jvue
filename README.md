@@ -23,7 +23,9 @@ With Vue,webpack,Spring Boot and eclipse j2v8 Script engine for server-side-rend
 ## Note !!!
 
 > j2v8 is not support promise on windows right now,
-> so ``linux`` is prefered for production,windows support is on the way ...
+> so ``linux`` is prefered for production,windows support is on the way ...     
+> !!! update 2019-02-16 !!!         
+Fixed by compile windows version of nodeJS to 7.4.0
 
 # Build setup
 1、Go to [webapp](src/main/webapp) and run vue ssr build
