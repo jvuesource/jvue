@@ -1,10 +1,16 @@
 package com.terwergreen.jvue.controller;
 
+import com.terwergreen.jvue.vendor.vue.VueRenderer;
+import com.terwergreen.jvue.vendor.vue.VueUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 入口
@@ -17,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class MainController {
     private final Log logger = LogFactory.getLog(this.getClass());
 
+    @Autowired
+    private VueRenderer vueRenderer;
+
     @RequestMapping(value = "/", produces = "text/html;charset=UTF-8")
     @ResponseBody
     public String index() {
@@ -24,8 +33,21 @@ public class MainController {
         return "<h1>Hello, JVue 1.0.4!</h1>";
     }
 
-    @RequestMapping("/home")
+    @RequestMapping(value = "/home", produces = "text/html;charset=UTF-8")
     public String home() {
-        return index();
+        // 设置路由上下文
+        Map<String, Object> httpContext = new HashMap<>();
+        httpContext.put("url", "/");
+
+        // 添加seo
+        httpContext.put("title", "title");
+        Map<String, Object> metaMap = new HashMap<>();
+        metaMap.put("keywords", "keywords");
+        metaMap.put("description", "description");
+        httpContext.put("meta", metaMap);
+
+        // 返回服务端渲染后的结果
+        Map<String, Object> resultMap = vueRenderer.renderContent(httpContext);
+        return VueUtil.resultMapToString(resultMap);
     }
 }
