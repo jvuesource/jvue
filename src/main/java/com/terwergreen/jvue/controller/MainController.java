@@ -30,7 +30,7 @@ public class MainController {
     @ResponseBody
     public String index() {
         logger.info("Entering main...");
-        return "<h1>Hello, JVue 1.0.4!</h1>";
+        return "<h1>Hello, JVue 1.0.4, With tomcat auto deploy success!</h1>";
     }
 
     @RequestMapping(value = "/home", produces = "text/html;charset=UTF-8")
