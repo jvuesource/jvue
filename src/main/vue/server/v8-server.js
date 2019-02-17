@@ -1,14 +1,29 @@
 const { Nuxt, Builder } = require("nuxt");
 
 const config = require("../nuxt.config.js");
-config.dev = false;
+config.dev = !(process.env.NODE_ENV === "production");
 
 const nuxt = new Nuxt(config);
 
-new Builder(nuxt)
-  .build()
-  .then(() => nuxt.renderRoute("/"))
-  .then(({ html, error, redirected }) => {
+// ==================
+// test Server
+// ==================
+
+const context = {};
+
+if (config.dev) {
+  console.log("build server");
+  new Builder(nuxt).build().then(() => {
+    renderServer(context);
+  });
+} else {
+  renderServer(context);
+}
+
+function renderServer(context) {
+  console.log("context=>", context);
+
+  nuxt.renderRoute("/").then(({ html, error, redirected }) => {
     // `html` will be always a string
     console.log("html=>", html);
 
@@ -20,3 +35,4 @@ new Builder(nuxt)
     // { path: '/other-path', query: {}, status: 302 }
     console.log("redirected=>", redirected);
   });
+}
