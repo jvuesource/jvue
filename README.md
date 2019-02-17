@@ -1,8 +1,21 @@
 # Build Vue
 
 ```bash
-cd src/main/vue && npm i -g yarn && yarn && yarn build
+cd src/main/vue && npm i -g yarn
 ```
+
+ To get started:
+
+    yarn run dev
+
+  To build & start for production:
+
+    yarn run build
+    yarn start
+
+  To test:
+
+    yarn run test
 
 # Go back to root forder
 
