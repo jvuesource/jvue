@@ -1,7 +1,7 @@
 # Build Vue
 
 ```bash
-cd src/main/vue && npm i -g yarn
+cd src/main/vue && npm i -g yarn && yarn
 ```
 
  To get started:
