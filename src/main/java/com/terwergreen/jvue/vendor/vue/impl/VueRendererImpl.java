@@ -54,37 +54,37 @@ public class VueRendererImpl implements VueRenderer {
             v8.getLocker().acquire();
             logger.info("获取v8线程锁...");
 
-            // 注册回调函数
-            JavaVoidCallback successCallback = (V8Object receiver, V8Array parameters) -> {
-                synchronized (callbackLock) {
-                    if (parameters.length() > 0) {
-                        if (parameters.length() == 2) {
-                            callbackResolved = true;
-                            String html = parameters.getString(1);
-                            htmlMap.put("status", 1);
-                            htmlMap.put("data", html);
-                            htmlMap.put("msg", "200 OK");
-                            logger.info("renderServerCallback resolved success");
-                            return;
-                        }
-
-                        // handle error
-                        String err = parameters.getString(0);
-                        htmlMap.put("status", 0);
-                        htmlMap.put("data", "{}");
-                        htmlMap.put("msg", err);
-                    }
-                    logger.info("renderServerCallback invoked");
-                }
-            };
-            v8.registerJavaMethod(successCallback, "renderServerCallback");
-            logger.info("renderServerCallback注册成功");
+//            // 注册回调函数
+//            JavaVoidCallback successCallback = (V8Object receiver, V8Array parameters) -> {
+//                synchronized (callbackLock) {
+//                    if (parameters.length() > 0) {
+//                        if (parameters.length() == 2) {
+//                            callbackResolved = true;
+//                            String html = parameters.getString(1);
+//                            htmlMap.put("status", 1);
+//                            htmlMap.put("data", html);
+//                            htmlMap.put("msg", "200 OK");
+//                            logger.info("renderServerCallback resolved success");
+//                            return;
+//                        }
+//
+//                        // handle error
+//                        String err = parameters.getString(0);
+//                        htmlMap.put("status", 0);
+//                        htmlMap.put("data", "{}");
+//                        htmlMap.put("msg", err);
+//                    }
+//                    logger.info("renderServerCallback invoked");
+//                }
+//            };
+//            v8.registerJavaMethod(successCallback, "renderServerCallback");
+//            logger.info("renderServerCallback注册成功");
 
             // ===================================================================
             // 执行js
             // require vueServerRenderer module
-            File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/build.prod.js");
-            nodeJS.require(vueServerRendererFile);
+            // File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/build.prod.js");
+            // nodeJS.require(vueServerRendererFile);
 
             v8.getLocker().release();
             logger.info("释放v8线程锁...");
@@ -142,20 +142,22 @@ public class VueRendererImpl implements VueRenderer {
             v8.getLocker().acquire();
             logger.info("获取v8线程锁...");
 
+            v8.executeScript("console.log('v8 execute success')");
+
             // require server module
-            File serverFile = VueUtil.readVueFile("server.js");
-            V8Object server = nodeJS.require(serverFile);
+            // File serverFile = VueUtil.readVueFile("server.js");
+            // V8Object server = nodeJS.require(serverFile);
 
             // get parameters
-            logger.info("httpContext=>" + JSON.toJSONString(httpContext));
-            V8Array parameters = new V8Array(v8);
-            parameters.push(JSON.toJSONString(httpContext));
+            // logger.info("httpContext=>" + JSON.toJSONString(httpContext));
+            // V8Array parameters = new V8Array(v8);
+            // parameters.push(JSON.toJSONString(httpContext));
             // get renderServerCallback
-            V8Function renderServerCallback = (V8Function) v8.getObject("renderServerCallback");
-            parameters.push(renderServerCallback);
+            // V8Function renderServerCallback = (V8Function) v8.getObject("renderServerCallback");
+            // parameters.push(renderServerCallback);
 
             // execute renderServer
-            server.executeObjectFunction("renderServer", parameters);
+            // server.executeObjectFunction("renderServer", parameters);
             runMessageLoop();
             // =====================================================================
 
