@@ -29,6 +29,13 @@ cd ../../../../jvue
 ```bash
 mvn install:install-file -Dfile=libs/j2v8_linux_x86_64-4.8.0.jar
 ```
+
+or
+
+```bash
+mvn install:install-file -Dfile=libs/j2v8_linux_x86_64-4.8.3.jar
+```
+
 ## windows
 ```bash
 mvn install:install-file -Dfile=libs/j2v8_win32_x86_64-4.8.3.jar
