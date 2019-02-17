@@ -1,18 +1,16 @@
 # Build Vue
 
 ```bash
-cd vue && npm i -g yarn && yarn && yarn build
+cd src/main/vue && npm i -g yarn && yarn && yarn build
 ```
-
 
 # Go back to root forder
 
 ```bash
-cd ../../jvue
+cd ../../../../jvue
 ```
 
 # Install j2v8
-
 
 ## linux
 ```bash
