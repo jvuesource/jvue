@@ -62,3 +62,11 @@ mvn -f pom_linux_x86_x64.xml clean package spring-boot:run
 ```bsah
 mvn clean package spring-boot:run
 ```
+
+# Start Tomcat
+
+```
+# 切换到root用户
+su
+cd /home/soft/apache-tomcat-9.0.16/bin && ./catalina.sh run
+```
