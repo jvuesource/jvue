@@ -22,12 +22,16 @@ cd src/main/vue && npm i -g yarn && yarn
 
   To build & start for production:
 
-    yarn run build
+    yarn build
     yarn start
+
+  To build for ssr only
+
+    yarn build:ssr
 
   To test:
 
-    yarn run test
+    yarn test
 
 # Go back to root forder
 

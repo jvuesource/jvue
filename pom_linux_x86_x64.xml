@@ -94,7 +94,22 @@
 
     <build>
         <!-- War包名称 -->
-        <finalName>ROOT</finalName>
+        <finalName>jvue</finalName>
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/vue</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <!-- 服务端渲染 -->
+                    <include>dist/**</include>
+                </includes>
+            </resource>
+        </resources>
 
         <plugins>
             <plugin>

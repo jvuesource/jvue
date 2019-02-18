@@ -30,10 +30,11 @@ public class MainController {
     @ResponseBody
     public String index() {
         logger.info("Entering main...");
-        return "<h1>Hello, JVue 1.0.4, With tomcat auto deploy success!</h1>";
+        return "<h1>Hello, JVue 1.0.4, With tomcat auto deploy success!</h1><p><a href=\"/home\">Home</a></p>";
     }
 
     @RequestMapping(value = "/home", produces = "text/html;charset=UTF-8")
+    @ResponseBody
     public String home() {
         // 设置路由上下文
         Map<String, Object> httpContext = new HashMap<>();
