@@ -145,7 +145,7 @@ public class VueRendererImpl implements VueRenderer {
             v8.executeScript("console.log('v8 execute success')");
 
             // require server module
-            // File serverFile = VueUtil.readVueFile("server.js");
+            // File serverFile = VueUtil.readVueFile("v8-server.js");
             // V8Object server = nodeJS.require(serverFile);
 
             // get parameters

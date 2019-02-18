@@ -1,28 +1,20 @@
 const { Nuxt, Builder } = require("nuxt");
 
+// Import and Set Nuxt.js options
 const config = require("../nuxt.config.js");
 config.dev = !(process.env.NODE_ENV === "production");
 
-// ==================
-// test Server
-// ==================
-
-async function init() {
+function start() {
+  // Init Nuxt.js
   const nuxt = new Nuxt(config);
 
-  console.log("building");
-
-  await new Builder(nuxt).build();
-
-  console.log("built");
-
-  await nuxt.listen(4000, "localhost");
-
-  console.log("listening...");
-
-  const res = await nuxt.renderRoute("/");
-
-  console.log(res);
+  // create builder
+  const builder = new Builder(nuxt);
+  builder.build().then(() => {
+    // renderRoute
+    nuxt.renderRoute("/").then(res => {
+      console.log("res=>", res);
+    });
+  });
 }
-
-init();
+start();
