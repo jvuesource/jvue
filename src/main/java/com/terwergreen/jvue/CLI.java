@@ -23,7 +23,7 @@ public class CLI {
     public static void main(String[] args) {
         // 设置路由上下文
         Map<String, Object> httpContext = new HashMap<>();
-        httpContext.put("url", "/");
+        httpContext.put("url", "/about");
 
         // 添加seo
         httpContext.put("title", "title");

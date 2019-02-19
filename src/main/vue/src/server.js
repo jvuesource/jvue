@@ -48,8 +48,6 @@ renderer = createRenderer(bundle, {
   clientManifest
 });
 
-console.log("export renderToString promise");
-
 /**
  * 渲染服务
  * @param context 上下文
@@ -91,4 +89,6 @@ function renderServer(context, renderServerCallback) {
   return promise;
 }
 
-exports.renderServer = renderServer;
+module.exports = {
+    renderServer:renderServer
+}

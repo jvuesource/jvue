@@ -144,6 +144,11 @@ public class VueRendererImpl implements VueRenderer {
 
             v8.executeScript("console.log('v8 execute start')");
 
+            // handle promise error
+            v8.executeScript("process.on('unhandledRejection', function (reason, p) {" +
+                    "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
+                    "});");
+            
             // require server module
             File serverFile = VueUtil.readVueFile("server.js");
             V8Object server = nodeJS.require(serverFile);
