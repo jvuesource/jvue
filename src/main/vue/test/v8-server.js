@@ -12,7 +12,7 @@ const seo = {
     description: "description"
   }
 };
-const context = JSON.stringify(Object.assign({ url: "/" }, seo));
+const context = JSON.stringify(Object.assign({ url: "/about" }, seo));
 
 // deal with callback
 var renderServerCallback = (err, html) => {

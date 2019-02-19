@@ -1,5 +1,6 @@
 import Vue from "vue";
-import App from "./App.vue";
+import App from "./App";
+import { createRouter } from "./router";
 
 /**
  * Expose a factory function that creates a fresh set of
@@ -10,14 +11,18 @@ import App from "./App.vue";
 export function createApp(ssrContext) {
   console.log("ssrContext=>", ssrContext);
 
+  // create router instance
+  const router = createRouter();
+
   // create the app instance.
   const app = new Vue({
+    router,
+    ssrContext,
     render: h => h(App)
   });
 
-  // expose the app
+  // expose the app, the router
   // note we are not mounting the app here, since bootstrapping will be
   // different depending on whether we are in a browser or on the server.
-  return { app };
-  // return { app, router, store }
+  return { app, router };
 }

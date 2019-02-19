@@ -7,6 +7,10 @@ console.log("config.isProduction=>" + config.isProduction);
 
 const webpackCnfig = {
   mode: process.env.NODE_ENV,
+  resolve: {
+    // import vue without .vue
+    extensions: ["*", ".js", ".vue", ".json"]
+  },
   module: {
     rules: [
       {
