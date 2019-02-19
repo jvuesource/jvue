@@ -35,7 +35,7 @@ let clientConfig = merge(base.webpackCnfig, {
         {
           template: "./public/index.ejs",
           favicon: "./public/favicon.ico",
-          inject: false
+          inject: process.env.NODE_ENV === "serve"
         },
         base.config.seo
       )
