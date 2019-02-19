@@ -1,4 +1,4 @@
-const config = require("./config");
+const config = require("./jvue.config");
 
 module.exports = {
   root: true,
