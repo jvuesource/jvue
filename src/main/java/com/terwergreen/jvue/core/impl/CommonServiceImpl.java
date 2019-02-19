@@ -30,7 +30,7 @@ public class CommonServiceImpl implements CommonService {
     @Autowired
     private CommonDAO commonDAO;
 
-    @Value("${bugucms.web.admin-path}")
+    @Value("${jvue.web.admin-path}")
     private String adminPath;
 
     @Override

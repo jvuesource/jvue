@@ -41,7 +41,7 @@ public class PostServiceImpl implements PostService {
     @Autowired
     private CommonService commonService;
 
-    @Value("${bugucms.admin.password.encode.enable}")
+    @Value("${jvue.admin.password.encode.enable}")
     private boolean isDbAdminPasswordEncoded;
 
     @Override
@@ -114,7 +114,7 @@ public class PostServiceImpl implements PostService {
         //    throw new UsernameNotFoundException("用户名不存在。");
         //}
         //if (isDbAdminPasswordEncoded) {
-        //    password = BugucmsConfig.passwordEncoder().encode(sysUserDTO.getPassword());
+        //    password = jvueConfig.passwordEncoder().encode(sysUserDTO.getPassword());
         //}
         //hashed就是明文密码password加密后的结果，存储到数据库
         //String hashed = BCrypt.hashpw(password, BCrypt.gensalt());
