@@ -11,7 +11,7 @@ const port = 3000;
 
 // 静态资源
 const favicon = require("serve-favicon");
-const serve = (path, cache) => express.static(resolve(path));
+const serve = path => express.static(resolve(path));
 
 const render = require("../dist/server");
 

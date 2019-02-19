@@ -35,15 +35,7 @@ let clientConfig = merge(base.webpackCnfig, {
         {
           template: "./public/index.ejs",
           favicon: "./public/favicon.ico",
-          inject: !base.config.isProduction, // 只有entry-client环境才inject
-          minify: {
-            removeComments: false,
-            collapseWhitespace: false,
-            removeAttributeQuotes: false
-            // more options:// https://github.com/kangax/html-minifier#options-quick-reference
-          },
-          // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-          chunksSortMode: "dependency"
+          inject: false
         },
         base.config.seo
       )

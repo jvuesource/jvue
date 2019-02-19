@@ -20,13 +20,16 @@
     "clean": "rimraf dist",
     "lint": "eslint --ext .js,.vue,.html --ignore-path .gitignore --ignore-pattern !.eslintrc.js --ignore-pattern !.babelrc.js . --fix --color",
     "serve": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.client.config.js --port 8888 --hot --inline --progress",
-    "dev": "./build/build.dev.sh && cross-env NODE_ENV=development nodemon ./test/dev-server.js",
+    "build-dev": "./build/build.dev.sh",
+    "dev": "yarn build-dev && cross-env NODE_ENV=development node ./test/dev-server.js",
     "build": "./build/build.prod.sh",
+    "prod": "yarn build && cross-env NODE_ENV=production node ./test/dev-server.js",
     "start": "cross-env NODE_ENV=production node ./test/v8-server.js",
     "test": "echo 'No Tests'"
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "lru-cache": "latest",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.6.6"
@@ -53,6 +56,7 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.2.1",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "express": "latest"
   }
 }

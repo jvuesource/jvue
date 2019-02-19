@@ -1,6 +1,6 @@
 const { VueLoaderPlugin } = require("vue-loader");
 
-const config = require("../config");
+const config = require("../jvue.config");
 
 console.log("process.env.NODE_ENV=>" + process.env.NODE_ENV);
 console.log("config.isProduction=>" + config.isProduction);
