@@ -3,6 +3,7 @@ package com.terwergreen.jvue.config;
 import org.apache.juli.logging.Log;
 import org.apache.juli.logging.LogFactory;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -40,5 +41,19 @@ public class WebConfig implements WebMvcConfigurer {
                 .resourceChain(false)
                 .addResolver(new WebJarsResourceResolver())
                 .addResolver(new PathResourceResolver());
+    }
+
+    /**
+     * 配置跨域访问
+     *
+     * @param registry InterceptorRegistry
+     * @author Terwer
+     */
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/api/**")
+                .allowedHeaders("*")
+                .allowedMethods("*")
+                .allowedOrigins("*");
     }
 }
