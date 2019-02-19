@@ -1,19 +1,25 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
 *.iml
 *.ipr
 
-### Dev Tools && Production ###
-src/main/resources/application-prod.properties
-src/main/resources/rebel.xml
-.classpath
-.factorypath
-.project
-.settings/
-.vscode/
-logs/
-*.log
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/

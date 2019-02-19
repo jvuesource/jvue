@@ -7,9 +7,9 @@ import com.eclipsesource.v8.V8;
 import com.eclipsesource.v8.V8Array;
 import com.eclipsesource.v8.V8Function;
 import com.eclipsesource.v8.V8Object;
-import com.terwergreen.jvue.util.VueUtil;
 import com.terwergreen.jvue.vendor.j2v8.V8Context;
 import com.terwergreen.jvue.vendor.vue.VueRenderer;
+import com.terwergreen.jvue.vendor.vue.VueUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,9 +82,25 @@ public class VueRendererImpl implements VueRenderer {
 
             // ===================================================================
             // 执行js
+            // require axios module
+            File axiosFile = VueUtil.readVueFile("node_modules/axios/index.js");
+            nodeJS.require(axiosFile);
+            logger.info("require axios module success");
+
+            // require vue module
+            File vueFile = VueUtil.readVueFile("node_modules/vue/dist/vue.runtime.common.js");
+            nodeJS.require(vueFile);
+            logger.info("require vue module success");
+
+            // require vueRouter module
+            File vueRouterFile = VueUtil.readVueFile("node_modules/vue-router/dist/vue-router.common.js");
+            nodeJS.require(vueRouterFile);
+            logger.info("require vueRouter module success");
+
             // require vueServerRenderer module
-            File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/build.prod.js");
+            File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/index.js");
             nodeJS.require(vueServerRendererFile);
+            logger.info("require vueServerRenderer module success");
 
             v8.getLocker().release();
             logger.info("释放v8线程锁...");
@@ -104,7 +120,7 @@ public class VueRendererImpl implements VueRenderer {
     private void executeV8(Map<String, Object> httpContext) {
         try {
             // render html
-           executeV8CLI(httpContext);
+            executeV8CLI(httpContext);
 
             int i = 0;
             int jsWaitTimeout = 1000 * MAX_WAIT_SECONDS;
@@ -142,6 +158,13 @@ public class VueRendererImpl implements VueRenderer {
             v8.getLocker().acquire();
             logger.info("获取v8线程锁...");
 
+            v8.executeScript("console.log('v8 execute start')");
+
+            // handle promise error
+            v8.executeScript("process.on('unhandledRejection', function (reason, p) {" +
+                    "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
+                    "});");
+            
             // require server module
             File serverFile = VueUtil.readVueFile("server.js");
             V8Object server = nodeJS.require(serverFile);

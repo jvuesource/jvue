@@ -1,12 +1,11 @@
 package com.terwergreen.jvue.controller;
 
-import com.terwergreen.jvue.util.VueUtil;
 import com.terwergreen.jvue.vendor.vue.VueRenderer;
+import com.terwergreen.jvue.vendor.vue.VueUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -29,7 +28,13 @@ public class MainController {
 
     @RequestMapping(value = "/", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String index(Model model) {
+    public String index() {
+        return home();
+    }
+
+    @RequestMapping(value = "/home", produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String home() {
         // 设置路由上下文
         Map<String, Object> httpContext = new HashMap<>();
         httpContext.put("url", "/");
@@ -41,13 +46,10 @@ public class MainController {
         metaMap.put("description", "description");
         httpContext.put("meta", metaMap);
 
+        logger.info("httpContext=>"+httpContext);
+
         // 返回服务端渲染后的结果
         Map<String, Object> resultMap = vueRenderer.renderContent(httpContext);
         return VueUtil.resultMapToString(resultMap);
-    }
-
-    @RequestMapping("/home")
-    public String home(Model model) {
-        return index(model);
     }
 }
