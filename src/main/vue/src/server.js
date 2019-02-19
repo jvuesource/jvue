@@ -90,5 +90,5 @@ function renderServer(context, renderServerCallback) {
 }
 
 module.exports = {
-    renderServer:renderServer
-}
+  renderServer: renderServer
+};

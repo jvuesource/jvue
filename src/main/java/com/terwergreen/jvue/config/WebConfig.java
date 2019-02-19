@@ -31,5 +31,14 @@ public class WebConfig implements WebMvcConfigurer {
         logger.info("添加静态资源映射");
         // Vue静态资源映射
         registry.addResourceHandler("/**").addResourceLocations("classpath:/dist/");
+
+        // swagger-ui
+        logger.info("映射swagger-ui");
+        registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
+        // webjars资源映射
+        registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/")
+                .resourceChain(false)
+                .addResolver(new WebJarsResourceResolver())
+                .addResolver(new PathResourceResolver());
     }
 }

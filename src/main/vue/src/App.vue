@@ -5,7 +5,15 @@
 </template>
 
 <script>
+import api from "./api";
+
 export default {
-  name: "App"
+  name: "App",
+  mounted() {
+    api.getPostList().then(item => {
+      console.log("getPostList=>", item);
+    });
+    console.log("App mounted");
+  }
 };
 </script>
