@@ -10,7 +10,7 @@
         <property name="logFilePath" value="${catalina.base}/logs" />
     </springProfile>
 
-    <property name="log.context.name" value="BugucmsApplication" />
+    <property name="log.context.name" value="JVueApplication" />
     <property name="log.charset" value="UTF-8" />
 
     <!-- 设置上下文名称 -->
@@ -48,7 +48,7 @@
     <!-- 程序运行日志记录-3天-->
     <appender name="INFO_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${logFilePath}/bugucms-info-%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${logFilePath}/jvue-info-%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>3</MaxHistory>  <!--保存天数  -->
         </rollingPolicy>
         <layout class="ch.qos.logback.classic.PatternLayout">
@@ -58,7 +58,7 @@
     <!-- 错误日志记录-15天 -->
     <appender name="ERROR_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <FileNamePattern>${logFilePath}/bugucms-error-%d{yyyy-MM-dd}.log</FileNamePattern>
+            <FileNamePattern>${logFilePath}/jvue-error-%d{yyyy-MM-dd}.log</FileNamePattern>
             <MaxHistory>15</MaxHistory>
         </rollingPolicy>
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
