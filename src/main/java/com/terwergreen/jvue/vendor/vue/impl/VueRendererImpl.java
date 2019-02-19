@@ -97,6 +97,11 @@ public class VueRendererImpl implements VueRenderer {
             nodeJS.require(vueRouterFile);
             logger.info("require vueRouter module success");
 
+            // require lruCache module
+            File lruCacheFile = VueUtil.readVueFile("node_modules/lru-cache/index.js");
+            nodeJS.require(lruCacheFile);
+            logger.info("require lruCache module success");
+
             // require vueServerRenderer module
             File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/index.js");
             nodeJS.require(vueServerRendererFile);
