@@ -91,7 +91,7 @@ public class VueUtil {
             String fullResourcePath = Paths.get(resourcePath.toURI()).toFile().getAbsolutePath();
             logger.info("fullResourcePath = " + fullResourcePath);
             return fullResourcePath;
-        } catch (URISyntaxException e) {
+        } catch (Exception e) {
             logger.error("Vue文件路径错误", e);
         }
         return null;

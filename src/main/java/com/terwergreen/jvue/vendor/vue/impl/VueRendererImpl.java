@@ -107,6 +107,16 @@ public class VueRendererImpl implements VueRenderer {
             nodeJS.require(vueServerRendererFile);
             logger.info("require vueServerRenderer module success");
 
+            // require vuex module
+            File vuexFile = VueUtil.readVueFile("node_modules/vuex/dist/vuex.common.js");
+            nodeJS.require(vuexFile);
+            logger.info("require vuex module success");
+
+            // require vuexRouterSync module
+            File vuexRouterSyncFile = VueUtil.readVueFile("node_modules/vuex-router-sync/index.js");
+            nodeJS.require(vuexRouterSyncFile);
+            logger.info("require vuexRouterSync module success");
+
             v8.getLocker().release();
             logger.info("释放v8线程锁...");
         }
