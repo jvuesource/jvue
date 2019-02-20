@@ -5,14 +5,22 @@
 </template>
 
 <script>
-import api from "./api";
+import postApi from "./api/post";
 
 export default {
   name: "App",
   mounted() {
-    api.getPostList().then(item => {
-      console.log("getPostList=>", item);
-    });
+    postApi
+      .getPostList()
+      .then(res => {
+        console.log("getPostList=>", res.data.data);
+      })
+      .catch(reason => {
+        console.error("getPostList request error,reason=>", reason);
+      })
+      .finally(() => {
+        console.log("getPostList onFinally");
+      });
     console.log("App mounted");
   }
 };

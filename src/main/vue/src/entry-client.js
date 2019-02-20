@@ -9,7 +9,7 @@ router.onReady(() => {
     console.error("404 Not Found");
     return;
   }
-  console.info("matchedComponents=>", matchedComponents[0].name, "color:red");
+  console.info("matchedComponents=>", matchedComponents[0].name);
 
   router.beforeResolve((to, from, next) => {
     console.log("to=>", to.fullPath);
