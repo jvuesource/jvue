@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import post from "./modules/post";
+import posts from "./modules/posts";
 
 import createLogger from "../../src/plugins/logger";
 
@@ -15,7 +15,7 @@ const debug = process.env.NODE_ENV !== "production";
 export function createStore() {
   return new Vuex.Store({
     modules: {
-      post
+      posts
     },
     strict: debug,
     plugins: debug ? [createLogger()] : []
