@@ -39,7 +39,6 @@ public class VueRendererImpl implements VueRenderer {
 
     private final Object callbackLock = new Object();
     private volatile boolean callbackResolved = false;
-    private volatile boolean callbackRejected = false;
 
     private Map<String, Object> htmlMap = new HashMap<>();
 
@@ -87,6 +86,19 @@ public class VueRendererImpl implements VueRenderer {
             v8.registerJavaMethod(successCallback, "renderServerCallback");
             logger.info("renderServerCallback注册成功");
 
+            JavaVoidCallback setSessionCallback = (V8Object receiver, V8Array parameters) -> {
+                if (parameters.length() == 2) {
+                    String key = parameters.getString(0);
+                    Object value = parameters.getObject(1);
+                    logger.info("key=>" + key);
+                    logger.info("value=>" + value);
+                } else {
+                    logger.error("setSessionCallback参数错误");
+                }
+            };
+            v8.registerJavaMethod(setSessionCallback, "setSessionCallback");
+            logger.info("setSessionCallback注册成功");
+
             // ===================================================================
             // 执行js
             // require axios module
@@ -113,16 +125,6 @@ public class VueRendererImpl implements VueRenderer {
             File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/index.js");
             nodeJS.require(vueServerRendererFile);
             logger.info("require vueServerRenderer module success");
-
-            // require vuex module
-            File vuexFile = VueUtil.readVueFile("node_modules/vuex/dist/vuex.common.js");
-            nodeJS.require(vuexFile);
-            logger.info("require vuex module success");
-
-            // require vuexRouterSync module
-            File vuexRouterSyncFile = VueUtil.readVueFile("node_modules/vuex-router-sync/index.js");
-            nodeJS.require(vuexRouterSyncFile);
-            logger.info("require vuexRouterSync module success");
 
             v8.getLocker().release();
             logger.info("释放v8线程锁...");
@@ -191,8 +193,8 @@ public class VueRendererImpl implements VueRenderer {
             V8Array parameters = new V8Array(v8);
             parameters.push(JSON.toJSONString(httpContext));
             // get renderServerCallback
-             V8Function renderServerCallback = (V8Function) v8.getObject("renderServerCallback");
-             parameters.push(renderServerCallback);
+            V8Function renderServerCallback = (V8Function) v8.getObject("renderServerCallback");
+            parameters.push(renderServerCallback);
 
             // execute renderServer
             server.executeObjectFunction("renderServer", parameters);

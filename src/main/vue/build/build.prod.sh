@@ -36,10 +36,6 @@ scp -r node_modules/lodash.templatesettings/ dist/node_modules
 scp -r node_modules/lodash._reinterpolate/ dist/node_modules
 scp -r node_modules/lodash.template/ dist/node_modules
 scp -r node_modules/vue-server-renderer/ dist/node_modules
-# vuex
-scp -r node_modules/vuex/ dist/node_modules
-# vuex-router-sync
-scp -r node_modules/vuex-router-sync/ dist/node_modules
 echo "copy ssr modules finish"
 
 # build server interface

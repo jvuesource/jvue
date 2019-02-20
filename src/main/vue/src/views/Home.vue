@@ -13,29 +13,39 @@
 </template>
 
 <script>
-// import { mapState, mapActions } from "vuex";
-import { mapState } from "vuex";
+/* eslint-disable */
+import postApi from "../api/post";
 
 export default {
   name: "About",
   data() {
     return {
-      message: "jvue"
+      message: "jvue",
+      posts: []
     };
   },
-  computed: mapState({
-    posts: state => state.posts.all
-  }),
-  // created () {
-  //   this.$store.dispatch('posts/getAllPosts')
-  // },
-  asyncData({ store }) {
+  created() {
+    console.log("Home created");
+    this.posts = [{ aaa: "dgdff" }];
+  },
+  asyncData() {
     // 触发 action 后，会返回 Promise
     console.log("Home page => PostList asyncData");
-    return store.dispatch("posts/getAllPosts");
+    postApi
+      .getPostList()
+      .then(res => {
+        console.log("Home page asyncData fetch success");
+        const posts = res.data.data;
+        if (setSessionCallback) {
+          console.log("getPostList setSession");
+          setSessionCallback("getPostList", JSON.stringify(posts));
+        }
+      })
+      .catch(reason => {
+        console.error("getPostList request error,reason=>", reason);
+      });
   },
   methods: {
-    // ...mapActions([]), // not supported in Spring Boot
     showMessage() {
       this.message = new Date();
     }

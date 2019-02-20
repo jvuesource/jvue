@@ -1,13 +1,8 @@
 // import "es6-promise/auto"
 import { createApp } from "./app";
 
-const { app, router, store } = createApp();
-
-// prime the store with server-initialized state.
-// the state is determined during SSR and inlined in the page markup.
-// if (window.__INITIAL_STATE__) {
-//   store.replaceState(window.__INITIAL_STATE__);
-// }
+const { app, router } = createApp();
+import config from "../jvue.config";
 
 // wait until router has resolved all async before hooks
 // and async components...
@@ -34,12 +29,14 @@ router.onReady(() => {
       return next();
     }
 
-    // 调用asyncData获取数据
+    // 对所有匹配的路由组件调用 `asyncData()`
     Promise.all(
       activated.map(Component => {
         if (Component.asyncData) {
           console.log("调用asyncData获取数据");
-          return Component.asyncData({ store, route: to });
+          return Component.asyncData({
+            route: router.currentRoute
+          });
         } else {
           console.log("未找到asyncData");
         }
@@ -53,4 +50,6 @@ router.onReady(() => {
 });
 
 // actually mount to DOM
-app.$mount("#app");
+if (!config.isProduction) {
+  app.$mount("#app");
+}

@@ -1,12 +1,10 @@
 import Vue from "vue";
 import App from "./App";
-import { sync } from "vuex-router-sync";
 
-import { createStore } from "./store";
 import { createRouter } from "./router";
 
 /**
- * Expose a factory function that creates a fresh set of store, router,
+ * Expose a factory function that creates a fresh set of router,
  * app instances on each call (which is called for each SSR request)
  * @param ssrContext
  * @returns {{app: Vue | CombinedVueInstance<V, object, object, object, Record<never, any>>, router: VueRouter}}
@@ -14,26 +12,20 @@ import { createRouter } from "./router";
 export function createApp(ssrContext) {
   console.log("enter app.js=> the main entry");
 
-  // create store and router instances
-  const store = createStore();
+  // create router instances
   const router = createRouter();
-
-  // sync the router with the vuex store.
-  // this registers `store.state.route`
-  sync(store, router);
 
   // create the app instance.
   // here we inject the router and store to all child components,
-  // making them available everywhere as `this.$router` and `this.$store`.
+  // making them available everywhere as `this.$router`.
   const app = new Vue({
     router,
-    store,
     ssrContext,
     render: h => h(App)
   });
 
-  // expose the app, the router and the store.
+  // expose the app, the router
   // note we are not mounting the app here, since bootstrapping will be
   // different depending on whether we are in a browser or on the server.
-  return { app, router, store };
+  return { app, router };
 }

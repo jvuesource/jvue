@@ -34,7 +34,7 @@ app.get("*", (req, res) => {
     .renderServer(context)
     .then((resolve, reject) => {
       if (reject) {
-        console.log("reject");
+        console.log("reject=>", reject);
         res.send(reject);
         return;
       }
@@ -42,7 +42,7 @@ app.get("*", (req, res) => {
       res.send(resolve);
     })
     .catch(rejected => {
-      console.log("rejected");
+      console.log("rejected=>", rejected);
       res.send(rejected);
     });
 });
