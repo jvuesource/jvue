@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+// import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "About",
@@ -34,7 +35,7 @@ export default {
     return store.dispatch("posts/getAllPosts");
   },
   methods: {
-    ...mapActions([]),
+    // ...mapActions([]), // not supported in Spring Boot
     showMessage() {
       this.message = new Date();
     }

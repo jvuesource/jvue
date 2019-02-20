@@ -62,20 +62,19 @@ function renderServer(context, renderServerCallback) {
     // 如果有callback，优先执行callback
     if (renderServerCallback) {
       console.log("callback exists,calling callback...");
-      console.log("renderServerCallback=>", renderServerCallback);
       promise
         .then((resolve, reject) => {
           if (reject) {
+            console.log("renderServer reject=>", reject);
             renderServerCallback(reject);
-            console.log("renderServer reject");
             return;
           }
+          console.log("renderServer resolve success");
           renderServerCallback(null, resolve);
-          console.log("renderServer resolve");
         })
         .catch(rejected => {
+          console.log("renderServer catch=>", rejected);
           renderServerCallback(rejected);
-          console.log("renderServer rejected");
         });
       return;
     }
@@ -90,5 +89,5 @@ function renderServer(context, renderServerCallback) {
 }
 
 module.exports = {
-  renderServer: renderServer
+  renderServer
 };

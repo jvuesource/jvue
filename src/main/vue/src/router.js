@@ -18,7 +18,7 @@ let routes = [
  */
 export function createRouter() {
   return new Router({
-    mode: process.env.NODE_ENV === "development" ? "hash" : "history",
+    mode: "history", // process.env.NODE_ENV === "development" ? "hash" : "history",
     routes
   });
 }

@@ -12,7 +12,7 @@ import { createRouter } from "./router";
  * @returns {{app: Vue | CombinedVueInstance<V, object, object, object, Record<never, any>>, router: VueRouter}}
  */
 export function createApp(ssrContext) {
-  console.log("ssrContext=>", ssrContext);
+  console.log("enter app.js=> the main entry");
 
   // create store and router instances
   const store = createStore();

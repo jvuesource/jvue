@@ -20,7 +20,7 @@ var renderServerCallback = (err, html) => {
     console.log(err);
     return;
   }
-  console.log("html=>", html);
+  console.log("html=>", html.length);
 };
 
 render.renderServer(context, renderServerCallback);

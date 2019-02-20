@@ -54,6 +54,13 @@ public class VueRendererImpl implements VueRenderer {
             v8.getLocker().acquire();
             logger.info("获取v8线程锁...");
 
+            // handle promise error
+            v8.executeScript("" +
+                    "process.env.NODE_ENV = 'production';" +
+                    "process.on('unhandledRejection', function (reason, p) {" +
+                    "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
+                    "});");
+
             // 注册回调函数
             JavaVoidCallback successCallback = (V8Object receiver, V8Array parameters) -> {
                 synchronized (callbackLock) {
@@ -69,10 +76,10 @@ public class VueRendererImpl implements VueRenderer {
                         }
 
                         // handle error
-                        String err = parameters.getString(0);
+                        String err = parameters.toString();
                         htmlMap.put("status", 0);
-                        htmlMap.put("data", "{}");
-                        htmlMap.put("msg", err);
+                        htmlMap.put("data", err);
+                        htmlMap.put("msg", "{}");
                     }
                     logger.info("renderServerCallback invoked");
                 }
@@ -175,11 +182,6 @@ public class VueRendererImpl implements VueRenderer {
 
             v8.executeScript("console.log('v8 execute start')");
 
-            // handle promise error
-            v8.executeScript("process.on('unhandledRejection', function (reason, p) {" +
-                    "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
-                    "});");
-            
             // require server module
             File serverFile = VueUtil.readVueFile("server.js");
             V8Object server = nodeJS.require(serverFile);
@@ -189,8 +191,8 @@ public class VueRendererImpl implements VueRenderer {
             V8Array parameters = new V8Array(v8);
             parameters.push(JSON.toJSONString(httpContext));
             // get renderServerCallback
-            V8Function renderServerCallback = (V8Function) v8.getObject("renderServerCallback");
-            parameters.push(renderServerCallback);
+             V8Function renderServerCallback = (V8Function) v8.getObject("renderServerCallback");
+             parameters.push(renderServerCallback);
 
             // execute renderServer
             server.executeObjectFunction("renderServer", parameters);

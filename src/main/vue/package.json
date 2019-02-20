@@ -21,10 +21,10 @@
     "lint": "eslint --ext .js,.vue,.html --ignore-path .gitignore --ignore-pattern !.eslintrc.js --ignore-pattern !.babelrc.js . --fix --color",
     "serve": "cross-env NODE_ENV=serve webpack-dev-server --config build/webpack.client.config.js --port 8888 --hot --inline --progress",
     "build-dev": "./build/build.dev.sh",
-    "dev": "yarn build-dev && cross-env NODE_ENV=development node ./test/dev-server.js",
+    "dev": "yarn build-dev && node ./test/dev-server.js",
     "build": "./build/build.prod.sh",
-    "prod": "yarn build && cross-env NODE_ENV=production node ./test/dev-server.js",
-    "start": "cross-env NODE_ENV=production node ./test/v8-server.js",
+    "prod": "yarn build && node ./test/dev-server.js",
+    "start": "node ./test/v8-server.js",
     "test": "echo 'No Tests'"
   },
   "dependencies": {

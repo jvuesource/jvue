@@ -16,14 +16,14 @@ const actions = {
       .then(res => {
         const posts = res.data.data;
         commit("setPosts", posts);
-        console.log("getPostList=>", posts);
+        console.log("getPostList=>", posts.length);
       })
       .catch(reason => {
         console.error("getPostList request error,reason=>", reason);
-      })
-      .finally(() => {
-        console.log("getPostList onFinally");
       });
+    // .finally(() => {
+    //   console.log("getPostList onFinally");
+    // });
   }
 };
 
