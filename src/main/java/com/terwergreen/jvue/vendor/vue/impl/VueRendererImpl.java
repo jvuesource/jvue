@@ -1,22 +1,16 @@
 package com.terwergreen.jvue.vendor.vue.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.eclipsesource.v8.JavaVoidCallback;
-import com.eclipsesource.v8.NodeJS;
-import com.eclipsesource.v8.V8;
-import com.eclipsesource.v8.V8Array;
-import com.eclipsesource.v8.V8Function;
-import com.eclipsesource.v8.V8Object;
+import com.eclipsesource.v8.*;
 import com.terwergreen.jvue.vendor.j2v8.V8Context;
 import com.terwergreen.jvue.vendor.j2v8.impl.V8ContextImpl;
 import com.terwergreen.jvue.vendor.vue.VueRenderer;
 import com.terwergreen.jvue.vendor.vue.VueUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,18 +38,14 @@ public class VueRendererImpl implements VueRenderer {
 
     private Map<String, Object> htmlMap = new HashMap<>();
 
-    public VueRendererImpl() {
-    }
-
     private void initNodeJS() {
-        logger.info("初始化VueRender");
+        v8Context = new V8ContextImpl();
         // 初始化v8和nodejs
         logger.info("初始化v8和nodejs...");
-        v8Context = new V8ContextImpl();
         v8 = v8Context.getV8();
         nodeJS = v8Context.getNodeJS();
         v8.getLocker().acquire();
-        logger.info("获取v8线程锁...");
+        logger.info("initNodeJS 获取v8线程锁...");
 
         // handle promise error
         v8.executeScript("" +
@@ -64,35 +54,8 @@ public class VueRendererImpl implements VueRenderer {
                 "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
                 "});");
 
-        // ===================================================================
-        // 执行js
-        // require axios module
-        File axiosFile = VueUtil.readVueFile("node_modules/axios/index.js");
-        nodeJS.require(axiosFile);
-        logger.info("require axios module success");
-
-        // require vue module
-        File vueFile = VueUtil.readVueFile("node_modules/vue/dist/vue.runtime.common.js");
-        nodeJS.require(vueFile);
-        logger.info("require vue module success");
-
-        // require vueRouter module
-        File vueRouterFile = VueUtil.readVueFile("node_modules/vue-router/dist/vue-router.common.js");
-        nodeJS.require(vueRouterFile);
-        logger.info("require vueRouter module success");
-
-        // require lruCache module
-        File lruCacheFile = VueUtil.readVueFile("node_modules/lru-cache/index.js");
-        nodeJS.require(lruCacheFile);
-        logger.info("require lruCache module success");
-
-        // require vueServerRenderer module
-        File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/index.js");
-        nodeJS.require(vueServerRendererFile);
-        logger.info("require vueServerRenderer module success");
-
         v8.getLocker().release();
-        logger.info("释放v8线程锁...");
+        logger.info("initNodeJS 释放v8线程锁...");
     }
 
     private void runMessageLoop() {
@@ -104,10 +67,10 @@ public class VueRendererImpl implements VueRenderer {
         }
     }
 
-    private void executeV8(Map<String, Object> httpContext) {
+    private void executeV8(Map<String, Object> httpContext, HttpServletRequest request) {
         try {
             // render html
-            executeV8CLI(httpContext);
+            executeV8CLI(httpContext, request);
 
             int i = 0;
             int jsWaitTimeout = 1000 * MAX_WAIT_SECONDS;
@@ -140,17 +103,12 @@ public class VueRendererImpl implements VueRenderer {
         logger.info("entry-server.js执行完成");
     }
 
-    private void executeV8CLI(Map<String, Object> httpContext) {
+    private void executeV8CLI(Map<String, Object> httpContext, HttpServletRequest request) {
         try {
             initNodeJS();
 
             v8.getLocker().acquire();
-            logger.info("获取v8线程锁...");
-
-            // require axios module
-            File axiosFile = VueUtil.readVueFile("node_modules/axios/index.js");
-            nodeJS.require(axiosFile);
-            logger.info("require axios module success");
+            logger.info("executeV8CLI 获取v8线程锁...");
 
             v8.executeScript("console.log('v8 execute start')");
 
@@ -184,6 +142,8 @@ public class VueRendererImpl implements VueRenderer {
                 if (parameters.length() == 2) {
                     String key = parameters.getString(0);
                     String value = parameters.getString(1);
+                    // set session to java server
+                    request.getSession().setAttribute(key, value);
                     logger.info("key=>" + key);
                     logger.info("value=>" + value);
                 } else {
@@ -192,6 +152,21 @@ public class VueRendererImpl implements VueRenderer {
             };
             v8.registerJavaMethod(setSessionCallback, "setSessionCallback");
             logger.info("setSessionCallback注册成功");
+
+            JavaCallback getSessionCallback = (V8Object receiver, V8Array parameters) -> {
+                String value = null;
+                if (parameters.length() == 1) {
+                    String key = parameters.getString(0);
+                    logger.info("getSessionCallback,key=>" + key);
+                    value = (String) request.getSession().getAttribute(key);
+                } else {
+                    logger.error("getSessionCallback参数错误");
+                    value = "parameter error";
+                }
+                return value;
+            };
+            v8.registerJavaMethod(getSessionCallback, "getSessionCallback");
+            logger.info("getSessionCallback注册成功");
 
             // require server module
             File serverFile = VueUtil.readVueFile("server.js");
@@ -211,7 +186,7 @@ public class VueRendererImpl implements VueRenderer {
             // =====================================================================
 
             v8.getLocker().release();
-            logger.info("释放v8线程锁...");
+            logger.info("executeV8CLI 释放v8线程锁...");
         } catch (Exception e) {
             logger.error("Vue executeV8CLI error:", e);
         }
@@ -225,17 +200,17 @@ public class VueRendererImpl implements VueRenderer {
      * @param isCLI       是否命令行
      * @return 服务端html及对应状态
      */
-    private Map<String, Object> renderContent(Map<String, Object> httpContext, boolean isCLI) {
+    private Map<String, Object> renderContent(Map<String, Object> httpContext, HttpServletRequest request, boolean isCLI) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("rnd", System.currentTimeMillis());
         resultMap.put("showError", SHOW_SERVER_ERROR);
         logger.info("服务端调用renderServer前，设置路由上下文context:" + JSON.toJSONString(httpContext));
         try {
             if (isCLI) {
-                executeV8CLI(httpContext);
+                executeV8CLI(httpContext, request);
             } else {
                 // executeV8 already invokes executeV8CLI
-                executeV8(httpContext);
+                executeV8(httpContext, request);
             }
 
             // 处理返回结果
@@ -268,12 +243,12 @@ public class VueRendererImpl implements VueRenderer {
     // implementations
     // ===============================
     @Override
-    public Map<String, Object> renderContentCLI(Map<String, Object> httpContext) {
-        return renderContent(httpContext, true);
+    public Map<String, Object> renderContentCLI(Map<String, Object> httpContext, HttpServletRequest request) {
+        return renderContent(httpContext, request, true);
     }
 
     @Override
-    public Map<String, Object> renderContent(Map<String, Object> httpContext) {
-        return renderContent(httpContext, false);
+    public Map<String, Object> renderContent(Map<String, Object> httpContext, HttpServletRequest request) {
+        return renderContent(httpContext, request, false);
     }
 }

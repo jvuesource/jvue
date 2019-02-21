@@ -5,17 +5,17 @@
     <h1>This is home</h1>
     <h1>Hello World! Vue,j2v8! Auther by Terwer</h1>
     <p>{{ message }}</p>
-    <p><button @click="showMessage">显示当前时间</button></p>
-    <p
-      v-html="posts.length > 0 ? posts[0].postContent : '<h1>No data</h1>'"
-    ></p>
+    <p>
+      <button @click="showMessage">显示当前时间</button>
+    </p>
+    <p v-html="posts.length > 0 ? posts[0] : '<h1>No data</h1>'"></p>
   </div>
 </template>
 
 <script>
 /* eslint-disable */
 import postApi from "../api/post";
-import axios from "axios"
+import config from "../../jvue.config"
 
 export default {
   name: "About",
@@ -27,25 +27,38 @@ export default {
   },
   created() {
     console.log("Home created");
-    this.posts = [{ aaa: "dgdff" }];
+    // 服务端获取Session
+    console.log("config.isSsrServer=>",config.isSsrServer)
+    if(config.isSsrServer){
+      const data = getSessionCallback("getPostList");
+      if (data) {
+        this.posts = [{ aaa: data }];
+        console.log("Home created getSession", data.length);
+      }
+    }
   },
   asyncData() {
     // 触发 action 后，会返回 Promise
     console.log("Home page => PostList asyncData");
-    return axios.post("http://www.terwergreen.com/jvue/api/blog/post/list")
-    // postApi
-    //   .getPostList()
-    //   .then(res => {
-    //     console.log("Home page asyncData fetch success");
-    //     const posts = res.data.data;
-    //     if (setSessionCallback) {
-    //       console.log("getPostList setSession");
-    //       setSessionCallback("getPostList", JSON.stringify(posts));
-    //     }
-    //   })
-    //   .catch(reason => {
-    //     console.error("getPostList request error,reason=>", reason);
-    //   });
+    return new Promise((resolve, reject) => {
+      postApi
+        .getPostList()
+        .then(res => {
+          console.log("Home page asyncData fetch success");
+          const posts = res.data.data;
+          // 服务端设置Session
+          console.log("config.isSsrServer=>",config.isSsrServer)
+          if(config.isSsrServer){
+              console.log("getPostList setSession");
+              setSessionCallback("getPostList", JSON.stringify(posts));
+          }
+          resolve("OK");
+        })
+        .catch(reason => {
+          console.error("getPostList request error,reason=>", reason);
+          reject("Error");
+        });
+    });
   },
   methods: {
     showMessage() {

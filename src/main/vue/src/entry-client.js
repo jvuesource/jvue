@@ -1,8 +1,6 @@
-// import "es6-promise/auto"
 import { createApp } from "./app";
 
 const { app, router } = createApp();
-import config from "../jvue.config";
 
 // wait until router has resolved all async before hooks
 // and async components...
@@ -50,6 +48,4 @@ router.onReady(() => {
 });
 
 // actually mount to DOM
-if (!config.isProduction) {
-  app.$mount("#app");
-}
+app.$mount("#app");

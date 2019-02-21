@@ -8,6 +8,7 @@ import com.terwergreen.jvue.vendor.vue.impl.VueRendererImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,7 +35,8 @@ public class CLI {
 
         // 渲染Vue
         VueRenderer vueRenderer = new VueRendererImpl();
-        Map<String, Object> resultMap = vueRenderer.renderContentCLI(httpContext);
+        HttpServletRequest request = null;
+        Map<String, Object> resultMap = vueRenderer.renderContentCLI(httpContext, request);
         logger.info("resultMap=>" + JSON.toJSONString(resultMap));
     }
 }
