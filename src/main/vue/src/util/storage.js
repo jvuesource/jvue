@@ -8,7 +8,7 @@ import { isEmptyOrUndefined } from "./string";
  */
 const setSessionStorage = (key, value) => {
   console.log("Vue.$sessionStorage.set=>key:", key);
-  console.log("Vue.$sessionStorage.set=>value:", value);
+  console.log("Vue.$sessionStorage.set=>value:", eval(value));
   Vue.$sessionStorage.set(key, value);
 };
 

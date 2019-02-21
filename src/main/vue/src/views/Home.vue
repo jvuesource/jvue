@@ -8,7 +8,9 @@
     <p>
       <button @click="showMessage">显示当前时间</button>
     </p>
-    <p v-html="posts.length > 0 ? posts : '<h1>No data</h1>'"></p>
+    <p
+      v-html="posts.length > 0 ? posts[0].postContent : '<h1>No data</h1>'"
+    ></p>
   </div>
 </template>
 

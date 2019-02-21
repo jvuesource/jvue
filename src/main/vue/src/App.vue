@@ -12,3 +12,10 @@ export default {
   }
 };
 </script>
+<style lang="scss">
+@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import "node_modules/bootstrap-vue/src/index.scss";
+#jvue-root {
+  font-family: "Microsoft YaHei", sans-serif;
+}
+</style>
