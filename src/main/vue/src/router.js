@@ -16,9 +16,8 @@ let routes = [
  * 获取router
  * @returns {VueRouter}
  */
-export function createRouter() {
-  return new Router({
+export const createRouter = () =>
+  new Router({
     mode: "history", // process.env.NODE_ENV === "development" ? "hash" : "history",
     routes
   });
-}

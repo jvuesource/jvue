@@ -3,7 +3,7 @@
 // test server
 // ====================================
 // 设置渲染模式
-process.env.SSR_ENV = 'ssrs';
+process.env.SSR_ENV = "ssrs";
 
 const render = require("../dist/server");
 
@@ -26,12 +26,19 @@ global.renderServerCallback = (err, html) => {
   console.log("html=>", html.length);
 };
 
-global.setSessionCallback = (key , value) => {
-  console.log("key=>" , key);
-  console.log("value=>" , value);
+global.setSessionCallback = (key, value) => {
+  console.log("key=>", key);
+  console.log("value=>", value);
 };
 
-render.renderServer(context, renderServerCallback);
+global.getSessionCallback = key => {
+  const value = "['" + key + "'s value for test']";
+  console.log("getSessionCallback key=>", key);
+  console.log("getSessionCallback value=>", value);
+  return value;
+};
+
+render.renderServer(context, global.renderServerCallback);
 
 // // deal with promise
 // var promise = render.renderServer(context);

@@ -8,15 +8,14 @@
     <p>
       <button @click="showMessage">显示当前时间</button>
     </p>
-    <p v-html="posts.length > 0 ? posts[0] : '<h1>No data</h1>'"></p>
+    <p v-html="posts.length > 0 ? posts : '<h1>No data</h1>'"></p>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
 import postApi from "../api/post";
 import config from "../../jvue.config";
-import Vue from "vue";
+import { setSessionStorage, getSessionStorageOrDefault } from "../util/storage";
 
 export default {
   name: "About",
@@ -31,19 +30,18 @@ export default {
     // 服务端获取Session
     console.log("config.isSsrServer=>", config.isSsrServer);
     if (config.isSsrServer) {
-      const data = getSessionCallback("getPostList");
-      this.posts = data;
+      const data = global.getSessionCallback("getPostList");
       console.log("Home getSession from server");
+      console.log("server getSessionCallback=>", data);
+      this.posts = data;
+      console.log("this.posts", this.posts);
     } else {
       // 客户端获取数据
-      // console.log("client getSession window.__INITIAL_STATE__=>", window.__INITIAL_STATE__ )
-      // console.log("client getSession Vue.$sessionStorage=>", Vue.$sessionStorage)
-      if (typeof Vue.$sessionStorage != "undefined") {
-        console.log("Vue.$sessionStorage", Vue.$sessionStorage);
-        const data = Vue.$sessionStorage.get("getPostList");
-        this.posts = data;
-        console.log("Home getSession from Vue.$sessionStorage");
-      }
+      console.log("Home getSession from client");
+      const data = getSessionStorageOrDefault("getPostList", "[]");
+      const dataObj = eval(data);
+      console.log("client getSessionStorage=>", dataObj);
+      this.posts = dataObj;
     }
   },
   asyncData() {
@@ -59,13 +57,11 @@ export default {
           console.log("config.isSsrServer=>", config.isSsrServer);
           if (config.isSsrServer) {
             console.log("getPostList setSession to server");
-            setSessionCallback("getPostList", JSON.stringify(posts));
+            global.setSessionCallback("getPostList", JSON.stringify(posts));
           } else {
             // 客户端存储数据
-            // console.log("client setSession window.__INITIAL_STATE__=>", window.__INITIAL_STATE__ )
-            // console.log("client setSession Vue.$sessionStorage=>", Vue.$sessionStorage)
             console.log("getPostList setSession to $sessionStorage");
-            Vue.$sessionStorage.set("getPostList", JSON.stringify(posts));
+            setSessionStorage("getPostList", JSON.stringify(posts));
           }
           resolve(res.data);
         })

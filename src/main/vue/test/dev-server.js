@@ -2,7 +2,7 @@
 // dev server with express
 // ====================================
 // 设置渲染模式
-process.env.SSR_ENV = 'ssrs';
+process.env.SSR_ENV = "ssrs";
 
 const path = require("path");
 const resolve = file => path.resolve(__dirname, file);
@@ -55,7 +55,14 @@ app.listen(port, () => {
 });
 
 // deal with callback
-global.setSessionCallback = (key , value) => {
-  console.log("key=>" , key);
-  console.log("value=>" , value);
+global.setSessionCallback = (key, value) => {
+  console.log("key=>", key);
+  console.log("value=>", value);
+};
+
+global.getSessionCallback = key => {
+  const value = "[{'" + key + "'s value for test'}]";
+  console.log("getSessionCallback key=>", key);
+  console.log("getSessionCallback value=>", value);
+  return value;
 };
