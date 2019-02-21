@@ -18,21 +18,22 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
-    "lint": "eslint --ext .js,.vue,.html --ignore-path .gitignore --ignore-pattern !.eslintrc.js --ignore-pattern !.babelrc.js . --fix --color",
-    "serve": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.client.config.js --port 8888 --hot --inline --progress",
+    "lint": "cross-env NODE_ENV=production SSR_ENV=ssrs eslint --ext .js,.vue,.html --ignore-path .gitignore --ignore-pattern !.eslintrc.js --ignore-pattern !.babelrc.js . --fix --color",
+    "serve": "cross-env NODE_ENV=development SSR_ENV=c webpack-dev-server --config build/webpack.client.config.js --port 8888 --hot --inline --progress",
     "build-dev": "./build/build.dev.sh",
-    "dev": "yarn build-dev && cross-env NODE_ENV=development node ./test/dev-server.js",
+    "dev": "yarn build-dev && yarn nodemon ./test/dev-server.js",
     "build": "./build/build.prod.sh",
-    "prod": "yarn build && cross-env NODE_ENV=production node ./test/dev-server.js",
-    "start": "cross-env NODE_ENV=production node ./test/v8-server.js",
+    "prod": "yarn build && node ./test/dev-server.js",
+    "start": "node ./test/v8-server.js",
     "test": "echo 'No Tests'"
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "lru-cache": "latest",
+    "lru-cache": "4.1.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
-    "vue-server-renderer": "^2.6.6"
+    "vue-server-renderer": "^2.6.6",
+    "vue-web-storage": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
@@ -46,8 +47,10 @@
     "eslint-loader": "^2.1.2",
     "eslint-plugin-html": "^5.0.3",
     "eslint-plugin-vue": "^5.1.0",
+    "express": "4.15.3",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "nodemon": "^1.18.10",
     "rimraf": "^2.6.3",
     "serve-favicon": "^2.5.0",
     "vue-loader": "^15.6.2",
@@ -56,7 +59,6 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.2.1",
-    "webpack-node-externals": "^1.7.2",
-    "express": "latest"
+    "webpack-node-externals": "^1.7.2"
   }
 }

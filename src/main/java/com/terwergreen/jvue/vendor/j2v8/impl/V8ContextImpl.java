@@ -8,14 +8,13 @@ import com.terwergreen.jvue.vendor.j2v8.Console;
 import com.terwergreen.jvue.vendor.j2v8.V8Context;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
 public class V8ContextImpl implements V8Context {
-    private static final Log logger = LogFactory.getLog(V8Context.class);
-    private static V8Context v8Context;
+    private final Log logger = LogFactory.getLog(this.getClass());
     private static V8 v8;
-
     private static NodeJS nodeJS;
 
     public V8ContextImpl() {

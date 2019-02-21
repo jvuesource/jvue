@@ -8,6 +8,7 @@ import com.terwergreen.jvue.vendor.vue.impl.VueRendererImpl;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,9 +34,9 @@ public class CLI {
         httpContext.put("meta", metaMap);
 
         // 渲染Vue
-        V8Context v8Context = new V8ContextImpl();
-        VueRenderer vueRenderer = new VueRendererImpl(v8Context);
-        Map<String, Object> resultMap = vueRenderer.renderContentCLI(httpContext);
+        VueRenderer vueRenderer = new VueRendererImpl();
+        HttpServletRequest request = null;
+        Map<String, Object> resultMap = vueRenderer.renderContentCLI(httpContext, request);
         logger.info("resultMap=>" + JSON.toJSONString(resultMap));
     }
 }

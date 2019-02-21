@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class AboutController {
 
     @RequestMapping(value = "/about", produces = "text/html;charset=UTF-8")
     @ResponseBody
-    public String home() {
+    public String home(HttpServletRequest request) {
         // 设置路由上下文
         Map<String, Object> httpContext = new HashMap<>();
         httpContext.put("url", "/about");
@@ -43,7 +44,7 @@ public class AboutController {
         logger.info("httpContext=>" + httpContext);
 
         // 返回服务端渲染后的结果
-        Map<String, Object> resultMap = vueRenderer.renderContent(httpContext);
+        Map<String, Object> resultMap = vueRenderer.renderContent(httpContext, request);
         return VueUtil.resultMapToString(resultMap);
     }
 }

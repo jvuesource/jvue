@@ -2,6 +2,15 @@
 // ====================================
 // test server
 // ====================================
+
+// 设置渲染模式
+process.env.SSR_ENV = "ssrs";
+process.env.VUE_ENV = "server";
+process.env.NODE_ENV = "production";
+process.on("unhandledRejection", function(reason, p) {
+  console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+});
+
 const render = require("../dist/server");
 
 // get context
@@ -15,15 +24,27 @@ const seo = {
 const context = JSON.stringify(Object.assign({ url: "/" }, seo));
 
 // deal with callback
-var renderServerCallback = (err, html) => {
+global.renderServerCallback = (err, html) => {
   if (err) {
     console.log(err);
     return;
   }
-  console.log("html=>", html);
+  console.log("html=>", html.length);
 };
 
-render.renderServer(context, renderServerCallback);
+global.setSessionCallback = (key, value) => {
+  console.log("key=>", key);
+  console.log("value=>", value);
+};
+
+global.getSessionCallback = key => {
+  const value = "['" + key + "'s value for test']";
+  console.log("getSessionCallback key=>", key);
+  console.log("getSessionCallback value=>", value);
+  return value;
+};
+
+render.renderServer(context, global.renderServerCallback);
 
 // // deal with promise
 // var promise = render.renderServer(context);

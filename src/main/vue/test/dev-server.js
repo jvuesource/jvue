@@ -2,6 +2,14 @@
 // dev server with express
 // ====================================
 
+// 设置渲染模式
+process.env.SSR_ENV = "ssrs";
+process.env.VUE_ENV = "server";
+process.env.NODE_ENV = "development";
+process.on("unhandledRejection", function(reason, p) {
+  console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+});
+
 const path = require("path");
 const resolve = file => path.resolve(__dirname, file);
 
@@ -34,7 +42,7 @@ app.get("*", (req, res) => {
     .renderServer(context)
     .then((resolve, reject) => {
       if (reject) {
-        console.log("reject");
+        console.log("reject=>", reject);
         res.send(reject);
         return;
       }
@@ -42,7 +50,7 @@ app.get("*", (req, res) => {
       res.send(resolve);
     })
     .catch(rejected => {
-      console.log("rejected");
+      console.log("rejected=>", rejected);
       res.send(rejected);
     });
 });
@@ -51,3 +59,16 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   console.log(`dev-server is listening on port ${port}!`);
 });
+
+// deal with callback
+global.setSessionCallback = (key, value) => {
+  console.log("key=>", key);
+  console.log("value=>", value);
+};
+
+global.getSessionCallback = key => {
+  const value = "[{'" + key + "'s value for test'}]";
+  console.log("getSessionCallback key=>", key);
+  console.log("getSessionCallback value=>", value);
+  return value;
+};

@@ -1,7 +1,6 @@
 const merge = require("webpack-merge");
 const base = require("./webpack.base.config");
 
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const VueSSRClientPlugin = require("vue-server-renderer/client-plugin");
 
 let clientConfig = merge(base.webpackCnfig, {
@@ -27,19 +26,7 @@ let clientConfig = merge(base.webpackCnfig, {
   plugins: [
     // 此插件在输出目录中
     // 生成 `vue-ssr-client-manifest.json`。
-    new VueSSRClientPlugin(),
-
-    // html模板注入
-    new HtmlWebpackPlugin(
-      Object.assign(
-        {
-          template: "./public/index.ejs",
-          favicon: "./public/favicon.ico",
-          inject: false
-        },
-        base.config.seo
-      )
-    )
+    new VueSSRClientPlugin()
   ]
 });
 

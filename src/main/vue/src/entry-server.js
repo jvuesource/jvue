@@ -1,27 +1,46 @@
 import { createApp } from "./app";
 
-// This exported function will be called by `bundleRenderer`.
-// return a Promise that resolves to the app instance.
 export default context => {
   return new Promise((resolve, reject) => {
-    console.log("entry server received context=>", context);
-    const { app, router } = createApp(context);
+    createApp().then(resolveInstance => {
+      const app = resolveInstance.app;
+      const router = resolveInstance.router;
+      console.log("app=>");
+      console.log("router=>");
 
-    router.push(context.url);
+      router.push(context.url);
 
-    // wait until router has resolved possible async hooks
-    router.onReady(() => {
-      const matchedComponents = router.getMatchedComponents();
-      // 匹配不到的路由，执行reject函数，并返回 404
-      if (!matchedComponents.length) {
-        return reject({
-          status: 0,
-          data: "No matchedComponents",
-          msg: "404 Not Found"
-        });
-      }
+      router.onReady(() => {
+        const matchedComponents = router.getMatchedComponents();
+        if (!matchedComponents.length) {
+          return reject({ code: 404 });
+        }
 
-      resolve(app);
-    }, reject);
+        // 对所有匹配的路由组件调用 `asyncData()`
+        Promise.all(
+          matchedComponents.map(Component => {
+            if (Component.asyncData) {
+              console.log("调用asyncData获取数据");
+              return Component.asyncData({
+                route: router.currentRoute
+              });
+            }
+          })
+        )
+          .then(res => {
+            // 在所有预取钩子(preFetch hook) resolve 后，
+            // 我们的 store 现在已经填充入渲染应用程序所需的状态。
+            // 当我们将状态附加到上下文，
+            // 并且 `template` 选项用于 renderer 时，
+            // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
+            console.log("matchedComponents asyncData res=>", res);
+            context.state = res;
+            resolve(app);
+          })
+          .catch(rejected => {
+            console.log("asyncData rejected=>", rejected);
+          });
+      });
+    });
   });
 };

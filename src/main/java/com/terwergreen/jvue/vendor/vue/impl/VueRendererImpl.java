@@ -1,20 +1,16 @@
 package com.terwergreen.jvue.vendor.vue.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.eclipsesource.v8.JavaVoidCallback;
-import com.eclipsesource.v8.NodeJS;
-import com.eclipsesource.v8.V8;
-import com.eclipsesource.v8.V8Array;
-import com.eclipsesource.v8.V8Function;
-import com.eclipsesource.v8.V8Object;
+import com.eclipsesource.v8.*;
 import com.terwergreen.jvue.vendor.j2v8.V8Context;
+import com.terwergreen.jvue.vendor.j2v8.impl.V8ContextImpl;
 import com.terwergreen.jvue.vendor.vue.VueRenderer;
 import com.terwergreen.jvue.vendor.vue.VueUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,85 +23,42 @@ import java.util.Map;
  * 2019/2/1 11:29
  **/
 @Service
-//@Scope("prototype")
 public class VueRendererImpl implements VueRenderer {
     private final Log logger = LogFactory.getLog(this.getClass());
     // 是否显示错误到浏览器
     private static final Integer SHOW_SERVER_ERROR = 1;
     // 最长等待时间
     private static final Integer MAX_WAIT_SECONDS = 2;
+    private V8Context v8Context;
     private V8 v8;
     private NodeJS nodeJS;
 
     private final Object callbackLock = new Object();
     private volatile boolean callbackResolved = false;
-    private volatile boolean callbackRejected = false;
 
     private Map<String, Object> htmlMap = new HashMap<>();
 
-    @Autowired
-    public VueRendererImpl(V8Context v8Context) {
-        logger.info("V8Context Autowired in VueRendererImpl");
-        if (v8 == null) {
-            // 初始化v8和nodejs
-            logger.info("初始化v8和nodejs...");
-            v8 = v8Context.getV8();
-            nodeJS = v8Context.getNodeJS();
-            v8.getLocker().acquire();
-            logger.info("获取v8线程锁...");
+    private void initNodeJS() {
+        v8Context = new V8ContextImpl();
+        // 初始化v8和nodejs
+        logger.info("初始化v8和nodejs...");
+        v8 = v8Context.getV8();
+        nodeJS = v8Context.getNodeJS();
+        v8.getLocker().acquire();
+        logger.info("initNodeJS 获取v8线程锁...");
 
-            // 注册回调函数
-            JavaVoidCallback successCallback = (V8Object receiver, V8Array parameters) -> {
-                synchronized (callbackLock) {
-                    if (parameters.length() > 0) {
-                        if (parameters.length() == 2) {
-                            callbackResolved = true;
-                            String html = parameters.getString(1);
-                            htmlMap.put("status", 1);
-                            htmlMap.put("data", html);
-                            htmlMap.put("msg", "200 OK");
-                            logger.info("renderServerCallback resolved success");
-                            return;
-                        }
+        // 全局设置渲染模式并且处理promise异常
+        v8.executeScript("" +
+                "" +
+                "process.env.SSR_ENV = 'ssrs';" +
+                "process.env.VUE_ENV = 'server';" +
+                "process.env.NODE_ENV = 'production';" +
+                "process.on('unhandledRejection', function(reason, p) {" +
+                "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);" +
+                "});");
 
-                        // handle error
-                        String err = parameters.getString(0);
-                        htmlMap.put("status", 0);
-                        htmlMap.put("data", "{}");
-                        htmlMap.put("msg", err);
-                    }
-                    logger.info("renderServerCallback invoked");
-                }
-            };
-            v8.registerJavaMethod(successCallback, "renderServerCallback");
-            logger.info("renderServerCallback注册成功");
-
-            // ===================================================================
-            // 执行js
-            // require axios module
-            File axiosFile = VueUtil.readVueFile("node_modules/axios/index.js");
-            nodeJS.require(axiosFile);
-            logger.info("require axios module success");
-
-            // require vue module
-            File vueFile = VueUtil.readVueFile("node_modules/vue/dist/vue.runtime.common.js");
-            nodeJS.require(vueFile);
-            logger.info("require vue module success");
-
-            // require vueRouter module
-            File vueRouterFile = VueUtil.readVueFile("node_modules/vue-router/dist/vue-router.common.js");
-            nodeJS.require(vueRouterFile);
-            logger.info("require vueRouter module success");
-
-            // require vueServerRenderer module
-            File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/index.js");
-            nodeJS.require(vueServerRendererFile);
-            logger.info("require vueServerRenderer module success");
-
-            v8.getLocker().release();
-            logger.info("释放v8线程锁...");
-        }
-        logger.info("初始化VueRender");
+        v8.getLocker().release();
+        logger.info("initNodeJS 释放v8线程锁...");
     }
 
     private void runMessageLoop() {
@@ -117,10 +70,10 @@ public class VueRendererImpl implements VueRenderer {
         }
     }
 
-    private void executeV8(Map<String, Object> httpContext) {
+    private void executeV8(Map<String, Object> httpContext, HttpServletRequest request) {
         try {
             // render html
-            executeV8CLI(httpContext);
+            executeV8CLI(httpContext, request);
 
             int i = 0;
             int jsWaitTimeout = 1000 * MAX_WAIT_SECONDS;
@@ -153,18 +106,71 @@ public class VueRendererImpl implements VueRenderer {
         logger.info("entry-server.js执行完成");
     }
 
-    private void executeV8CLI(Map<String, Object> httpContext) {
+    private void executeV8CLI(Map<String, Object> httpContext, HttpServletRequest request) {
         try {
+            initNodeJS();
+
             v8.getLocker().acquire();
-            logger.info("获取v8线程锁...");
+            logger.info("executeV8CLI 获取v8线程锁...");
 
             v8.executeScript("console.log('v8 execute start')");
 
-            // handle promise error
-            v8.executeScript("process.on('unhandledRejection', function (reason, p) {" +
-                    "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
-                    "});");
-            
+            // 注册回调函数
+            JavaVoidCallback successCallback = (V8Object receiver, V8Array parameters) -> {
+                synchronized (callbackLock) {
+                    if (parameters.length() > 0) {
+                        if (parameters.length() == 2) {
+                            callbackResolved = true;
+                            String html = parameters.getString(1);
+                            htmlMap.put("status", 1);
+                            htmlMap.put("data", html);
+                            htmlMap.put("msg", "200 OK");
+                            logger.info("renderServerCallback resolved success");
+                            return;
+                        }
+
+                        // handle error
+                        String err = parameters.toString();
+                        htmlMap.put("status", 0);
+                        htmlMap.put("data", err);
+                        htmlMap.put("msg", "{}");
+                    }
+                    logger.info("renderServerCallback invoked");
+                }
+            };
+            v8.registerJavaMethod(successCallback, "renderServerCallback");
+            logger.info("renderServerCallback注册成功");
+
+            JavaVoidCallback setSessionCallback = (V8Object receiver, V8Array parameters) -> {
+                if (parameters.length() == 2) {
+                    String key = parameters.getString(0);
+                    String value = parameters.getString(1);
+                    // set session to java server
+                    request.getSession().setAttribute(key, value);
+                    logger.info("key=>" + key);
+                    logger.info("value=>" + value);
+                } else {
+                    logger.error("setSessionCallback参数错误");
+                }
+            };
+            v8.registerJavaMethod(setSessionCallback, "setSessionCallback");
+            logger.info("setSessionCallback注册成功");
+
+            JavaCallback getSessionCallback = (V8Object receiver, V8Array parameters) -> {
+                String value = null;
+                if (parameters.length() == 1) {
+                    String key = parameters.getString(0);
+                    logger.info("getSessionCallback,key=>" + key);
+                    value = (String) request.getSession().getAttribute(key);
+                } else {
+                    logger.error("getSessionCallback参数错误");
+                    value = "parameter error";
+                }
+                return value;
+            };
+            v8.registerJavaMethod(getSessionCallback, "getSessionCallback");
+            logger.info("getSessionCallback注册成功");
+
             // require server module
             File serverFile = VueUtil.readVueFile("server.js");
             V8Object server = nodeJS.require(serverFile);
@@ -183,7 +189,7 @@ public class VueRendererImpl implements VueRenderer {
             // =====================================================================
 
             v8.getLocker().release();
-            logger.info("释放v8线程锁...");
+            logger.info("executeV8CLI 释放v8线程锁...");
         } catch (Exception e) {
             logger.error("Vue executeV8CLI error:", e);
         }
@@ -197,17 +203,17 @@ public class VueRendererImpl implements VueRenderer {
      * @param isCLI       是否命令行
      * @return 服务端html及对应状态
      */
-    private Map<String, Object> renderContent(Map<String, Object> httpContext, boolean isCLI) {
+    private Map<String, Object> renderContent(Map<String, Object> httpContext, HttpServletRequest request, boolean isCLI) {
         Map<String, Object> resultMap = new HashMap<>();
         resultMap.put("rnd", System.currentTimeMillis());
         resultMap.put("showError", SHOW_SERVER_ERROR);
         logger.info("服务端调用renderServer前，设置路由上下文context:" + JSON.toJSONString(httpContext));
         try {
             if (isCLI) {
-                executeV8CLI(httpContext);
+                executeV8CLI(httpContext, request);
             } else {
                 // executeV8 already invokes executeV8CLI
-                executeV8(httpContext);
+                executeV8(httpContext, request);
             }
 
             // 处理返回结果
@@ -220,7 +226,7 @@ public class VueRendererImpl implements VueRenderer {
             }
 
             logger.info("renderServer获取数据成功");
-            logger.debug("htmlMap:" + htmlMap);
+            // logger.debug("htmlMap:" + htmlMap);
 
             Integer renderStatus = Integer.parseInt(htmlMap.get("status").toString());
             String content = String.valueOf(htmlMap.get("data"));
@@ -240,12 +246,12 @@ public class VueRendererImpl implements VueRenderer {
     // implementations
     // ===============================
     @Override
-    public Map<String, Object> renderContentCLI(Map<String, Object> httpContext) {
-        return renderContent(httpContext, true);
+    public Map<String, Object> renderContentCLI(Map<String, Object> httpContext, HttpServletRequest request) {
+        return renderContent(httpContext, request, true);
     }
 
     @Override
-    public Map<String, Object> renderContent(Map<String, Object> httpContext) {
-        return renderContent(httpContext, false);
+    public Map<String, Object> renderContent(Map<String, Object> httpContext, HttpServletRequest request) {
+        return renderContent(httpContext, request, false);
     }
 }
