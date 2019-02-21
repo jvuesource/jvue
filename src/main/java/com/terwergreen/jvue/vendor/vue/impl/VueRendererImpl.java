@@ -8,11 +8,13 @@ import com.eclipsesource.v8.V8Array;
 import com.eclipsesource.v8.V8Function;
 import com.eclipsesource.v8.V8Object;
 import com.terwergreen.jvue.vendor.j2v8.V8Context;
+import com.terwergreen.jvue.vendor.j2v8.impl.V8ContextImpl;
 import com.terwergreen.jvue.vendor.vue.VueRenderer;
 import com.terwergreen.jvue.vendor.vue.VueUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -27,13 +29,13 @@ import java.util.Map;
  * 2019/2/1 11:29
  **/
 @Service
-//@Scope("prototype")
 public class VueRendererImpl implements VueRenderer {
     private final Log logger = LogFactory.getLog(this.getClass());
     // 是否显示错误到浏览器
     private static final Integer SHOW_SERVER_ERROR = 1;
     // 最长等待时间
     private static final Integer MAX_WAIT_SECONDS = 2;
+    private V8Context v8Context;
     private V8 v8;
     private NodeJS nodeJS;
 
@@ -42,94 +44,55 @@ public class VueRendererImpl implements VueRenderer {
 
     private Map<String, Object> htmlMap = new HashMap<>();
 
-    @Autowired
-    public VueRendererImpl(V8Context v8Context) {
-        logger.info("V8Context Autowired in VueRendererImpl");
-        if (v8 == null) {
-            // 初始化v8和nodejs
-            logger.info("初始化v8和nodejs...");
-            v8 = v8Context.getV8();
-            nodeJS = v8Context.getNodeJS();
-            v8.getLocker().acquire();
-            logger.info("获取v8线程锁...");
+    public VueRendererImpl() {
+    }
 
-            // handle promise error
-            v8.executeScript("" +
-                    "process.env.NODE_ENV = 'production';" +
-                    "process.on('unhandledRejection', function (reason, p) {" +
-                    "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
-                    "});");
-
-            // 注册回调函数
-            JavaVoidCallback successCallback = (V8Object receiver, V8Array parameters) -> {
-                synchronized (callbackLock) {
-                    if (parameters.length() > 0) {
-                        if (parameters.length() == 2) {
-                            callbackResolved = true;
-                            String html = parameters.getString(1);
-                            htmlMap.put("status", 1);
-                            htmlMap.put("data", html);
-                            htmlMap.put("msg", "200 OK");
-                            logger.info("renderServerCallback resolved success");
-                            return;
-                        }
-
-                        // handle error
-                        String err = parameters.toString();
-                        htmlMap.put("status", 0);
-                        htmlMap.put("data", err);
-                        htmlMap.put("msg", "{}");
-                    }
-                    logger.info("renderServerCallback invoked");
-                }
-            };
-            v8.registerJavaMethod(successCallback, "renderServerCallback");
-            logger.info("renderServerCallback注册成功");
-
-            JavaVoidCallback setSessionCallback = (V8Object receiver, V8Array parameters) -> {
-                if (parameters.length() == 2) {
-                    String key = parameters.getString(0);
-                    Object value = parameters.getObject(1);
-                    logger.info("key=>" + key);
-                    logger.info("value=>" + value);
-                } else {
-                    logger.error("setSessionCallback参数错误");
-                }
-            };
-            v8.registerJavaMethod(setSessionCallback, "setSessionCallback");
-            logger.info("setSessionCallback注册成功");
-
-            // ===================================================================
-            // 执行js
-            // require axios module
-            File axiosFile = VueUtil.readVueFile("node_modules/axios/index.js");
-            nodeJS.require(axiosFile);
-            logger.info("require axios module success");
-
-            // require vue module
-            File vueFile = VueUtil.readVueFile("node_modules/vue/dist/vue.runtime.common.js");
-            nodeJS.require(vueFile);
-            logger.info("require vue module success");
-
-            // require vueRouter module
-            File vueRouterFile = VueUtil.readVueFile("node_modules/vue-router/dist/vue-router.common.js");
-            nodeJS.require(vueRouterFile);
-            logger.info("require vueRouter module success");
-
-            // require lruCache module
-            File lruCacheFile = VueUtil.readVueFile("node_modules/lru-cache/index.js");
-            nodeJS.require(lruCacheFile);
-            logger.info("require lruCache module success");
-
-            // require vueServerRenderer module
-            File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/index.js");
-            nodeJS.require(vueServerRendererFile);
-            logger.info("require vueServerRenderer module success");
-
-            v8.getLocker().release();
-            logger.info("释放v8线程锁...");
-        }
+    private void initNodeJS() {
         logger.info("初始化VueRender");
+        // 初始化v8和nodejs
+        logger.info("初始化v8和nodejs...");
+        v8Context = new V8ContextImpl();
+        v8 = v8Context.getV8();
+        nodeJS = v8Context.getNodeJS();
+        v8.getLocker().acquire();
+        logger.info("获取v8线程锁...");
+
+        // handle promise error
+        v8.executeScript("" +
+                "process.env.NODE_ENV = 'production';" +
+                "process.on('unhandledRejection', function (reason, p) {" +
+                "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
+                "});");
+
+        // ===================================================================
+        // 执行js
+        // require axios module
+        File axiosFile = VueUtil.readVueFile("node_modules/axios/index.js");
+        nodeJS.require(axiosFile);
+        logger.info("require axios module success");
+
+        // require vue module
+        File vueFile = VueUtil.readVueFile("node_modules/vue/dist/vue.runtime.common.js");
+        nodeJS.require(vueFile);
+        logger.info("require vue module success");
+
+        // require vueRouter module
+        File vueRouterFile = VueUtil.readVueFile("node_modules/vue-router/dist/vue-router.common.js");
+        nodeJS.require(vueRouterFile);
+        logger.info("require vueRouter module success");
+
+        // require lruCache module
+        File lruCacheFile = VueUtil.readVueFile("node_modules/lru-cache/index.js");
+        nodeJS.require(lruCacheFile);
+        logger.info("require lruCache module success");
+
+        // require vueServerRenderer module
+        File vueServerRendererFile = VueUtil.readVueFile("node_modules/vue-server-renderer/index.js");
+        nodeJS.require(vueServerRendererFile);
+        logger.info("require vueServerRenderer module success");
+
+        v8.getLocker().release();
+        logger.info("释放v8线程锁...");
     }
 
     private void runMessageLoop() {
@@ -179,10 +142,56 @@ public class VueRendererImpl implements VueRenderer {
 
     private void executeV8CLI(Map<String, Object> httpContext) {
         try {
+            initNodeJS();
+
             v8.getLocker().acquire();
             logger.info("获取v8线程锁...");
 
+            // require axios module
+            File axiosFile = VueUtil.readVueFile("node_modules/axios/index.js");
+            nodeJS.require(axiosFile);
+            logger.info("require axios module success");
+
             v8.executeScript("console.log('v8 execute start')");
+
+            // 注册回调函数
+            JavaVoidCallback successCallback = (V8Object receiver, V8Array parameters) -> {
+                synchronized (callbackLock) {
+                    if (parameters.length() > 0) {
+                        if (parameters.length() == 2) {
+                            callbackResolved = true;
+                            String html = parameters.getString(1);
+                            htmlMap.put("status", 1);
+                            htmlMap.put("data", html);
+                            htmlMap.put("msg", "200 OK");
+                            logger.info("renderServerCallback resolved success");
+                            return;
+                        }
+
+                        // handle error
+                        String err = parameters.toString();
+                        htmlMap.put("status", 0);
+                        htmlMap.put("data", err);
+                        htmlMap.put("msg", "{}");
+                    }
+                    logger.info("renderServerCallback invoked");
+                }
+            };
+            v8.registerJavaMethod(successCallback, "renderServerCallback");
+            logger.info("renderServerCallback注册成功");
+
+            JavaVoidCallback setSessionCallback = (V8Object receiver, V8Array parameters) -> {
+                if (parameters.length() == 2) {
+                    String key = parameters.getString(0);
+                    String value = parameters.getString(1);
+                    logger.info("key=>" + key);
+                    logger.info("value=>" + value);
+                } else {
+                    logger.error("setSessionCallback参数错误");
+                }
+            };
+            v8.registerJavaMethod(setSessionCallback, "setSessionCallback");
+            logger.info("setSessionCallback注册成功");
 
             // require server module
             File serverFile = VueUtil.readVueFile("server.js");
@@ -239,7 +248,7 @@ public class VueRendererImpl implements VueRenderer {
             }
 
             logger.info("renderServer获取数据成功");
-            logger.debug("htmlMap:" + htmlMap);
+            // logger.debug("htmlMap:" + htmlMap);
 
             Integer renderStatus = Integer.parseInt(htmlMap.get("status").toString());
             String content = String.valueOf(htmlMap.get("data"));

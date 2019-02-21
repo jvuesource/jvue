@@ -15,6 +15,7 @@
 <script>
 /* eslint-disable */
 import postApi from "../api/post";
+import axios from "axios"
 
 export default {
   name: "About",
@@ -31,19 +32,20 @@ export default {
   asyncData() {
     // 触发 action 后，会返回 Promise
     console.log("Home page => PostList asyncData");
-    postApi
-      .getPostList()
-      .then(res => {
-        console.log("Home page asyncData fetch success");
-        const posts = res.data.data;
-        if (setSessionCallback) {
-          console.log("getPostList setSession");
-          setSessionCallback("getPostList", JSON.stringify(posts));
-        }
-      })
-      .catch(reason => {
-        console.error("getPostList request error,reason=>", reason);
-      });
+    return axios.post("http://www.terwergreen.com/jvue/api/blog/post/list")
+    // postApi
+    //   .getPostList()
+    //   .then(res => {
+    //     console.log("Home page asyncData fetch success");
+    //     const posts = res.data.data;
+    //     if (setSessionCallback) {
+    //       console.log("getPostList setSession");
+    //       setSessionCallback("getPostList", JSON.stringify(posts));
+    //     }
+    //   })
+    //   .catch(reason => {
+    //     console.error("getPostList request error,reason=>", reason);
+    //   });
   },
   methods: {
     showMessage() {

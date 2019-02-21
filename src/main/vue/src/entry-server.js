@@ -23,7 +23,8 @@ export default context => {
           }
         })
       )
-        .then(() => {
+        .then(res => {
+          console.log("matchedComponents asyncData res=>", res);
           resolve(app);
         })
         .catch(rejected => {

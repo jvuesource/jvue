@@ -33,8 +33,7 @@ public class CLI {
         httpContext.put("meta", metaMap);
 
         // 渲染Vue
-        V8Context v8Context = new V8ContextImpl();
-        VueRenderer vueRenderer = new VueRendererImpl(v8Context);
+        VueRenderer vueRenderer = new VueRendererImpl();
         Map<String, Object> resultMap = vueRenderer.renderContentCLI(httpContext);
         logger.info("resultMap=>" + JSON.toJSONString(resultMap));
     }
