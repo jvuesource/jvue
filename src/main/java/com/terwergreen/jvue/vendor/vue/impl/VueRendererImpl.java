@@ -47,12 +47,14 @@ public class VueRendererImpl implements VueRenderer {
         v8.getLocker().acquire();
         logger.info("initNodeJS 获取v8线程锁...");
 
-        // handle promise error
+        // 全局设置渲染模式并且处理promise异常
         v8.executeScript("" +
-                "process.env.NODE_ENV = 'production';" +
+                "" +
                 "process.env.SSR_ENV = 'ssrs';" +
-                "process.on('unhandledRejection', function (reason, p) {" +
-                "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
+                "process.env.VUE_ENV = 'server';" +
+                "process.env.NODE_ENV = 'production';" +
+                "process.on('unhandledRejection', function(reason, p) {" +
+                "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);" +
                 "});");
 
         v8.getLocker().release();

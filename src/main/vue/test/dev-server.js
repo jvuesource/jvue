@@ -1,8 +1,14 @@
 // ====================================
 // dev server with express
 // ====================================
+
 // 设置渲染模式
 process.env.SSR_ENV = "ssrs";
+process.env.VUE_ENV = "server";
+process.env.NODE_ENV = "development";
+process.on("unhandledRejection", function(reason, p) {
+  console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+});
 
 const path = require("path");
 const resolve = file => path.resolve(__dirname, file);

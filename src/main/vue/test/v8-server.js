@@ -2,8 +2,14 @@
 // ====================================
 // test server
 // ====================================
+
 // 设置渲染模式
 process.env.SSR_ENV = "ssrs";
+process.env.VUE_ENV = "server";
+process.env.NODE_ENV = "production";
+process.on("unhandledRejection", function(reason, p) {
+  console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
+});
 
 const render = require("../dist/server");
 

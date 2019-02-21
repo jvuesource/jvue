@@ -18,7 +18,7 @@
   "license": "MIT",
   "scripts": {
     "clean": "rimraf dist",
-    "lint": "eslint --ext .js,.vue,.html --ignore-path .gitignore --ignore-pattern !.eslintrc.js --ignore-pattern !.babelrc.js . --fix --color",
+    "lint": "cross-env NODE_ENV=production SSR_ENV=ssrs eslint --ext .js,.vue,.html --ignore-path .gitignore --ignore-pattern !.eslintrc.js --ignore-pattern !.babelrc.js . --fix --color",
     "serve": "cross-env NODE_ENV=development SSR_ENV=c webpack-dev-server --config build/webpack.client.config.js --port 8888 --hot --inline --progress",
     "build-dev": "./build/build.dev.sh",
     "dev": "yarn build-dev && yarn nodemon ./test/dev-server.js",

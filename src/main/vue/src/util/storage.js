@@ -30,7 +30,7 @@ const getSessionStorage = key => {
 const getSessionStorageOrDefault = (key, val) => {
   const value = Vue.$sessionStorage.get(key);
   console.log("Vue.$sessionStorage.get=>key:", key);
-  console.log("Vue.$sessionStorage.get=>value:", value);
+  console.log("Vue.$sessionStorage.get=>value:", eval(value));
   return isEmptyOrUndefined(value) ? val : value;
 };
 

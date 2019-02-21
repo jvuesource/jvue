@@ -16,6 +16,8 @@
 import postApi from "../api/post";
 import config from "../../jvue.config";
 import { setSessionStorage, getSessionStorageOrDefault } from "../util/storage";
+import { isEmptyOrUndefined } from "../util/string";
+// import { inBrowser } from "../util/dom";
 
 export default {
   name: "About",
@@ -25,10 +27,18 @@ export default {
       posts: []
     };
   },
+  watch: {
+    posts(newval, oldval) {
+      console.log("watch posts=>newval:", newval);
+      console.log("watch posts=>oldval:", oldval);
+    }
+  },
   created() {
     console.log("Home created");
-    // 服务端获取Session
+    console.log("process.env.SSR_ENV=>", process.env.SSR_ENV);
+    console.log("config.ssrEnv=>", config.ssrEnv);
     console.log("config.isSsrServer=>", config.isSsrServer);
+    // 服务端获取Session
     if (config.isSsrServer) {
       const data = global.getSessionCallback("getPostList");
       console.log("Home getSession from server");
@@ -37,9 +47,21 @@ export default {
       console.log("this.posts", this.posts);
     } else {
       // 客户端获取数据
+      console.log("window.__INITIAL_STATE__=>", window.__INITIAL_STATE__);
       console.log("Home getSession from client");
+      let dataObj = [];
+      // 优先获取SessionStorage，因为这里是最新更新的数据，点击客户端路由就会更新
       const data = getSessionStorageOrDefault("getPostList", "[]");
-      const dataObj = eval(data);
+      dataObj = eval(data);
+      // 没有Session取window.__INITIAL_STATE__，这里只有出发服务端渲染才会更新
+      if (
+        dataObj.length === 0 &&
+        !isEmptyOrUndefined(window.__INITIAL_STATE__)
+      ) {
+        console.log("get data from window.__INITIAL_STATE__ in ssrClient");
+        const initData = window.__INITIAL_STATE__[0];
+        dataObj = initData.data;
+      }
       console.log("client getSessionStorage=>", dataObj);
       this.posts = dataObj;
     }
