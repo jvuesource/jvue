@@ -1,7 +1,33 @@
 import Vue from "vue";
 import App from "./App";
-
+import { inBrowser } from "./util/dom";
 import { createRouter } from "./router";
+
+console.log("inBrowser=>", inBrowser);
+// 浏览器环境专用组件
+if (inBrowser) {
+  console.log("Register components inBrowser");
+  // import Storage from "vue-web-storage";
+  const Storage = import("vue-web-storage");
+  Storage.then(resolve => {
+    console.log("vue-web-storage register success");
+    // console.log(resolve.default);
+    // This will register two instances
+    // Vue.$sessionStorage
+    // Vue.$localStorage
+    // Use as
+    // Vue.$localStorage
+    Vue.use(resolve.default, {
+      prefix: "jvue_", // default `app_`
+      drivers: ["session", "local"] // default 'local'
+    });
+    console.log("Vue.$sessionStorage=>", Vue.$sessionStorage);
+  }).catch(rejected => {
+    console.log("vue-web-storage load error:" + rejected);
+  });
+}
+
+// 引入通用组件
 
 /**
  * Expose a factory function that creates a fresh set of router,

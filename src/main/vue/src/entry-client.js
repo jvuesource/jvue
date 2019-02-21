@@ -48,4 +48,4 @@ router.onReady(() => {
 });
 
 // actually mount to DOM
-app.$mount("#app");
+app.$mount("#jvue-root");

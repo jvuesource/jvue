@@ -50,6 +50,7 @@ public class VueRendererImpl implements VueRenderer {
         // handle promise error
         v8.executeScript("" +
                 "process.env.NODE_ENV = 'production';" +
+                "process.env.SSR_ENV = 'ssrs';" +
                 "process.on('unhandledRejection', function (reason, p) {" +
                 "  console.log('Unhandled Rejection at: Promise', p, 'reason:', reason); " +
                 "});");

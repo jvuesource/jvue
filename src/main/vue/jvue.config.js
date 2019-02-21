@@ -12,19 +12,16 @@ const isSsrServer = process.env.SSR_ENV === "ssrs";
 const isSsr = process.env.SSR_ENV === "ssrc" || process.env.SSR_ENV === "ssrs";
 const pkg = require("./package.json");
 
-console.log("nodeEnv=>", nodeEnv);
-console.log("ssrEnv=>", ssrEnv);
-
 // This is page seo
 const seo = {
-  title: isProduction ? "{{ title }}" : [pkg.name, " v", pkg.version].join(""),
+  title: [pkg.name, " v", pkg.version].join(""),
   meta: {
-    keywords: isProduction ? "{{ meta.keywords }}" : pkg.keywords.join(),
-    description: isProduction ? "{{meta.description}}" : pkg.description
+    keywords: pkg.keywords.join(),
+    description: pkg.description
   }
 };
 
-module.exports = {
+const conf = {
   nodeEnv,
   isProduction,
   ssrEnv,
@@ -34,3 +31,6 @@ module.exports = {
   isSsr,
   seo
 };
+console.log("conf.ssrEnv=>", conf.ssrEnv);
+
+module.exports = conf;

@@ -6,12 +6,12 @@ yarn clean
 echo "dist clean finish"
 
 # build ssr entry-client
-cross-env NODE_ENV=production webpack --config build/webpack.client.config.js --progress --hide-modules
+cross-env NODE_ENV=production SSR_ENV=ssrc webpack --config build/webpack.client.config.js --progress --hide-modules
 echo "ssr entry-client build finish"
 
 # build ssr entry-server
-cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules
-echo "copy ssr entry-server build finish"
+cross-env NODE_ENV=production SSR_ENV=ssrs webpack --config build/webpack.server.config.js --progress --hide-modules
+echo "ssr entry-server build finish"
 
 # copy ssr modules
 echo "copying files..."
@@ -36,6 +36,8 @@ scp -r node_modules/lodash.templatesettings/ dist/node_modules
 scp -r node_modules/lodash._reinterpolate/ dist/node_modules
 scp -r node_modules/lodash.template/ dist/node_modules
 scp -r node_modules/vue-server-renderer/ dist/node_modules
+# vue-web-storage
+scp -r node_modules/vue-web-storage/ dist/node_modules
 echo "copy ssr modules finish"
 
 # build server interface

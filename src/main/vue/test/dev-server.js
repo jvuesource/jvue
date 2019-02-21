@@ -1,6 +1,8 @@
 // ====================================
 // dev server with express
 // ====================================
+// 设置渲染模式
+process.env.SSR_ENV = 'ssrs';
 
 const path = require("path");
 const resolve = file => path.resolve(__dirname, file);
@@ -51,3 +53,9 @@ app.get("*", (req, res) => {
 app.listen(port, () => {
   console.log(`dev-server is listening on port ${port}!`);
 });
+
+// deal with callback
+global.setSessionCallback = (key , value) => {
+  console.log("key=>" , key);
+  console.log("value=>" , value);
+};

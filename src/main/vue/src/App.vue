@@ -1,5 +1,5 @@
 <template>
-  <div id="jvue">
+  <div id="jvue-root">
     <router-view />
   </div>
 </template>

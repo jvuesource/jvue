@@ -21,7 +21,7 @@
     "lint": "eslint --ext .js,.vue,.html --ignore-path .gitignore --ignore-pattern !.eslintrc.js --ignore-pattern !.babelrc.js . --fix --color",
     "serve": "cross-env NODE_ENV=development SSR_ENV=c webpack-dev-server --config build/webpack.client.config.js --port 8888 --hot --inline --progress",
     "build-dev": "./build/build.dev.sh",
-    "dev": "yarn build-dev && node ./test/dev-server.js",
+    "dev": "yarn build-dev && nodemon ./test/dev-server.js",
     "build": "./build/build.prod.sh",
     "prod": "yarn build && node ./test/dev-server.js",
     "start": "node ./test/v8-server.js",
@@ -32,7 +32,8 @@
     "lru-cache": "4.1.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
-    "vue-server-renderer": "^2.6.6"
+    "vue-server-renderer": "^2.6.6",
+    "vue-web-storage": "^3.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

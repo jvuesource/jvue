@@ -14,21 +14,29 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <% if(!htmlWebpackPlugin.options.inject){ %>
-        <link rel="shortcut icon" href="favicon.ico"/>
+    <% if(htmlWebpackPlugin.options.isSsr){ %>
+        <title>{{ title }}</title>
+        <meta name="keywords" content="{{ meta.keywords }}">
+        <meta name="description" content="{{meta.description}}">
+        <link rel="shortcut icon" href="favicon.ico">
+    <% } else{ %>
+        <title><%= htmlWebpackPlugin.options.title %></title>
     <% } %>
 </head>
 <body>
 <noscript>
-    <strong>We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    <strong>
+        We're sorry but this page doesn't work properly without JavaScript enabled. Please enable it to continue.
+    </strong>
 </noscript>
-<% if(htmlWebpackPlugin.options.inject){ %>
-    <div id="app"></div>
+<% if(htmlWebpackPlugin.options.isSsr){ %>
+    <!--
+    https://ssr.vuejs.org/zh/guide/hydration.html
+    注意，这里并没有添加 id="app"，而是添加 data-server-rendered 属性：你需要自行添加 ID 或其他能够选取到应用程序根元素的选择器，否则应用程序将无法正常激活。
+    -->
+    <!--vue-ssr-outlet-->
 <% }else{ %>
-    <div id="app">
-        <!--vue-ssr-outlet-->
-    </div>
+    <div id="jvue-root"></div>
 <% } %>
 <!-- built files will be auto injected -->
 </body>

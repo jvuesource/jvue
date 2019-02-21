@@ -24,6 +24,7 @@ export default context => {
         })
       )
         .then(res => {
+          console.log("matchedComponents then Vue.$sessionStorage", Vue.$sessionStorage);
           console.log("matchedComponents asyncData res=>", res);
           resolve(app);
         })
