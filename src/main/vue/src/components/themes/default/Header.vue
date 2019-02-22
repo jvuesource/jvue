@@ -33,22 +33,21 @@
         </b-col>
         <!-- 搜索框 -->
         <b-col cols="12" id="searchArea">
-          <b-form id="searchform" method="get" :action="searchLink">
+          <b-form id="searchform" method="get" onsubmit="return false;">
             <b-input-group prepend="">
               <b-form-input
                 id="s"
                 v-model="s"
-                name="kw"
                 ref="s"
                 type="text"
                 placeholder="输入关键词查找..."
               ></b-form-input>
               <b-input-group-append>
-                <a :href="searchLink">
+                <router-link :to="searchLink">
                   <b-btn id="searchsubmit" type="button" variant="primary"
                     >搜索</b-btn
                   >
-                </a>
+                </router-link>
               </b-input-group-append>
             </b-input-group>
           </b-form>
