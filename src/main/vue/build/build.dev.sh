@@ -17,30 +17,30 @@ echo "copy ssr entry-server build finish"
 echo "copying files..."
 mkdir dist/node_modules
 # axios
-cp -av -r node_modules/ms/ dist/node_modules
-cp -av -r node_modules/follow-redirects/ dist/node_modules
-cp -av -r node_modules/is-buffer/ dist/node_modules
-cp -av -r node_modules/axios/ dist/node_modules
+rsync -av --progress node_modules/ms dist/node_modules
+rsync -av --progress node_modules/follow-redirects dist/node_modules
+rsync -av --progress node_modules/is-buffer dist/node_modules
+rsync -av --progress node_modules/axios dist/node_modules
 # bootstrap
-cp -av -r node_modules/bootstrap/ dist/node_modules
-cp -av -r node_modules/bootstrap-vue/ dist/node_modules
+rsync -av --progress node_modules/bootstrap dist/node_modules
+rsync -av --progress node_modules/bootstrap-vue dist/node_modules
 # vue
-cp -av -r node_modules/vue/ dist/node_modules
+rsync -av --progress node_modules/vue dist/node_modules
 # vue-router
-cp -av -r node_modules/vue-router/ dist/node_modules
+rsync -av --progress node_modules/vue-router dist/node_modules
 # lru-cache
-cp -av -r node_modules/lru-cache/ dist/node_modules
+rsync -av --progress node_modules/lru-cache dist/node_modules
 # vue-server-renderer
-cp -av -r node_modules/he/ dist/node_modules
-cp -av -r node_modules/pseudomap/ dist/node_modules
-cp -av -r node_modules/resolve/ dist/node_modules
-cp -av -r node_modules/serialize-javascript/ dist/node_modules
-cp -av -r node_modules/lodash.templatesettings/ dist/node_modules
-cp -av -r node_modules/lodash._reinterpolate/ dist/node_modules
-cp -av -r node_modules/lodash.template/ dist/node_modules
-cp -av -r node_modules/vue-server-renderer/ dist/node_modules
+rsync -av --progress node_modules/he dist/node_modules
+rsync -av --progress node_modules/pseudomap dist/node_modules
+rsync -av --progress node_modules/resolve dist/node_modules
+rsync -av --progress node_modules/serialize-javascript dist/node_modules
+rsync -av --progress node_modules/lodash.templatesettings dist/node_modules
+rsync -av --progress node_modules/lodash._reinterpolate dist/node_modules
+rsync -av --progress node_modules/lodash.template dist/node_modules
+rsync -av --progress node_modules/vue-server-renderer dist/node_modules
 # vue-web-storage
-cp -av -r node_modules/vue-web-storage/ dist/node_modules
+rsync -av --progress node_modules/vue-web-storage dist/node_modules
 echo "copy ssr modules finish"
 
 # build server interface
