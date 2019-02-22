@@ -1,5 +1,5 @@
 //  babel dist/server.js --presets=@babel/preset-env
-const fs = require("fs");
+// const fs = require("fs");
 const path = require("path");
 
 const resolve = file => {
@@ -12,7 +12,7 @@ let renderer;
 
 // get server html template
 // path related to dist forder
-const template = fs.readFileSync(resolve("./index.html"), "utf-8");
+// const template = fs.readFileSync(resolve("./index.html"), "utf-8");
 // console.log(template);
 
 const createRenderer = (bundle, options) => {
@@ -20,7 +20,8 @@ const createRenderer = (bundle, options) => {
   return require("vue-server-renderer").createBundleRenderer(
     bundle,
     Object.assign(options, {
-      template,
+      // 不是有服务端生成html，自己处理
+      // template,
       cache: require("lru-cache")({
         max: 1000,
         maxAge: 1000 * 60 * 15

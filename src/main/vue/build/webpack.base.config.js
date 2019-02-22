@@ -1,7 +1,8 @@
 const webpack = require("webpack");
-const { VueLoaderPlugin } = require("vue-loader");
-
 const config = require("../jvue.config");
+
+const { VueLoaderPlugin } = require("vue-loader");
+const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 // 如果预先定义过环境变量，就将其赋值给`ASSET_PATH`变量，否则赋值为根目录
 const ASSET_PATH = process.env.ASSET_PATH || "/";
@@ -41,6 +42,15 @@ const webpackConfig = {
         }
       },
       {
+        test: /\.(css|scss)$/,
+        exclude: [/node_modules/],
+        use: [
+          config.isClient ? "vue-style-loader" : ExtractCssChunks.loader,
+          "css-loader",
+          "sass-loader"
+        ]
+      },
+      {
         test: /\.(png|jpg|gif)$/,
         use: ["file-loader"]
       },
@@ -62,7 +72,17 @@ const webpackConfig = {
     new webpack.DefinePlugin({
       "process.env.ASSET_PATH": JSON.stringify(ASSET_PATH)
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new ExtractCssChunks({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "css/[name].[hash].css",
+      // chunkFilename: "[id].css",
+      hot: true, // if you want HMR - we try to automatically inject hot reloading but if it's not working, add it to the config
+      orderWarning: true, // Disable to remove warnings about conflicting order between imports
+      reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
+      cssModules: true // if you use cssModules, this can help.
+    })
   ]
 };
 

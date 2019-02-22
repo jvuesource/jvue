@@ -14,14 +14,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <% if(htmlWebpackPlugin.options.isSsr){ %>
-        <title>{{ title }}</title>
-        <meta name="keywords" content="{{ meta.keywords }}">
-        <meta name="description" content="{{meta.description}}">
-        <link rel="shortcut icon" href="<%= htmlWebpackPlugin.options.base %>favicon.ico">
-    <% } else{ %>
-        <title><%= htmlWebpackPlugin.options.title %></title>
-    <% } %>
+    <title><%= htmlWebpackPlugin.options.title %></title>
 </head>
 <body>
 <noscript>

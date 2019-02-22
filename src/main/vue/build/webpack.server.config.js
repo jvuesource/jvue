@@ -1,10 +1,8 @@
 const base = require("./webpack.base.config");
-const webpack = require("webpack");
 const merge = require("webpack-merge");
 
 const nodeExternals = require("webpack-node-externals");
 const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
-const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 console.log("SsrServer build=>base.config:", base.config);
 
@@ -24,16 +22,6 @@ const serverConfig = merge(base.webpackConfig, {
     libraryTarget: "commonjs2"
   },
 
-  module: {
-    rules: [
-      {
-        test: /\.(css|scss)$/,
-        exclude: [/node_modules/],
-        use: [ExtractCssChunks.loader, "css-loader", "sass-loader"]
-      }
-    ]
-  },
-
   // externals: Object.keys(require("../package.json").dependencies),
   // https://webpack.js.org/configuration/externals/#function
   // https://github.com/liady/webpack-node-externals
@@ -49,22 +37,7 @@ const serverConfig = merge(base.webpackConfig, {
   // 这是将服务器的整个输出
   // 构建为单个 JSON 文件的插件。
   // 默认文件名为 `vue-ssr-server-bundle.json`
-  plugins: [
-    new VueSSRServerPlugin(),
-    new ExtractCssChunks({
-      // Options similar to the same options in webpackOptions.output
-      // both options are optional
-      filename: "css/[name].[hash].css",
-      // chunkFilename: "[id].css",
-      hot: true, // if you want HMR - we try to automatically inject hot reloading but if it's not working, add it to the config
-      orderWarning: true, // Disable to remove warnings about conflicting order between imports
-      reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
-      cssModules: true // if you use cssModules, this can help.
-    }),
-    new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1
-    })
-  ]
+  plugins: [new VueSSRServerPlugin()]
 });
 
 module.exports = serverConfig;
