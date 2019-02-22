@@ -97,7 +97,8 @@ let webpackCnfig = {
           // inject为true会自动在html文件中添加js和css引用,
           // 并且只对于Client和SsrClient生效，对SsrServer构建无效
           inject: inject,
-          isSsr: config.isSsr
+          isSsr: config.isSsr,
+          base: ASSET_PATH
         },
         config.seo
       )
