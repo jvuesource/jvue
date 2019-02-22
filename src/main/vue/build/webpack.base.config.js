@@ -56,15 +56,15 @@ let webpackCnfig = {
           "css-loader"
         ]
       },
-      {
-        test: /\.scss$/,
-        exclude: [/node_modules/],
-        use: [
-          config.isClient ? "vue-style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader",
-          "sass-loader"
-        ]
-      },
+      // {
+      //   test: /\.scss$/,
+      //   exclude: [/node_modules/],
+      //   use: [
+      //     // config.isClient ? "vue-style-loader" : MiniCssExtractPlugin.loader,
+      //     "css-loader",
+      //     "sass-loader"
+      //   ]
+      // },
       {
         test: /\.(png|jpg|gif)$/,
         use: ["file-loader"]
@@ -96,7 +96,7 @@ let webpackCnfig = {
           favicon: "./public/favicon.ico",
           // inject为true会自动在html文件中添加js和css引用,
           // 并且只对于Client和SsrClient生效，对SsrServer构建无效
-          inject: inject,
+          inject: true,
           isSsr: config.isSsr,
           base: ASSET_PATH
         },

@@ -1,5 +1,5 @@
 <template>
-  <div id="jvue-root">
+  <div id="app">
     <header class="text-center">
       <!-- router-link 定义点击后导航到哪个路径下 -->
       <router-link to="/home">首页</router-link>
@@ -23,10 +23,8 @@ export default {
   }
 };
 </script>
-<style lang="scss">
-@import "node_modules/bootstrap/scss/bootstrap.scss";
-@import "node_modules/bootstrap-vue/src/index.scss";
-#jvue-root {
+<style>
+#app {
   font-family: "Microsoft YaHei", sans-serif;
 }
 </style>

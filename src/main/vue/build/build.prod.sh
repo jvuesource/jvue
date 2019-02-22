@@ -6,11 +6,11 @@ yarn clean
 echo "dist clean finish"
 
 # build ssr entry-client
-cross-env NODE_ENV=production SSR_ENV=ssrc webpack --config build/webpack.client.config.js --progress --hide-modules
+yarn build-entry-client-prod
 echo "ssr entry-client build finish"
 
 # build ssr entry-server
-cross-env NODE_ENV=production SSR_ENV=ssrs webpack --config build/webpack.server.config.js --progress --hide-modules
+yarn build-entry-server-prod
 echo "ssr entry-server build finish"
 
 # copy ssr modules

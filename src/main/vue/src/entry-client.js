@@ -57,5 +57,5 @@ createApp().then(resolve => {
   });
 
   // actually mount to DOM
-  app.$mount("#jvue-root");
+  app.$mount("#app");
 });
