@@ -35,6 +35,13 @@ let webpackCnfig = {
         use: "vue-loader"
       },
       {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader"
+        }
+      },
+      {
         test: /\.css$/,
         exclude: [/node_modules/],
         use: [
@@ -49,6 +56,21 @@ let webpackCnfig = {
           config.isClient ? "vue-style-loader" : MiniCssExtractPlugin.loader,
           "css-loader",
           "sass-loader"
+        ]
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: ["file-loader"]
+      },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 8192
+            }
+          }
         ]
       }
     ]

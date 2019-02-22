@@ -1,6 +1,7 @@
 <template>
   <b-container fluid>
     <HeaderTime />
+    <Header />
     <!-- Test -->
     <div>
       <router-link to="/">Home</router-link>
@@ -25,11 +26,13 @@ import { setSessionStorage, getSessionStorageOrDefault } from "../util/storage";
 import { isEmptyOrUndefined } from "../util/string";
 // import { inBrowser } from "../util/dom";
 import HeaderTime from "../components/themes/default/HeaderTime";
+import Header from "../components/themes/default/Header";
 
 export default {
   name: "About",
   components: {
-    HeaderTime
+    HeaderTime,
+    Header
   },
   data() {
     return {
