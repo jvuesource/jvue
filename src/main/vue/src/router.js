@@ -6,6 +6,9 @@ import Home from "./views/Home";
 import About from "./views/About";
 import Detail from "./views/Detail";
 import Category from "./views/Category";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import Search from "./views/Search";
 
 // 要告诉 vue 使用 vueRouter
 Vue.use(Router);
@@ -20,6 +23,21 @@ let routes = [
     path: "/home",
     name: "index",
     component: Home
+  },
+  {
+    path: "/auth/login",
+    name: "login",
+    component: Login
+  },
+  {
+    path: "/auth/register",
+    name: "register",
+    component: Register
+  },
+  {
+    path: "/s/:k",
+    name: "search",
+    component: Search
   },
   {
     path: "/post/:id.html",
@@ -56,5 +74,6 @@ let routes = [
 export const createRouter = () =>
   new Router({
     mode: "history", // process.env.NODE_ENV === "development" ? "hash" : "history",
+    base: process.env.BASE_URL,
     routes
   });

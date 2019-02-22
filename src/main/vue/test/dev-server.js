@@ -25,6 +25,7 @@ const render = require("../dist/server");
 
 app.use(favicon("./public/favicon.ico"));
 app.use("/js", serve("../dist/js", false));
+app.use("/css", serve("../dist/css", false));
 
 // handle http requests
 app.get("*", (req, res) => {

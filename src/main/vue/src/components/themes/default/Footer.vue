@@ -55,7 +55,7 @@
                 欢迎关注公众号"架构设计漫谈"，一起分享技术，探讨人生。
               </p>
               <div class="ewmimg">
-                <img src="./images/mp-qrcode.png" alt="Terwer" />
+                <img src="../../../assets/mp-qrcode.png" alt="Terwer" />
               </div>
             </div>
           </div>

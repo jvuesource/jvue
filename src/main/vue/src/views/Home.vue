@@ -3,9 +3,9 @@
     <HeaderTime />
     <Header />
     <Body />
+    <h1 class="text-center">This is home</h1>
     <!-- Test -->
     <div>
-      <h1>This is home</h1>
       <h1>Hello World! Vue,j2v8! Auther by Terwer</h1>
       <p>{{ message }}</p>
       <p>

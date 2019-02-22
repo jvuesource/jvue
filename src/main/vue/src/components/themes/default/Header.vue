@@ -9,7 +9,7 @@
               <div class="img-align-middle">
                 <img
                   class="logo"
-                  src="./images/logo.png"
+                  src="../../../assets/logo.png"
                   :alt="title"
                   :title="title"
                 />
@@ -33,20 +33,22 @@
         </b-col>
         <!-- 搜索框 -->
         <b-col cols="12" id="searchArea">
-          <b-form id="searchform" method="get" action="/">
+          <b-form id="searchform" method="get" :action="searchLink">
             <b-input-group prepend="">
               <b-form-input
                 id="s"
                 v-model="s"
-                name="s"
+                name="kw"
                 ref="s"
                 type="text"
                 placeholder="输入关键词查找..."
               ></b-form-input>
               <b-input-group-append>
-                <b-btn id="searchsubmit" type="submit" variant="primary"
-                  >搜索</b-btn
-                >
+                <a :href="searchLink">
+                  <b-btn id="searchsubmit" type="button" variant="primary"
+                    >搜索</b-btn
+                  >
+                </a>
               </b-input-group-append>
             </b-input-group>
           </b-form>
@@ -94,11 +96,17 @@ export default {
       console.log("screenWidth:" + that.screenWidth);
       // 屏幕适配
       that.fitScreen();
+    },
+    s() {
+      const that = this;
+      that.searchLink = "/s/" + that.s;
+      console.log(that.searchLink);
     }
   },
   data() {
     return {
       s: "",
+      searchLink: "/s/",
       isMobile: false,
       screenWidth: inBrowser ? document.body.clientWidth : 0, // 屏幕尺寸
       showHeadNav: false
