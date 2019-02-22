@@ -1,15 +1,23 @@
 <template>
-  <div>
-    <router-link to="/">Home</router-link>
-    <router-link to="/about">About</router-link>
-    <h1>This is home</h1>
-    <h1>Hello World! Vue,j2v8! Auther by Terwer</h1>
-    <p>{{ message }}</p>
-    <p>
-      <button @click="showMessage">显示当前时间</button>
-    </p>
-    <p v-html="posts.length > 0 ? posts : '<h1>No data</h1>'"></p>
-  </div>
+  <b-container fluid>
+    <HeaderTime />
+    <Header />
+    <Body />
+    <!-- Test -->
+    <div>
+      <h1>This is home</h1>
+      <h1>Hello World! Vue,j2v8! Auther by Terwer</h1>
+      <p>{{ message }}</p>
+      <p>
+        <button @click="showMessage">显示当前时间</button>
+      </p>
+      <p
+        v-html="posts.length > 0 ? posts[0].postContent : '<h1>No data</h1>'"
+      ></p>
+    </div>
+    <Footer />
+    <FriendLink />
+  </b-container>
 </template>
 
 <script>
@@ -18,12 +26,33 @@ import config from "../../jvue.config";
 import { setSessionStorage, getSessionStorageOrDefault } from "../util/storage";
 import { isEmptyOrUndefined } from "../util/string";
 // import { inBrowser } from "../util/dom";
+import HeaderTime from "../components/themes/default/HeaderTime";
+import Header from "../components/themes/default/Header";
+import Body from "../components/themes/default/Body";
+import Footer from "../components/themes/default/Footer";
+import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
   name: "About",
+  components: {
+    HeaderTime,
+    Header,
+    Body,
+    Footer,
+    FriendLink
+  },
+  // 钩子函数
+  mounted() {
+    const that = this;
+    setTimeout(function() {
+      console.log("加载站点配置");
+      that.siteConfig = {};
+    }, 2000);
+  },
   data() {
     return {
       message: "jvue",
+      siteConfig: null,
       posts: []
     };
   },
@@ -100,3 +129,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import "../components/themes/default/style.css";
+</style>

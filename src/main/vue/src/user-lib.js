@@ -2,7 +2,10 @@ import { inBrowser } from "./util/dom";
 import Vue from "vue";
 
 // 引入通用组件
-// ...
+// 组件引用
+import BootstrapVue from "bootstrap-vue";
+// 组建注册
+Vue.use(BootstrapVue);
 
 // 引入特定组件
 console.log("inBrowser=>", inBrowser);

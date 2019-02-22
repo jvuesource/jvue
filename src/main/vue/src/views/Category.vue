@@ -2,7 +2,7 @@
   <b-container fluid>
     <HeaderTime />
     <Header />
-    <h1>This is about</h1>
+    <h1>This is category {{ catId }}</h1>
     <Footer />
     <FriendLink />
   </b-container>
@@ -15,12 +15,19 @@ import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
-  name: "Home",
+  name: "Category",
   components: {
     HeaderTime,
     Header,
     Footer,
     FriendLink
+  },
+  computed: {
+    catId() {
+      return this.$route.params.id;
+    }
   }
 };
 </script>
+
+<style scoped></style>
