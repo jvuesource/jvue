@@ -127,8 +127,8 @@ export default {
   text-decoration: none;
 }
 /**
-    * 图片居中
-    */
+* 图片居中
+*/
 .img-wrap {
   background: #fff;
 }
@@ -170,9 +170,9 @@ export default {
 }
 /* 设备兼容处理 */
 /*
-    ##Device = Mobile
-    ##Screen = B/w 320px - 767px
-    */
+##Device = Mobile
+##Screen = B/w 320px - 767px
+*/
 @media (min-width: 320px) and (max-width: 767px) {
   #header .header-right a:hover {
     color: #007bff;
@@ -198,9 +198,9 @@ export default {
   }
 }
 /*
-      ##Device = iPad
-      ##Screen = B/w 768px - 1023px
-    */
+##Device = iPad
+##Screen = B/w 768px - 1023px
+*/
 @media (min-width: 768px) and (max-width: 1023px) {
   #header .header-right a:hover {
     color: #007bff;
@@ -221,9 +221,9 @@ export default {
   }
 }
 /*
-      ##Device = iPad Pro
-      ##Screen = B/w 1024px - 1365px
-    */
+##Device = iPad Pro
+##Screen = B/w 1024px - 1365px
+*/
 @media (min-width: 1024px) and (max-width: 1365px) {
   #header .header-right a:hover {
     color: #007bff;
@@ -243,9 +243,9 @@ export default {
   }
 }
 /*
-      ##Device = PC
-      ##Screen = B/w 1366px
-    */
+##Device = PC
+##Screen = B/w 1366px
+*/
 @media (min-width: 1366px) {
   .img-wrap .img-align-middle {
     height: 75px;

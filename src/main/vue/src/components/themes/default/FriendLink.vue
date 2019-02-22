@@ -54,9 +54,9 @@ export default {
   margin-bottom: 5px;
 }
 /*
-    ##Device = Mobile
-    ##Screen = B/w 320px - 767px
-    */
+##Device = Mobile
+##Screen = B/w 320px - 767px
+*/
 @media (min-width: 320px) and (max-width: 767px) {
   .footerbottom li {
     display: block;

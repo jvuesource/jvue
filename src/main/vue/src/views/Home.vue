@@ -2,6 +2,7 @@
   <b-container fluid>
     <HeaderTime />
     <Header />
+    <Body />
     <!-- Test -->
     <div>
       <h1>This is home</h1>
@@ -14,7 +15,7 @@
         v-html="posts.length > 0 ? posts[0].postContent : '<h1>No data</h1>'"
       ></p>
     </div>
-    <Footer/>
+    <Footer />
     <FriendLink />
   </b-container>
 </template>
@@ -27,6 +28,7 @@ import { isEmptyOrUndefined } from "../util/string";
 // import { inBrowser } from "../util/dom";
 import HeaderTime from "../components/themes/default/HeaderTime";
 import Header from "../components/themes/default/Header";
+import Body from "../components/themes/default/Body";
 import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 
@@ -35,12 +37,22 @@ export default {
   components: {
     HeaderTime,
     Header,
+    Body,
     Footer,
     FriendLink
+  },
+  // 钩子函数
+  mounted() {
+    const that = this;
+    setTimeout(function() {
+      console.log("加载站点配置");
+      that.siteConfig = {};
+    }, 2000);
   },
   data() {
     return {
       message: "jvue",
+      siteConfig: null,
       posts: []
     };
   },
@@ -117,3 +129,7 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+@import "../components/themes/default/style.css";
+</style>

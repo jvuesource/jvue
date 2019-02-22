@@ -176,27 +176,27 @@ export default {
 }
 /* 设备兼容处理 */
 /*
-    ##Device = iPad
-    ##Screen = B/w 768px - 1023px
-    */
+##Device = iPad
+##Screen = B/w 768px - 1023px
+*/
 @media (min-width: 768px) and (max-width: 1023px) {
   .next-line {
     display: none;
   }
 }
 /*
-    ##Device = iPad Pro
-    ##Screen = B/w 1024px - 1365px
-    */
+##Device = iPad Pro
+##Screen = B/w 1024px - 1365px
+*/
 @media (min-width: 1024px) and (max-width: 1365px) {
   .next-line {
     display: none;
   }
 }
 /*
-    ##Device = PC
-    ##Screen = B/w 1366px
-    */
+##Device = PC
+##Screen = B/w 1366px
+*/
 @media (min-width: 1366px) {
   .next-line {
     display: none;

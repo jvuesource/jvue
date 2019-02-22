@@ -2,12 +2,11 @@
   <b-container fluid>
     <HeaderTime />
     <Header />
-    <h1>This is about</h1>
+    <h1>This is detail {{ postId }}</h1>
     <Footer />
     <FriendLink />
   </b-container>
 </template>
-
 <script>
 import HeaderTime from "../components/themes/default/HeaderTime";
 import Header from "../components/themes/default/Header";
@@ -15,12 +14,26 @@ import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
-  name: "Home",
+  name: "Detail",
   components: {
     HeaderTime,
     Header,
     Footer,
     FriendLink
+  },
+  computed: {
+    postId() {
+      return this.$route.params.id;
+    }
+  },
+  watch: {
+    $route(to, from) {
+      // to表示的是你要去的那个组件，from 表示的是你从哪个组件过来的，它们是两个对象，你可以把它打印出来，它们也有一个param 属性
+      console.log(to);
+      console.log(from);
+    }
   }
 };
 </script>
+
+<style scoped></style>

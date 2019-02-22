@@ -16,6 +16,10 @@ echo "copy ssr entry-server build finish"
 # copy ssr modules
 echo "copying files..."
 mkdir dist/node_modules
+# @babel/polyfill
+rsync -av --progress node_modules/@babel/polyfill dist/node_modules --exclude=node_modules
+# @babel/runtime
+rsync -av --progress node_modules/@babel/runtime dist/node_modules --exclude=node_modules
 # axios
 rsync -av --progress node_modules/ms dist/node_modules --exclude=node_modules
 rsync -av --progress node_modules/follow-redirects dist/node_modules --exclude=node_modules

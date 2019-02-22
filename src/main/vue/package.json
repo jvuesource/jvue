@@ -19,6 +19,7 @@
   "scripts": {
     "clean": "rimraf dist",
     "lint": "cross-env NODE_ENV=production SSR_ENV=ssrs eslint --ext .js,.vue,.html --ignore-path .gitignore --ignore-pattern !.eslintrc.js --ignore-pattern !.babelrc.js . --fix --color",
+    "lint-css": "stylelint --config stylelint.config.js 'src/**/*.css' --fix --color",
     "serve": "cross-env NODE_ENV=development SSR_ENV=c webpack-dev-server --config build/webpack.client.config.js --port 8888 --hot --inline --progress",
     "build-dev": "./build/build.dev.sh",
     "dev": "yarn build-dev && yarn nodemon ./test/dev-server.js",
@@ -28,6 +29,8 @@
     "test": "echo 'No Tests'"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.2.5",
+    "@babel/runtime": "^7.3.1",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.13",
@@ -70,6 +73,9 @@
     "sass-loader": "^7.1.0",
     "serve-favicon": "^2.5.0",
     "style-loader": "^0.23.1",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "^18.2.0",
+    "stylelint-no-browser-hacks": "^1.2.1",
     "url-loader": "^1.1.2",
     "vue-loader": "^15.6.2",
     "vue-style-loader": "^4.1.2",
