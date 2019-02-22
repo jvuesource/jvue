@@ -1,13 +1,26 @@
 <template>
-  <div>
-    <router-link to="/">Home</router-link>
-    <router-link to="/about">About</router-link>
+  <b-container fluid>
+    <HeaderTime />
+    <Header />
     <h1>This is about</h1>
-  </div>
+    <Footer/>
+    <FriendLink/>
+  </b-container>
 </template>
 
 <script>
+import HeaderTime from "../components/themes/default/HeaderTime";
+import Header from "../components/themes/default/Header";
+import Footer from "../components/themes/default/Footer";
+import FriendLink from "../components/themes/default/FriendLink";
+
 export default {
-  name: "Home"
+  name: "Home",
+  components: {
+    HeaderTime,
+    Header,
+    Footer,
+    FriendLink
+  }
 };
 </script>

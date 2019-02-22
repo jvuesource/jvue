@@ -24,7 +24,7 @@ export default {
         {
           id: 1,
           name: "首页",
-          link: "/"
+          link: "/home"
         },
         {
           id: 2,
@@ -48,11 +48,16 @@ export default {
         },
         {
           id: 6,
+          name: "关于",
+          link: "/about"
+        },
+        {
+          id: 7,
           name: "登录",
           link: "/auth/login"
         },
         {
-          id: 7,
+          id: 8,
           name: "注册",
           link: "/auth/register"
         }

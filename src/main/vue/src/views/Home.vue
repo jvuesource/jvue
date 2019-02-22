@@ -4,8 +4,6 @@
     <Header />
     <!-- Test -->
     <div>
-      <router-link to="/">Home</router-link>
-      <router-link to="/about">About</router-link>
       <h1>This is home</h1>
       <h1>Hello World! Vue,j2v8! Auther by Terwer</h1>
       <p>{{ message }}</p>
@@ -16,6 +14,8 @@
         v-html="posts.length > 0 ? posts[0].postContent : '<h1>No data</h1>'"
       ></p>
     </div>
+    <Footer/>
+    <FriendLink />
   </b-container>
 </template>
 
@@ -27,12 +27,16 @@ import { isEmptyOrUndefined } from "../util/string";
 // import { inBrowser } from "../util/dom";
 import HeaderTime from "../components/themes/default/HeaderTime";
 import Header from "../components/themes/default/Header";
+import Footer from "../components/themes/default/Footer";
+import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
   name: "About",
   components: {
     HeaderTime,
-    Header
+    Header,
+    Footer,
+    FriendLink
   },
   data() {
     return {
