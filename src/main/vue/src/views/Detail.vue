@@ -2,7 +2,7 @@
   <b-container fluid>
     <HeaderTime />
     <Header />
-    <h1>This is detail {{ postId }}</h1>
+    <h1 class="text-center">This is detail {{ postId }}</h1>
     <Footer />
     <FriendLink />
   </b-container>

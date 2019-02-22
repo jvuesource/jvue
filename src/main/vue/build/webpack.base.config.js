@@ -7,12 +7,19 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 const config = require("../jvue.config");
 
+// 如果预先定义过环境变量，就将其赋值给`ASSET_PATH`变量，否则赋值为根目录
+const ASSET_PATH = process.env.ASSET_PATH || "/";
+
 const inject = !config.isSsr;
 console.log("config.isSsr=>", config.isSsr);
 console.log("inject=>", inject);
 
 let webpackCnfig = {
   mode: process.env.NODE_ENV,
+  output: {
+    // see https://webpack.docschina.org/guides/public-path/
+    publicPath: ASSET_PATH
+  },
   resolve: {
     // import vue without .vue
     extensions: ["*", ".js", ".vue", ".json"]
@@ -76,6 +83,10 @@ let webpackCnfig = {
     ]
   },
   plugins: [
+    // 该插件帮助我们安心地使用环境变量
+    new webpack.DefinePlugin({
+      "process.env.ASSET_PATH": JSON.stringify(ASSET_PATH)
+    }),
     new VueLoaderPlugin(),
     // html模板注入
     new HtmlWebpackPlugin(
@@ -90,26 +101,32 @@ let webpackCnfig = {
         },
         config.seo
       )
-    ),
-    // CSS剥离
-    new MiniCssExtractPlugin({
-      filename: "css/[name].[hash:6].css"
-    })
+    )
   ]
 };
 
 // 重新修改webpack配置
 if (config.isClient) {
   // 热加载
-  console.log("Hot reload is open");
+  console.log("热加载");
   webpackCnfig = merge(webpackCnfig, {
     plugins: [new webpack.HotModuleReplacementPlugin()]
+  });
+} else {
+  // CSS剥离
+  console.log("CSS剥离");
+  webpackCnfig = merge(webpackCnfig, {
+    plugins: [
+      new MiniCssExtractPlugin({
+        filename: "css/[name].[hash:6].css"
+      })
+    ]
   });
 }
 
 if (config.isProduction) {
   // 压缩css
-  console.log("OptimizeCSSAssets is open");
+  console.log("压缩css");
   const cssAssetsPlugin = new OptimizeCSSAssetsPlugin({
     assetNameRegExp: /\.css$/g,
     cssProcessor: require("cssnano"),
