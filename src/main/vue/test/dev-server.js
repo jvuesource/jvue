@@ -49,23 +49,22 @@ app.get("*", (req, res) => {
   };
   const context = JSON.stringify(Object.assign({ url: req.url }, seo));
 
-  render
-    .renderServer(context)
+  const promise = render.renderServerProimise(context);
+  promise
     .then((html, err) => {
       if (err) {
         console.log("err=>", err);
         res.send(err);
         return;
       }
-      console.log("html");
-      // res.send(html);
+      // console.log("html=>", html);
 
       // Render template from file
       templateEngine
         .processFile(resolvePath("../dist/index.html"), { content: html })
         .then(renderedContent => {
           // Do something with the result...
-          console.log("render index.html with thymeleafJS",renderedContent);
+          // console.log("render index.html with thymeleafJS", renderedContent);
           res.send(renderedContent);
         })
         .catch(reject => {
@@ -93,7 +92,8 @@ global.setSessionCallback = (key, value) => {
 };
 
 global.getSessionCallback = key => {
-  const value = "[{'" + key + "'s value for test'}]";
+  const value =
+    '[{"postId":1,"postTitle":"title","postContent":"express test post"},{"postId":2,"postTitle":"sdfdffsdfdrs","postContent":"fdsfdsff"}]';
   console.log("getSessionCallback key=>", key);
   console.log("getSessionCallback value=>", value);
   return value;

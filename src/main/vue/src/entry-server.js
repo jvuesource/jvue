@@ -33,7 +33,10 @@ export default context => {
             // 当我们将状态附加到上下文，
             // 并且 `template` 选项用于 renderer 时，
             // 状态将自动序列化为 `window.__INITIAL_STATE__`，并注入 HTML。
-            console.log("matchedComponents asyncData res=>", res);
+            // console.log("matchedComponents asyncData res=>", res);
+            console.log(
+              "matchedComponents asyncData set res to window.__INITIAL_STATE__"
+            );
             context.state = res;
             resolve(app);
           })

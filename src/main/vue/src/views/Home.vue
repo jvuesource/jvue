@@ -1,22 +1,19 @@
 <template>
   <b-container fluid>
-    <HeaderTime />
-    <Header />
-    <Body />
-    <h1 class="text-center">This is home</h1>
-    <!-- Test -->
-    <div>
-      <h1>Hello World! Vue,j2v8! Auther by Terwer</h1>
-      <p>{{ message }}</p>
-      <p>
-        <button @click="showMessage">显示当前时间</button>
-      </p>
-      <p
-        v-html="posts.length > 0 ? posts[0].postContent : '<h1>No data</h1>'"
-      ></p>
+    <!--
+   <HeaderTime />
+   <Header />
+   <Body />
+   <h1 class="text-center">This is home</h1>
+   -->
+    <div v-for="post in posts" :key="post.postId">
+      <h1>{{ post.postTitle }}</h1>
+      <p v-html="post.postContent"></p>
     </div>
+    <!--
     <Footer />
     <FriendLink />
+    -->
   </b-container>
 </template>
 
@@ -26,20 +23,20 @@ import config from "../../jvue.config";
 import { setSessionStorage, getSessionStorageOrDefault } from "../util/storage";
 import { isEmptyOrUndefined } from "../util/string";
 // import { inBrowser } from "../util/dom";
-import HeaderTime from "../components/themes/default/HeaderTime";
-import Header from "../components/themes/default/Header";
-import Body from "../components/themes/default/Body";
-import Footer from "../components/themes/default/Footer";
-import FriendLink from "../components/themes/default/FriendLink";
+// import HeaderTime from "../components/themes/default/HeaderTime";
+// import Header from "../components/themes/default/Header";
+// import Body from "../components/themes/default/Body";
+// import Footer from "../components/themes/default/Footer";
+// import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
   name: "About",
   components: {
-    HeaderTime,
-    Header,
-    Body,
-    Footer,
-    FriendLink
+    // HeaderTime,
+    // Header,
+    // Body,
+    // Footer,
+    // FriendLink
   },
   // 钩子函数
   mounted() {
@@ -72,7 +69,9 @@ export default {
       const data = global.getSessionCallback("getPostList");
       console.log("Home getSession from server");
       console.log("server getSessionCallback=>", data);
-      this.posts = data;
+      let dataObj = [];
+      dataObj = eval(data);
+      this.posts = dataObj;
       console.log("this.posts", this.posts);
     } else {
       // 客户端获取数据

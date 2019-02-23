@@ -58,7 +58,7 @@ module.exports = {
     eqeqeq: ["error", "smart"],
 
     // force double quotes
-    quotes: ["error", "double"],
+    quotes: "off", //["error", "double"],
 
     "require-jsdoc": 1,
 

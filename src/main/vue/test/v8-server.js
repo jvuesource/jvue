@@ -38,7 +38,8 @@ global.setSessionCallback = (key, value) => {
 };
 
 global.getSessionCallback = key => {
-  const value = "['" + key + "'s value for test']";
+  const value =
+    '[{"postId":1,"postTitle":"title","postContent":"express test post"},{"postId":2,"postTitle":"sdfdffsdfdrs","postContent":"fdsfdsff"}]';
   console.log("getSessionCallback key=>", key);
   console.log("getSessionCallback value=>", value);
   return value;
