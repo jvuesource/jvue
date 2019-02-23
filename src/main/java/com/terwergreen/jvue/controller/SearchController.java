@@ -6,9 +6,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -29,8 +29,7 @@ public class SearchController {
     private VueRenderer vueRenderer;
 
     @RequestMapping(value = "/s/{k}", produces = "text/html;charset=UTF-8")
-    @ResponseBody
-    public String search(HttpServletRequest request, @PathVariable String k) {
+    public String search(Model model, HttpServletRequest request, @PathVariable String k) {
         // 设置路由上下文
         Map<String, Object> httpContext = new HashMap<>();
         httpContext.put("url", "/s/" + k);
@@ -46,6 +45,6 @@ public class SearchController {
 
         // 返回服务端渲染后的结果
         Map<String, Object> resultMap = vueRenderer.renderContent(httpContext, request);
-        return VueUtil.resultMapToString(resultMap);
+        return VueUtil.resultMapToPage(model, resultMap);
     }
 }

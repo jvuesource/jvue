@@ -6,6 +6,7 @@ import com.google.common.io.Resources;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.ui.Model;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -142,7 +143,7 @@ public class VueUtil {
      * @param resultMap 结果Map
      * @return 结果html
      */
-    public static String resultMapToString(Map<String, Object> resultMap) {
+    private static String resultMapToString(Map<String, Object> resultMap) {
         Integer renderStatus = (Integer) resultMap.getOrDefault("renderStatus", 0);
         StringBuilder sb = new StringBuilder();
         String content = (String) resultMap.getOrDefault("content", "");
@@ -157,6 +158,19 @@ public class VueUtil {
             sb.append(data);
         }
         return sb.toString();
+    }
+
+    /**
+     * 映射页面模板
+     *
+     * @param model     model
+     * @param resultMap resultMap
+     * @return 页面末班
+     */
+    public static String resultMapToPage(Model model, Map<String, Object> resultMap) {
+        String renderedContent = resultMapToString(resultMap);
+        model.addAttribute("content", renderedContent);
+        return "index";
     }
 
     public static void main(String[] args) {

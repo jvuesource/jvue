@@ -29,7 +29,7 @@ global.renderServerCallback = (err, html) => {
     console.log(err);
     return;
   }
-  console.log("html=>", html.length);
+  console.log("html=>", html);
 };
 
 global.setSessionCallback = (key, value) => {
@@ -45,17 +45,3 @@ global.getSessionCallback = key => {
 };
 
 render.renderServer(context, global.renderServerCallback);
-
-// // deal with promise
-// var promise = render.renderServer(context);
-// promise
-//   .then((resolve, reject) => {
-//     if (reject) {
-//       console.log(`reject=>${reject}`);
-//       return;
-//     }
-//     console.log(`resolve=>${resolve}`);
-//   })
-//   .catch(rejected => {
-//     console.log(`rejected=>${rejected}`);
-//   });

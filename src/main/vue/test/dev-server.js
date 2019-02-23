@@ -11,15 +11,25 @@ process.on("unhandledRejection", function(reason, p) {
 });
 
 const path = require("path");
-const resolve = file => path.resolve(__dirname, file);
+const resolvePath = file => path.resolve(__dirname, file);
 
 const express = require("express");
-const app = express();
+const expressThymeleaf = require("express-thymeleaf");
+const { TemplateEngine, StandardDialect } = require("thymeleaf");
+
+// Configure your application to use Thymeleaf via the express-thymeleaf module
+let app = express();
+let templateEngine = new TemplateEngine({
+  dialects: [new StandardDialect("th")]
+});
+app.engine("html", expressThymeleaf(templateEngine));
+app.set("view engine", "html");
+
 const port = 3000;
 
 // 静态资源
 const favicon = require("serve-favicon");
-const serve = path => express.static(resolve(path));
+const serve = path => express.static(resolvePath(path));
 
 const render = require("../dist/server");
 
@@ -41,14 +51,29 @@ app.get("*", (req, res) => {
 
   render
     .renderServer(context)
-    .then((resolve, reject) => {
-      if (reject) {
-        console.log("reject=>", reject);
-        res.send(reject);
+    .then((html, err) => {
+      if (err) {
+        console.log("err=>", err);
+        res.send(err);
         return;
       }
-      console.log("resolve");
-      res.send(resolve);
+      console.log("html");
+      // res.send(html);
+
+      // Render template from file
+      templateEngine
+        .processFile(resolvePath("../dist/index.html"), { content: html })
+        .then(renderedContent => {
+          // Do something with the result...
+          console.log("render index.html with thymeleafJS",renderedContent);
+          res.send(renderedContent);
+        })
+        .catch(reject => {
+          res.send(`<h1>${reject}</h1>`);
+        });
+
+      // lookup view file in /views
+      // res.render('index');
     })
     .catch(rejected => {
       console.log("rejected=>", rejected);
