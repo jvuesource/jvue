@@ -1,19 +1,15 @@
 <template>
   <b-container fluid>
-    <!--
-   <HeaderTime />
-   <Header />
-   <Body />
-   <h1 class="text-center">This is home</h1>
-   -->
+    <HeaderTime />
+    <Header />
+    <Body />
+    <h1 class="text-center">This is home</h1>
     <div v-for="post in posts" :key="post.postId">
       <h1>{{ post.postTitle }}</h1>
       <p v-html="post.postContent"></p>
     </div>
-    <!--
     <Footer />
     <FriendLink />
-    -->
   </b-container>
 </template>
 
@@ -23,20 +19,20 @@ import config from "../../jvue.config";
 import { setSessionStorage, getSessionStorageOrDefault } from "../util/storage";
 import { isEmptyOrUndefined } from "../util/string";
 // import { inBrowser } from "../util/dom";
-// import HeaderTime from "../components/themes/default/HeaderTime";
-// import Header from "../components/themes/default/Header";
-// import Body from "../components/themes/default/Body";
-// import Footer from "../components/themes/default/Footer";
-// import FriendLink from "../components/themes/default/FriendLink";
+import HeaderTime from "../components/themes/default/HeaderTime";
+import Header from "../components/themes/default/Header";
+import Body from "../components/themes/default/Body";
+import Footer from "../components/themes/default/Footer";
+import FriendLink from "../components/themes/default/FriendLink";
 
 export default {
   name: "About",
   components: {
-    // HeaderTime,
-    // Header,
-    // Body,
-    // Footer,
-    // FriendLink
+    HeaderTime,
+    Header,
+    Body,
+    Footer,
+    FriendLink
   },
   // 钩子函数
   mounted() {
@@ -51,6 +47,13 @@ export default {
       message: "jvue",
       siteConfig: null,
       posts: []
+      // //=========================================================================
+      // // serve 测试专用
+      // posts: [
+      //   { postId: 1, postTitle: "title", postContent: "express test post" },
+      //   { postId: 2, postTitle: "sdfdffsdfdrs", postContent: "fdsfdsff" }
+      // ]
+      // //==========================================================================
     };
   },
   watch: {
@@ -75,6 +78,12 @@ export default {
       console.log("this.posts", this.posts);
     } else {
       // 客户端获取数据
+      // //============================
+      // // serve 测试专用
+      // if (this.posts.length > 0) {
+      //   return;
+      // }
+      //=============================
       console.log("window.__INITIAL_STATE__=>", window.__INITIAL_STATE__);
       console.log("Home getSession from client");
       let dataObj = [];
