@@ -1,3 +1,5 @@
+const log = require("../src/util/logger");
+const logger = log.getLogger("webpack.base.config");
 const webpack = require("webpack");
 const config = require("../jvue.config");
 
@@ -7,7 +9,13 @@ const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 // 如果预先定义过环境变量，就将其赋值给`ASSET_PATH`变量，否则赋值为根目录
 const ASSET_PATH = process.env.ASSET_PATH || "/";
 
+logger.debug("config:" + JSON.stringify(config));
+logger.info(`ASSET_PATH=>${ASSET_PATH}`);
+
 const webpackConfig = {
+  // 阻止显示日志，只显示错误
+  // https://stackoverflow.com/questions/30756804/webpack-silence-output
+  stats: "errors-only",
   mode: process.env.NODE_ENV,
   output: {
     // see https://webpack.docschina.org/guides/public-path/
@@ -86,7 +94,7 @@ const webpackConfig = {
   ]
 };
 
-// export config
+// 导出配置
 const conf = {
   config,
   webpackConfig

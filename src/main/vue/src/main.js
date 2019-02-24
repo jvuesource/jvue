@@ -1,7 +1,9 @@
+import { getLogger } from "./util/logger";
+const logger = getLogger("main");
 import Vue from "vue";
 import App from "./App";
 import { createRouter } from "./router";
-import { useLib } from "./user-lib";
+import { useLib } from "./use-lib";
 
 /**
  * Expose a factory function that creates a fresh set of router,
@@ -9,12 +11,12 @@ import { useLib } from "./user-lib";
  * @param ssrContext
  * @returns {{app: Vue | CombinedVueInstance<V, object, object, object, Record<never, any>>, router: VueRouter}}
  */
-export const createApp = ssrContext =>
-  new Promise((resolve, reject) => {
-    console.log("enter app.js=> the main entry");
+export const createApp = ssrContext => {
+  return new Promise((resolve, reject) => {
+    logger.info("enter main entry");
 
     useLib().then(msg => {
-      console.log(msg);
+      logger.debug(msg);
 
       // create router instances
       const router = createRouter();
@@ -34,3 +36,4 @@ export const createApp = ssrContext =>
       return resolve({ app, router });
     });
   });
+};

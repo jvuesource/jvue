@@ -1,15 +1,8 @@
-import { createApp } from "./app";
-import config from "../jvue.config";
-
-// 设置渲染模式
-process.env.SSR_ENV = "c";
-config.ssrEnv = process.env.SSR_ENV;
+import { createApp } from "./main";
 
 createApp().then(resolve => {
   const app = resolve.app;
   const router = resolve.router;
-  console.log("app=>", app);
-  console.log("router=>", router);
 
   // wait until router has resolved all async before hooks
   // and async components...

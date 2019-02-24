@@ -1,12 +1,10 @@
-import { createApp } from "./app";
+import { createApp } from "./main";
 
 export default context => {
   return new Promise((resolve, reject) => {
     createApp().then(resolveInstance => {
       const app = resolveInstance.app;
       const router = resolveInstance.router;
-      console.log("app=>");
-      console.log("router=>");
 
       router.push(context.url);
 

@@ -46,14 +46,7 @@ export default {
     return {
       message: "jvue",
       siteConfig: null,
-      // posts: []
-      //=========================================================================
-      // serve 测试专用
-      posts: [
-        { postId: 1, postTitle: "title", postContent: "express test post" },
-        { postId: 2, postTitle: "sdfdffsdfdrs", postContent: "fdsfdsff" }
-      ]
-      //==========================================================================
+      posts: []
     };
   },
   watch: {
@@ -78,12 +71,6 @@ export default {
       console.log("this.posts", this.posts);
     } else {
       // 客户端获取数据
-      //============================
-      // serve 测试专用
-      if (this.posts.length > 0) {
-        return;
-      }
-      //=============================
       console.log("window.__INITIAL_STATE__=>", window.__INITIAL_STATE__);
       console.log("Home getSession from client");
       let dataObj = [];

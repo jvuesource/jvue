@@ -91,7 +91,11 @@
             <b-col>
               博客已稳定运行： 2年303天22时22分48秒 &nbsp;
               <!-- cnzz统计 -->
-              <span id="cnzz_stat_icon_4445524"></span>
+              <span id="cnzz_stat_icon_4445524">
+                <a href="https://www.cnzz.com/stat/website.php?web_id=4445524" target="_blank" title="站长统计">
+                  <img border="0" hspace="0" vspace="0" src="http://icon.cnzz.com/img/pic.gif">
+                </a>
+              </span>
             </b-col>
           </b-row>
         </div>

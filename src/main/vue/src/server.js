@@ -24,10 +24,6 @@ const createRenderer = (bundle, options) => {
     Object.assign(options, {
       // 不使用服务端生成html，自己处理
       template,
-      cache: require("lru-cache")({
-        max: 1000,
-        maxAge: 1000 * 60 * 15
-      }),
       // this is only needed when vue-server-renderer is npm-linked
       // path related to dist forder
       basedir: resolve("./"),

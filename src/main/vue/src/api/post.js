@@ -1,25 +1,45 @@
+import { getLogger } from "../util/logger";
+const logger = getLogger("api/post");
 import axios from "axios";
 
-// config base url
-// console.log("api process.env.NODE_ENV:", process.env.NODE_ENV);
-// const baseUrl = process.env.NODE_ENV === "production" ? "http://www.terwergreen.com/jvue/api/" : "http://127.0.0.1:8081/api/";
-const baseUrl = "http://www.terwergreen.com/jvue/api/";
-console.log("baseUrl:", baseUrl);
+/**
+ * 创建http请求对象
+ * @returns {AxiosInstance}
+ */
+const getHttp = () => {
+  logger.info("创建http请求对象");
+  logger.debug(`process.env.NODE_ENV=>${process.env.NODE_ENV}`);
+  // 配置api请求链接
+  const baseUrl =
+    process.env.NODE_ENV === "production"
+      ? "http://www.terwergreen.com/jvue/api/"
+      : "http://www.terwergreen.com/jvue/api/";
+  logger.debug(`baseUrl=>${baseUrl}`);
 
-// create http object
-const http = axios.create({
-  baseURL: baseUrl,
-  timeout: 10000
-});
+  return axios.create({
+    baseURL: baseUrl,
+    timeout: 10000
+  });
+};
 
 /**
- * Make a request for post list
- * @returns {*}
+ * 发生post请求
+ * @param url
+ * @returns {AxiosPromise<any>}
+ */
+const sendPost = url => {
+  const http = getHttp();
+  logger.info("url=>" + url);
+  return http.post(url);
+};
+
+/**
+ * 获取文章列表
+ * @returns {AxiosPromise<any>}
  */
 const getPostList = () => {
   const GET_POST_LIST = "blog/post/list";
-  console.log("GET_POST_LIST", GET_POST_LIST);
-  return http.post(GET_POST_LIST);
+  return sendPost(GET_POST_LIST);
 };
 
 export default {

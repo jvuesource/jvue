@@ -4,8 +4,6 @@ const merge = require("webpack-merge");
 const nodeExternals = require("webpack-node-externals");
 const VueSSRServerPlugin = require("vue-server-renderer/server-plugin");
 
-console.log("SsrServer build=>base.config:", base.config);
-
 const serverConfig = merge(base.webpackConfig, {
   // 将 entry 指向应用程序的 server entry 文件
   entry: "./src/entry-server.js",
