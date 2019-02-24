@@ -49,6 +49,7 @@ if (base.config.isClient) {
   logger.info("配置开发环境热加载服务器");
   clientConfig = merge(clientConfig, {
     devServer: {
+      stats: "errors-only",
       host: "0.0.0.0",
       port: 8888,
       hot: true,
