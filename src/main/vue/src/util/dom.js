@@ -1,1 +1,2 @@
-export const inBrowser = typeof window !== "undefined";
+var inBrowser = typeof window !== "undefined";
+exports.inBrowser = inBrowser;

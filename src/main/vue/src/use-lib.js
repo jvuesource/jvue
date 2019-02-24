@@ -1,10 +1,8 @@
 import { getLogger } from "./util/logger";
 const logger = getLogger("use-lib");
-import { inBrowser } from "./util/dom";
-import Vue from "vue";
 import config from "../jvue.config";
 
-logger.debug(`inBrowser=>${inBrowser}`);
+import Vue from "vue";
 
 // 引入通用组件
 // 组件引用
@@ -15,7 +13,7 @@ Vue.use(BootstrapVue);
 //记录日志，可以代替console.log
 logger.debug("config=>" + JSON.stringify(config));
 
-if (inBrowser) {
+if (config.inBrowser) {
   const uweb = require("vue-uweb");
   Vue.use(uweb.default, {
     siteId: "4445524",
@@ -33,7 +31,7 @@ export const useLib = () => {
   // 引入特定组件
   return new Promise((resolve, reject) => {
     // 浏览器环境专用组件
-    if (inBrowser) {
+    if (config.inBrowser) {
       // import Storage from 'vue-web-storage'
       const StoragePromise = import(/* webpackChunkName: "vue-web-storage" */ "vue-web-storage");
 

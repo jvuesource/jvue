@@ -1,5 +1,13 @@
-// the environment that will be considered when building the skin,
-// either `production` or `development`
+const log = require("./src/util/logger");
+const logger = log.getLogger("jvue.config");
+const inBrowser = require("./src/util/dom").inBrowser;
+
+var env = require("env-variable")({
+  NODE_ENV: process.env.NODE_ENV
+});
+logger.info("env=>" + JSON.stringify(env));
+
+// node环境`production`或者`development`
 const nodeEnv = process.env.NODE_ENV;
 const isProduction = nodeEnv === "production";
 // c: 客户端渲染
@@ -12,6 +20,7 @@ const isSsrServer = process.env.SSR_ENV === "ssrs";
 const isSsr = process.env.SSR_ENV === "ssrc" || process.env.SSR_ENV === "ssrs";
 
 module.exports = {
+  inBrowser,
   nodeEnv,
   isProduction,
   ssrEnv: ssrEnv,

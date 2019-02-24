@@ -38,6 +38,7 @@
     "@babel/runtime": "^7.3.1",
     "axios": "^0.18.0",
     "bootstrap-vue": "^2.0.0-rc.13",
+    "env-variable": "^0.0.5",
     "jsdom": "^13.2.0",
     "vue": "^2.6.6",
     "vue-router": "^3.0.2",
