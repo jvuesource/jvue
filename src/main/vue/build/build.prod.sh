@@ -113,6 +113,8 @@ rsync -av --progress node_modules/safer-buffer dist/node_modules --exclude=node_
 rsync -av node_modules/tough-cookie dist/node_modules --exclude=node_modules
 # tr46
 rsync -av node_modules/tr46 dist/node_modules --exclude=node_modules
+# vue-uweb
+rsync -av node_modules/vue-uweb dist/node_modules --exclude=node_modules
 # vue
 rsync -av --progress node_modules/vue dist/node_modules --exclude=node_modules
 # vue-router
