@@ -23,10 +23,10 @@
         </p>
       </b-media>
       <b-button href="#" variant="primary">查看全文</b-button>
-        <span class="article-ext-info">作者：Terwer</span>
-        <span class="article-ext-info" title="50000">点赞数：50000</span>
-        <span class="article-ext-info" title="1000">阅读数：1000</span>
-        <span class="article-ext-info" title="200">评论数：200</span>
+      <span class="article-ext-info">作者：Terwer</span>
+      <span class="article-ext-info" title="50000">点赞数：50000</span>
+      <span class="article-ext-info" title="1000">阅读数：1000</span>
+      <span class="article-ext-info" title="200">评论数：200</span>
     </b-card>
   </div>
 </template>
@@ -47,7 +47,7 @@ export default {
 图片带文字的文章
 */
 .pic-text-article {
-  .card-subtitle{
+  .card-subtitle {
     font-size: 14px;
   }
   .article-ext-info {

@@ -16,16 +16,17 @@ console.log("inBrowser=>", inBrowser);
  */
 export const useLib = () =>
   new Promise((resolve, reject) => {
-    // import Storage from 'vue-web-storage'
-    const StoragePromise = import(/* webpackChunkName: "vue-web-storage" */ "vue-web-storage");
-    // import uweb from 'vue-uweb'
-    const UWebPromise = import(/* webpackChunkName: "vue-uweb" */ "vue-uweb");
+    // 浏览器环境专用组件
+    if (inBrowser) {
+      // import Storage from 'vue-web-storage'
+      const StoragePromise = import(/* webpackChunkName: "vue-web-storage" */ "vue-web-storage");
+      // import uweb from 'vue-uweb'
+      const UWebPromise = import(/* webpackChunkName: "vue-uweb" */ "vue-uweb");
 
-    Promise.all([StoragePromise, UWebPromise])
-      .then(function(values) {
-        console.log(values);
-        // 浏览器环境专用组件
-        if (inBrowser) {
+      Promise.all([StoragePromise, UWebPromise])
+        .then(function(values) {
+          console.log(values);
+
           console.log("Register components inBrowser");
           // Storage
           const Storage = values[0];
@@ -44,12 +45,16 @@ export const useLib = () =>
             src: "http://s5.cnzz.com/stat.php?id=4445524&show=pic" // 图片样式
           });
           console.log("uweb register success");
-        }
 
-        // the end return success
-        return resolve("Register components OK");
-      })
-      .catch(rejected => {
-        console.error("Register components rejected=>", rejected);
-      });
+          // the end return success
+          return resolve("浏览器环境动态注册组件成功");
+        })
+        .catch(rejected => {
+          console.error("Register components rejected=>", rejected);
+          return reject(rejected);
+        });
+    } else {
+      // the end return success
+      return resolve("服务端环境，无动态组件");
+    }
   });
