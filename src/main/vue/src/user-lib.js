@@ -16,13 +16,12 @@ console.log("inBrowser=>", inBrowser);
  */
 export const useLib = () =>
   new Promise((resolve, reject) => {
+    // import Storage from 'vue-web-storage'
     const StoragePromise = import(/* webpackChunkName: "vue-web-storage" */ "vue-web-storage");
-    var promise1 = Promise.resolve(3);
-    var promise2 = 42;
-    var promise3 = new Promise(function(resolve, reject) {
-      setTimeout(resolve, 100, "foo");
-    });
-    Promise.all([StoragePromise, promise1, promise2, promise3])
+    // import uweb from 'vue-uweb'
+    const UWebPromise = import(/* webpackChunkName: "vue-uweb" */ "vue-uweb");
+
+    Promise.all([StoragePromise, UWebPromise])
       .then(function(values) {
         console.log(values);
         // 浏览器环境专用组件
@@ -36,6 +35,15 @@ export const useLib = () =>
             drivers: ["session", "local"] // default 'local'
           });
           console.log("Vue.$sessionStorage=>", Vue.$sessionStorage);
+
+          // uweb
+          const uweb = values[1];
+          Vue.use(uweb.default, {
+            siteId: "4445524",
+            // http://s11.cnzz.com/z_stat.php?id=SITEID&web_id=SITEID // 文字样式
+            src: "http://s5.cnzz.com/stat.php?id=4445524&show=pic" // 图片样式
+          });
+          console.log("uweb register success");
         }
 
         // the end return success

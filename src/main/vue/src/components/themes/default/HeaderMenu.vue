@@ -1,7 +1,7 @@
 <template>
   <b-row>
     <b-col>
-      <b-nav pills>
+      <b-nav>
         <b-nav-item
           v-for="item in menuList"
           :key="item.id"
