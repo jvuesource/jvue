@@ -35,6 +35,11 @@ let routes = [
     component: Register
   },
   {
+    path: "/s/",
+    name: "no-key-search",
+    component: Search
+  },
+  {
     path: "/s/:k",
     name: "search",
     component: Search

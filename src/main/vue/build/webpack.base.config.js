@@ -1,20 +1,21 @@
+const log = require("../src/util/logger");
+const logger = log.getLogger("webpack.base.config");
 const webpack = require("webpack");
-const merge = require("webpack-merge");
-const { VueLoaderPlugin } = require("vue-loader");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
-
 const config = require("../jvue.config");
+
+const { VueLoaderPlugin } = require("vue-loader");
+const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 
 // 如果预先定义过环境变量，就将其赋值给`ASSET_PATH`变量，否则赋值为根目录
 const ASSET_PATH = process.env.ASSET_PATH || "/";
 
-const inject = !config.isSsr;
-console.log("config.isSsr=>", config.isSsr);
-console.log("inject=>", inject);
+logger.debug("config:" + JSON.stringify(config));
+logger.info(`ASSET_PATH=>${ASSET_PATH}`);
 
-let webpackCnfig = {
+const webpackConfig = {
+  // 阻止显示日志，只显示错误
+  // https://stackoverflow.com/questions/30756804/webpack-silence-output
+  stats: "errors-only",
   mode: process.env.NODE_ENV,
   output: {
     // see https://webpack.docschina.org/guides/public-path/
@@ -49,18 +50,10 @@ let webpackCnfig = {
         }
       },
       {
-        test: /\.css$/,
+        test: /\.(css|scss)$/,
         exclude: [/node_modules/],
         use: [
-          config.isClient ? "vue-style-loader" : MiniCssExtractPlugin.loader,
-          "css-loader"
-        ]
-      },
-      {
-        test: /\.scss$/,
-        exclude: [/node_modules/],
-        use: [
-          config.isClient ? "vue-style-loader" : MiniCssExtractPlugin.loader,
+          config.isClient ? "vue-style-loader" : ExtractCssChunks.loader,
           "css-loader",
           "sass-loader"
         ]
@@ -88,70 +81,23 @@ let webpackCnfig = {
       "process.env.ASSET_PATH": JSON.stringify(ASSET_PATH)
     }),
     new VueLoaderPlugin(),
-    // html模板注入
-    new HtmlWebpackPlugin(
-      Object.assign(
-        {
-          template: "./public/index.ejs",
-          favicon: "./public/favicon.ico",
-          // inject为true会自动在html文件中添加js和css引用,
-          // 并且只对于Client和SsrClient生效，对SsrServer构建无效
-          inject: inject,
-          isSsr: config.isSsr,
-          base: ASSET_PATH
-        },
-        config.seo
-      )
-    )
+    new ExtractCssChunks({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: "css/[name].[hash].css",
+      // chunkFilename: "[id].css",
+      hot: true, // if you want HMR - we try to automatically inject hot reloading but if it's not working, add it to the config
+      orderWarning: true, // Disable to remove warnings about conflicting order between imports
+      reloadAll: true, // when desperation kicks in - this is a brute force HMR flag
+      cssModules: true // if you use cssModules, this can help.
+    })
   ]
 };
 
-// 重新修改webpack配置
-if (config.isClient) {
-  // 热加载
-  console.log("热加载");
-  webpackCnfig = merge(webpackCnfig, {
-    plugins: [new webpack.HotModuleReplacementPlugin()]
-  });
-} else {
-  // CSS剥离
-  console.log("CSS剥离");
-  webpackCnfig = merge(webpackCnfig, {
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: "css/[name].[hash:6].css"
-      })
-    ]
-  });
-}
-
-if (config.isProduction) {
-  // 压缩css
-  console.log("压缩css");
-  const cssAssetsPlugin = new OptimizeCSSAssetsPlugin({
-    assetNameRegExp: /\.css$/g,
-    cssProcessor: require("cssnano"),
-    cssProcessorPluginOptions: {
-      preset: [
-        "default",
-        {
-          discardComments: {
-            removeAll: false
-          }
-        }
-      ]
-    },
-    canPrint: true
-  });
-  webpackCnfig = merge(webpackCnfig, {
-    plugins: [cssAssetsPlugin]
-  });
-}
-
-// export config
+// 导出配置
 const conf = {
-  config: config,
-  webpackCnfig: webpackCnfig
+  config,
+  webpackConfig
 };
 
 module.exports = conf;

@@ -46,7 +46,7 @@ module.exports = {
     "max-len": [
       "error",
       {
-        code: 100,
+        code: 1000,
         ignoreComments: true,
         ignoreTrailingComments: true,
         ignoreUrls: true,
@@ -58,7 +58,7 @@ module.exports = {
     eqeqeq: ["error", "smart"],
 
     // force double quotes
-    quotes: ["error", "double"],
+    quotes: "off", //["error", "double"],
 
     "require-jsdoc": 1,
 

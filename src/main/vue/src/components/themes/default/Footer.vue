@@ -84,14 +84,38 @@
             <b-col xl="6">微信：15986685029（hiterwer）</b-col>
             <b-col cols="12" class="copyright">
               <br />
-              Copyright © 2011-2018 <a href="/" target="_blank">webname</a>
+              Copyright © 2011-{{ nowYear }}
+              <a v-bind:href="siteConfig.weburl" target="_blank">{{
+                siteConfig.webname
+              }}</a>
               <span class="next-line"><br /></span>
               All Rights Reserved
             </b-col>
-            <b-col>
-              博客已稳定运行： 2年303天22时22分48秒 &nbsp;
+            <b-col cols="12">
+              博客已稳定运行： 2年303天22时22分48秒
+            </b-col>
+            <b-col cols="12">
+              <a
+                href="http://www.miitbeian.gov.cn/"
+                rel="external nofollow"
+                target="_blank"
+                >{{ siteConfig.beianinfo }}</a
+              >
               <!-- cnzz统计 -->
-              <span id="cnzz_stat_icon_4445524"></span>
+              &nbsp;&nbsp;<span id="cnzz_stat_icon_4445524">
+                <a
+                  href="https://www.cnzz.com/stat/website.php?web_id=4445524"
+                  target="_blank"
+                  title="站长统计"
+                >
+                  <img
+                    border="0"
+                    hspace="0"
+                    vspace="0"
+                    src="http://icon.cnzz.com/img/pic.gif"
+                  />
+                </a>
+              </span>
             </b-col>
           </b-row>
         </div>
@@ -102,7 +126,15 @@
 
 <script>
 export default {
-  name: "Footer"
+  name: "Footer",
+  props: {
+    siteConfig: Object
+  },
+  data() {
+    return {
+      nowYear: new Date().getFullYear()
+    };
+  }
 };
 </script>
 
@@ -127,7 +159,6 @@ export default {
   margin-top: 20px;
 }
 .copyright {
-  margin-top: 15px;
 }
 .guanzhu {
   padding: 0;
