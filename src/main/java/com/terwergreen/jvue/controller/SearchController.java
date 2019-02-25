@@ -1,5 +1,7 @@
 package com.terwergreen.jvue.controller;
 
+import com.terwergreen.jvue.core.CommonService;
+import com.terwergreen.jvue.pojo.SiteConfig;
 import com.terwergreen.jvue.vendor.vue.VueRenderer;
 import com.terwergreen.jvue.vendor.vue.VueUtil;
 import org.apache.commons.logging.Log;
@@ -28,11 +30,16 @@ public class SearchController {
     @Autowired
     private VueRenderer vueRenderer;
 
+    @Autowired
+    private CommonService commonService;
+
     @RequestMapping(value = "/s/{k}", produces = "text/html;charset=UTF-8")
     public String search(Model model, HttpServletRequest request, @PathVariable String k) {
         // 设置路由上下文
         Map<String, Object> httpContext = new HashMap<>();
-        httpContext.put("url", "/s/" + k);
+        httpContext.put("url", request.getRequestURI());
+
+        // SiteConfig siteConfig= commonService.getSiteConfig();
 
         // 添加seo
         httpContext.put("title", "搜索");

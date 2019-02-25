@@ -33,7 +33,7 @@ import java.util.*;
 @Controller
 @RequestMapping("api/blog")
 public class PostApi {
-    private static final Logger logger = LoggerFactory.getLogger(PostApi.class);
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private static final Integer DEFAULT_HOT_NUM = 2;
 
     @Autowired

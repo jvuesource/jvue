@@ -176,6 +176,8 @@ rsync -am node_modules/stack-trace dist/node_modules --exclude=node_modules
 rsync -am node_modules/winston-transport dist/node_modules --exclude=node_modules
 rsync -am node_modules/fast-safe-stringify dist/node_modules --exclude=node_modules
 rsync -am node_modules/fecha dist/node_modules --exclude=node_modules
+# flatted
+rsync -am node_modules/flatted dist/node_modules --exclude=node_modules
 echo "copy ssr modules finish"
 
 # build server interface

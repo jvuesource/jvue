@@ -60,8 +60,15 @@ app.get("*", (req, res) => {
       // console.log("html=>", html);
 
       // Render template from file
+      console.log("context=>", context);
+      const httpContext = JSON.parse(context);
+      console.log("httpContext=>");
+      console.log(httpContext);
       templateEngine
-        .processFile(resolvePath("../dist/index.html"), { content: html })
+        .processFile(resolvePath("../dist/index.html"), {
+          httpContext: httpContext,
+          content: html
+        })
         .then(renderedContent => {
           // Do something with the result...
           // console.log("render index.html with thymeleafJS", renderedContent);

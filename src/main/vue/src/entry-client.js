@@ -42,7 +42,9 @@ createApp().then(resolve => {
           }
         })
       )
-        .then(() => {
+        .then(res => {
+          // 这里的结果会保存在SessionStorage
+          console.log("matchedComponents asyncData res=>", res);
           next();
         })
         .catch(next);

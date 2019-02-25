@@ -4,7 +4,7 @@ import config from "../jvue.config";
 import Vue from "vue";
 
 // 引入通用组件
-import BootstrapVue from "bootstrap-vue"
+import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 logger.debug("Register bootstrap-vue success");
 

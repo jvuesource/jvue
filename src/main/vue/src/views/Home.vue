@@ -66,7 +66,7 @@ export default {
       console.log("Home getSession from server");
       console.log("server getSessionCallback=>", data);
       let dataObj = [];
-      dataObj = eval(data);
+      dataObj = JSON.parse(data);
       this.posts = dataObj;
       console.log("this.posts", this.posts);
     } else {
@@ -76,7 +76,7 @@ export default {
       let dataObj = [];
       // 优先获取SessionStorage，因为这里是最新更新的数据，点击客户端路由就会更新
       const data = getSessionStorageOrDefault("getPostList", "[]");
-      dataObj = eval(data);
+      dataObj = JSON.parse(data);
       // 没有Session取window.__INITIAL_STATE__，这里只有出发服务端渲染才会更新
       if (
         dataObj.length === 0 &&
