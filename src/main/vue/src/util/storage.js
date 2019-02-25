@@ -3,7 +3,7 @@ const logger = getLogger("api/post");
 import Vue from "vue";
 import { isEmptyOrUndefined } from "./string";
 import config from "../../jvue.config";
-const {stringify} = require('flatted/cjs');
+const { stringify } = require("flatted/cjs");
 
 /**
  * 设置Session缓存
