@@ -3,7 +3,6 @@
     <HeaderTime />
     <Header />
     <Body :post-list="postListArray" />
-    <h1 class="text-center">This is home</h1>
     <Footer :site-config="siteConfigObj" />
     <FriendLink />
   </b-container>

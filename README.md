@@ -113,7 +113,7 @@ cd /home/soft/apache-tomcat-9.0.16/bin && ./catalina.sh run
 
 The whole project is a ``Java Spring Boot Maven`` structure,the ``src/main/vue`` is a complete ``Vue`` Project With ``webpack`` structure
 
-When build finish,all files merged into ``target/jvue.war``
+When build finish,all files merged into ``target/ROOT.war``
 
 Have fun and enjoy!
 

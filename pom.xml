@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.terwergreen</groupId>
     <artifactId>jvue</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.5</version>
     <packaging>war</packaging>
     <name>jvue</name>
     <description>Next light-weight,responsive project With Vue,webpack,Spring Boot and eclipse j2v8 Script engine for server-side-rendering</description>
@@ -165,7 +165,7 @@
 
     <build>
         <!-- War包名称 -->
-        <finalName>jvue</finalName>
+        <finalName>ROOT</finalName>
 
         <resources>
             <resource>
