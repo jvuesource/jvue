@@ -4,9 +4,8 @@
     <b-col sm="12" md="12" lg="12" xl="8">
       <b-row>
         <b-col sm="12" md="12" lg="12" xl="8">
-          <PostList />
+          <PostList :post-list="postList" />
         </b-col>
-
         <b-col sm="12" md="12" lg="12" xl="4">
           <Aside />
         </b-col>
@@ -21,6 +20,9 @@ import PostList from "./PostList.vue";
 import Aside from "./Aside.vue";
 export default {
   name: "Body",
+  props: {
+    postList: Array
+  },
   components: {
     PostList,
     Aside

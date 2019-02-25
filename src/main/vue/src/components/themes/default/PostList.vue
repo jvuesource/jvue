@@ -3,7 +3,9 @@
     <b-card
       class="pic-text-article"
       tag="article"
-      title="Title"
+      v-for="post in postList"
+      :key="post.postId"
+      :title="post.postFullTitle"
       sub-title="发布于5分钟前"
     >
       <b-media style="margin-bottom: 1rem;">
@@ -15,25 +17,40 @@
           height="100%;"
           alt="placeholder"
         />
-        <h5>PC图片文章</h5>
+        <h5>{{ post.postFullTitle }}</h5>
         <p class="card-text">
-          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-          scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-          vulputate at,
+          {{ post.postDesc }}
         </p>
       </b-media>
-      <b-button href="#" variant="primary">查看全文</b-button>
+      <b-button
+        :href="
+          post.postSlug === ''
+            ? 'post/' + post.postId + '.html'
+            : 'post/' + post.postSlug + '.html'
+        "
+        variant="primary"
+        >查看全文</b-button
+      >
       <span class="article-ext-info">作者：Terwer</span>
-      <span class="article-ext-info" title="50000">点赞数：50000</span>
-      <span class="article-ext-info" title="1000">阅读数：1000</span>
-      <span class="article-ext-info" title="200">评论数：200</span>
+      <span class="article-ext-info" title="50000"
+        >点赞数：{{ post.praiseCount }}</span
+      >
+      <span class="article-ext-info" title="1000"
+        >阅读数：{{ post.viewCount }}</span
+      >
+      <span class="article-ext-info" title="200"
+        >评论数：{{ post.commentCount }}</span
+      >
     </b-card>
   </div>
 </template>
 
 <script>
 export default {
-  name: "PostList"
+  name: "PostList",
+  props: {
+    postList: Array
+  }
 };
 </script>
 

@@ -35,6 +35,7 @@ export default context => {
             console.log(
               "matchedComponents asyncData set res to window.__INITIAL_STATE__"
             );
+            console.log(res);
             context.state = res;
             resolve(app);
           })

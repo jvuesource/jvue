@@ -21,9 +21,9 @@ const setSessionStorage = (key, value) => {
  * @param key key
  * @returns {*}
  */
-const getSessionStorage = key => {
-  return getSessionStorageOrDefault(key, "");
-};
+// const getSessionStorage = key => {
+//   return getSessionStorageOrDefault(key, "");
+// };
 
 /**
  * 获取Session缓存带默认值
@@ -59,26 +59,17 @@ const getSession = (key, val) => {
   } else {
     // 客户端获取数据
     // 优先获取SessionStorage，因为这里是最新更新的数据，点击客户端路由就会更新
-    data = getSessionStorageOrDefault(key, "");
+    data = getSessionStorageOrDefault(key, val);
     logger.debug("get data from sessionStorage");
     // 没有Session取window.__INITIAL_STATE__，这里只有出发服务端渲染才会更新
     if (data.length === 0 && !isEmptyOrUndefined(window.__INITIAL_STATE__)) {
       logger.debug("get data from window.__INITIAL_STATE__");
-      const initData = window.__INITIAL_STATE__[0];
-      data = stringify(initData.data);
+      const initDataMap = window.__INITIAL_STATE__[0];
+      data = stringify(initDataMap[key]);
     }
   }
   logger.debug("data=>" + data);
   return data;
 };
 
-export {
-  // 即将废弃
-  setSessionStorage,
-  // 即将废弃
-  getSessionStorage,
-  // 即将废弃
-  getSessionStorageOrDefault,
-  setSession,
-  getSession
-};
+export { setSession, getSession };

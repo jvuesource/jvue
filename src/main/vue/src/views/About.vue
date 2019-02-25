@@ -8,7 +8,11 @@
         <div class="text-left">
           <div class="visit">
             谢谢您，您是第
-            <img src="http://www.cutercounter.com/hit.php?id=gvvnqcod&nd=6&style=47" border="0" alt="访客数"/>
+            <img
+              src="http://www.cutercounter.com/hit.php?id=gvvnqcod&nd=6&style=47"
+              border="0"
+              alt="访客数"
+            />
             位访客。
           </div>
           <br />
@@ -47,13 +51,13 @@
 <script>
 import { getLogger } from "../util/logger";
 const logger = getLogger("about");
+const { parse, stringify } = require("flatted/cjs");
+import { setSession, getSession } from "../util/storage";
 import HeaderTime from "../components/themes/default/HeaderTime";
 import Header from "../components/themes/default/Header";
 import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 import siteConfigApi from "../api/site-config";
-const { parse, stringify } = require("flatted/cjs");
-import { setSession, getSession } from "../util/storage";
 
 export default {
   name: "Home",
@@ -82,11 +86,11 @@ export default {
       Promise.all([getSiteConfigPromise])
         .then(function(values) {
           logger.debug(stringify(values));
-          let asyncDataMap = new Map();
+          let asyncDataMap = {};
           const siteConfig = values[0].data;
           if (siteConfig.status === 1) {
             const siteConfigString = stringify(siteConfig.data);
-            asyncDataMap.set("siteConfig", siteConfigString);
+            asyncDataMap["siteConfig"] = siteConfigString;
             setSession("siteConfig", siteConfigString);
           }
           resolve(asyncDataMap);
@@ -101,7 +105,7 @@ export default {
 </script>
 
 <style>
-  .visit{
-    font-size: 24px;
-  }
+.visit {
+  font-size: 24px;
+}
 </style>
