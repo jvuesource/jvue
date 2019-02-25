@@ -13,10 +13,10 @@ import { useLib } from "./use-lib";
  */
 export const createApp = ssrContext => {
   return new Promise((resolve, reject) => {
-    logger.info("enter main entry");
-
     useLib().then(msg => {
-      logger.debug(msg);
+      logger.info(msg);
+
+      logger.info("createApp instance");
 
       // create router instances
       const router = createRouter();

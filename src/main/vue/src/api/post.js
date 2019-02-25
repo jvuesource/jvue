@@ -14,7 +14,7 @@ const getHttp = () => {
     process.env.NODE_ENV === "production"
       ? "http://www.terwergreen.com/jvue/api/"
       : "http://www.terwergreen.com/jvue/api/";
-  logger.debug(`baseUrl=>${baseUrl}`);
+  logger.info(`baseUrl=>${baseUrl}`);
 
   return axios.create({
     baseURL: baseUrl,
