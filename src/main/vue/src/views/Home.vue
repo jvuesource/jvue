@@ -6,7 +6,7 @@
     <h1 class="text-center">This is home</h1>
     <div v-for="post in posts" :key="post.postId">
       <h1>{{ post.postTitle }}</h1>
-      <p v-html="post.postContent"></p>
+      <div v-html="post.postDesc"></div>
     </div>
     <Footer />
     <FriendLink />

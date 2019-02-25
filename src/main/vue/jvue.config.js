@@ -3,7 +3,8 @@ const logger = log.getLogger("jvue.config");
 const inBrowser = require("./src/util/dom").inBrowser;
 
 var env = require("env-variable")({
-  NODE_ENV: process.env.NODE_ENV
+  NODE_ENV: process.env.NODE_ENV,
+  TEST_ENV: "test"
 });
 logger.info("env=>" + JSON.stringify(env));
 
@@ -23,7 +24,7 @@ module.exports = {
   inBrowser,
   nodeEnv,
   isProduction,
-  ssrEnv: ssrEnv,
+  ssrEnv,
   isClient,
   isSsrClient,
   isSsrServer,

@@ -1,6 +1,7 @@
 import { getLogger } from "./util/logger";
 const logger = getLogger("use-lib");
 import config from "../jvue.config";
+var env = require("env-variable")();
 
 import Vue from "vue";
 
@@ -12,6 +13,8 @@ Vue.use(BootstrapVue);
 
 //记录日志，可以代替console.log
 logger.debug("config=>" + JSON.stringify(config));
+
+logger.info("env=>" + JSON.stringify(env));
 
 if (config.inBrowser) {
   const uweb = require("vue-uweb");
