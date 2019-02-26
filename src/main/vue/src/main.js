@@ -1,39 +1,10 @@
-import { getLogger } from "./util/logger";
-const logger = getLogger("main");
 import Vue from "vue";
-import App from "./App";
-import { createRouter } from "./router";
-import { useLib } from "./use-lib";
+import App from "./App.vue";
+import router from "./router";
 
-/**
- * Expose a factory function that creates a fresh set of router,
- * app instances on each call (which is called for each SSR request)
- * @param ssrContext
- * @returns {{app: Vue | CombinedVueInstance<V, object, object, object, Record<never, any>>, router: VueRouter}}
- */
-export const createApp = ssrContext => {
-  return new Promise((resolve, reject) => {
-    useLib().then(msg => {
-      logger.info(msg);
+Vue.config.productionTip = false;
 
-      logger.info("createApp instance");
-
-      // create router instances
-      const router = createRouter();
-
-      // create the app instance.
-      // here we inject the router and store to all child components,
-      // making them available everywhere as `this.$router`.
-      const app = new Vue({
-        router,
-        ssrContext,
-        render: h => h(App)
-      });
-
-      // expose the app, the router
-      // note we are not mounting the app here, since bootstrapping will be
-      // different depending on whether we are in a browser or on the server.
-      return resolve({ app, router });
-    });
-  });
-};
+new Vue({
+  router,
+  render: h => h(App)
+}).$mount("#app");

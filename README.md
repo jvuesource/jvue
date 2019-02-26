@@ -21,14 +21,7 @@
 # Introduction
 ## jvue
 Next light-weight,responsive project
-With Vue,webpack,Spring Boot and eclipse j2v8 Script engine for server-side-rendering
-
-## Note !!!
-
-> j2v8 is not support promise on windows right now,
-> so ``linux`` is prefered for production,windows support is on the way ...     
-> !!! update 2019-02-16 !!!         
-Fixed by compile windows version of nodeJS to 7.4.0
+With Vue,Vue CLI 3,webpack,Spring Boot and eclipse j2v8 Script engine for server-side-rendering
 
 # Build setup
 
@@ -76,7 +69,7 @@ mvn install:install-file -Dfile=libs/j2v8_linux_x86_64-4.8.3.jar
 
 ### windows
 ```bash
-mvn install:install-file -Dfile=libs/j2v8_win32_x86_64-4.8.3.jar
+mvn install:install-file -Dfile=libs/j2v8_win32_x86_64-4.8.3.jar -Dpackaging=jar
 ```
 
 # Run CLI

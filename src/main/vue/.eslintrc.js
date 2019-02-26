@@ -1,32 +1,12 @@
-const config = require("./jvue.config");
-
 module.exports = {
   root: true,
   env: {
     node: true
   },
-  extends: [
-    "google",
-    "eslint:recommended",
-    "plugin:vue/essential",
-    "@vue/prettier"
-  ],
-  // required to lint *.vue files
-  plugins: ["html"],
-  settings: {
-    "import/resolver": {
-      webpack: {
-        config: "build/webpack.base.conf.js"
-      }
-    }
-  },
-  // add your custom rules here
+  extends: ["plugin:vue/essential", "@vue/prettier"],
   rules: {
-    "no-console": "off",
-
-    // allow debugger; instruction during development
-    "no-debugger": config.isProduction ? 2 : 0,
-
+    "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
+    "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-unused-vars": [
       2,
       {
@@ -34,38 +14,9 @@ module.exports = {
         args: "none"
       }
     ],
-    semi: ["error", "always"],
-
-    // don"t require comma in the last line of an object/dictionary declaration
-    "comma-dangle": ["error", "never"],
-
-    // force space after and before curly braces in object/dict declarations
-    "object-curly-spacing": ["error", "always"],
-
-    // ignore max-len for comments
-    "max-len": [
-      "error",
-      {
-        code: 1000,
-        ignoreComments: true,
-        ignoreTrailingComments: true,
-        ignoreUrls: true,
-        ignoreStrings: true
-      }
-    ],
-
-    // force "===" in comparisons when ambiguous
-    eqeqeq: ["error", "smart"],
-
-    // force double quotes
-    quotes: "off", //["error", "double"],
-
-    "require-jsdoc": 1,
-
-    "new-cap": ["error", { capIsNew: false }]
+    semi: ["error", "always"]
   },
   parserOptions: {
-    sourceType: "module",
     parser: "babel-eslint"
   }
 };
