@@ -12,8 +12,7 @@ module.exports = {
    * 但是 Vue CLI 在一些其他地方也需要用到这个值，所以请始终使用 publicPath
    * 而不要直接修改 webpack 的 output.publicPath。
    */
-  // serve模式设置为非/之后，html-webpack-plugin的BASE_URL等变量会无法解析
-  // publicPath: "/jvue",
+  publicPath: process.env.VUE_APP_PUBLIC_PATH,
   /**
    * 是否在开发环境下通过 eslint-loader 在每次保存时 lint 代码。
    * https://cli.vuejs.org/zh/config/#lintonsave
