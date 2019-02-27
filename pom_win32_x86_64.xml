@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.terwergreen</groupId>
     <artifactId>jvue</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
     <packaging>war</packaging>
     <name>jvue</name>
     <description>Next light-weight,responsive project With Vue,webpack,Spring Boot and eclipse j2v8 Script engine for server-side-rendering</description>
@@ -91,12 +91,6 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.2.5</version>
-        </dependency>
-        <!-- 简化Getter Setter -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.4</version>
         </dependency>
         <!-- Markdown -->
         <dependency>
