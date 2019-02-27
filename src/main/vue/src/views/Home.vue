@@ -11,9 +11,7 @@
  * 然而在 2.5+ 的版本中，得益于核心算法的升级，异步组件现在可以在应用中的任何地方使用。
  * https://ssr.vuejs.org/zh/guide/routing.html#代码分割
  */
-// import HelloWorld from "../components/HelloWorld";
-const HelloWorld = () =>
-  import(/* webpackChunkName: "HelloWorld" */ "../components/HelloWorld");
+import HelloWorld from "../components/HelloWorld";
 
 /**
  * 由于没有动态更新，所有的生命周期钩子函数中，

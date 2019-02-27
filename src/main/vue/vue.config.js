@@ -22,6 +22,12 @@ module.exports = {
    * https://cli.vuejs.org/zh/config/#lintonsave
    */
   lintOnSave: true,
+
+  // 指定生成的 index.html 的输出路径 (相对于 outputDir)。
+  // 也可以是一个绝对路径
+  // 默认index.html
+  indexPath: "index.ssr.html",
+
   // https://cli.vuejs.org/zh/config/#configurewebpack
   configureWebpack: config => {
     console.log("\nprocess.env.SSR_ENV=>", process.env.SSR_ENV);

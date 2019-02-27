@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -33,6 +34,7 @@ public class AboutController {
     private CommonService commonService;
 
     @RequestMapping(value = "/about", produces = "text/html;charset=UTF-8")
+    @ResponseBody
     public String about(Model model, HttpServletRequest request) {
         // 设置路由上下文
         Map<String, Object> httpContext = new HashMap<>();
@@ -48,10 +50,15 @@ public class AboutController {
         httpContext.put("meta", metaMap);
         // 设置到model上下文
         logger.info("httpContext=>" + httpContext);
-        model.addAttribute("httpContext", httpContext);
+        // model.addAttribute("httpContext", httpContext);
 
         // 返回服务端渲染后的结果
+        // 直接返回html
         Map<String, Object> resultMap = vueRenderer.renderContent(httpContext, request);
-        return VueUtil.resultMapToPage(model, resultMap);
+        return VueUtil.resultMapToString(resultMap);
+
+        // 读取html模板，利用模板引擎渲染
+        // model.addAttribute("httpContext", httpContext);
+        // return VueUtil.resultMapToPage(model, resultMap);
     }
 }

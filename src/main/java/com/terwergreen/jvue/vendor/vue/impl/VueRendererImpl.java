@@ -189,6 +189,11 @@ public class VueRendererImpl implements VueRenderer {
             v8.getLocker().release();
             logger.info("executeV8CLI 释放v8线程锁...");
         } catch (Exception e) {
+            // handle error
+            String err = "<h1>" + e.getMessage() + "</h1>";
+            htmlMap.put("status", 0);
+            htmlMap.put("data", err);
+            htmlMap.put("msg", "{}");
             logger.error("Vue executeV8CLI error:", e);
         }
         logger.info("entry-server.js执行完成");

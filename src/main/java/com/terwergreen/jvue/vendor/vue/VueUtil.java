@@ -143,7 +143,7 @@ public class VueUtil {
      * @param resultMap 结果Map
      * @return 结果html
      */
-    private static String resultMapToString(Map<String, Object> resultMap) {
+    public static String resultMapToString(Map<String, Object> resultMap) {
         Integer renderStatus = (Integer) resultMap.getOrDefault("renderStatus", 0);
         StringBuilder sb = new StringBuilder();
         String content = (String) resultMap.getOrDefault("content", "");
