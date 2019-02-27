@@ -18,7 +18,7 @@ const getHttp = () => {
   // 配置api请求链接
   const baseUrl =
     process.env.NODE_ENV === "production"
-      ? "http://www.terwergreen.com/jvue/api/"
+      ? "http://www.terwergreen.com/api/"
       : "http://localhost:8081/api/";
   logger.info(`baseUrl=>${baseUrl}`);
 
