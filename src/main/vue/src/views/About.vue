@@ -3,3 +3,12 @@
     <h1>This is an about page</h1>
   </div>
 </template>
+
+<style lang="scss">
+.about {
+  color: #42b983;
+  h1 {
+    color: red;
+  }
+}
+</style>
