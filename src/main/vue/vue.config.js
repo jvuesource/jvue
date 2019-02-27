@@ -32,6 +32,7 @@ module.exports = {
       // inject为true会自动在html文件中添加js和css引用
       args[0].inject = true;
       args[0].template = "./public/index.html";
+      args[0].favicon = "./public/favicon.ico";
       args[0].title = pkg.name.concat(" v").concat(pkg.version);
       args[0].debug = process.env.VUE_APP_DEBUG;
       return args;
