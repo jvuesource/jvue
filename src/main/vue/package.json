@@ -5,18 +5,23 @@
   "scripts": {
     "clean": "rimraf dist",
     "serve": "vue-cli-service serve --mode development src/entry-client.js",
-    "dev-build-entry-client": "vue-cli-service build --mode development src/entry-client.js",
-    "build-entry-client": "vue-cli-service build",
+    "dev-build-entry-client": "cross-env SSR_ENV=client  vue-cli-service build --mode development src/entry-client.js",
+    "build-entry-client": "cross-env SSR_ENV=client vue-cli-service build src/entry-client.js",
     "dev": "webpack-dev-server --help",
-    "build": "vue-cli-service build --mode development",
+    "dev-build-entry-server": "cross-env SSR_ENV=server vue-cli-service build --mode development src/entry-server.js",
+    "build-entry-server": "cross-env SSR_ENV=server vue-cli-service build src/entry-server.js",
+    "dev-build": "yarn dev-build-entry-client && yarn dev-build-entry-server",
+    "build": "yarn build-entry-client && yarn build-entry-server",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
     "vue": "^2.6.7",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "vue-server-renderer": "^2.6.7"
   },
   "devDependencies": {
+    "@babel/core": "^7.3.4",
     "@vue/cli-plugin-babel": "^3.4.0",
     "@vue/cli-plugin-eslint": "^3.4.0",
     "@vue/cli-plugin-unit-jest": "^3.4.0",
@@ -26,13 +31,15 @@
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "^10.0.1",
     "babel-jest": "^23.6.0",
+    "cross-env": "^5.2.0",
     "eslint": "^5.8.0",
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^8.1.0",
     "node-sass": "^4.9.0",
     "rimraf": "^2.6.3",
-    "sass-loader": "^7.1.0",
-    "vue-template-compiler": "^2.5.21"
+    "sass-loader": "7.1.0",
+    "vue-template-compiler": "^2.5.21",
+    "webpack": "^4.29.5"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
