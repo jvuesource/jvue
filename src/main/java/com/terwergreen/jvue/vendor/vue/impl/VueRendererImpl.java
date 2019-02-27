@@ -29,7 +29,6 @@ public class VueRendererImpl implements VueRenderer {
     private static final Integer SHOW_SERVER_ERROR = 1;
     // 最长等待时间
     private static final Integer MAX_WAIT_SECONDS = 2;
-    private V8Context v8Context;
     private V8 v8;
     private NodeJS nodeJS;
 
@@ -39,7 +38,7 @@ public class VueRendererImpl implements VueRenderer {
     private Map<String, Object> htmlMap = new HashMap<>();
 
     private void initNodeJS() {
-        v8Context = new V8ContextImpl();
+        V8Context v8Context = new V8ContextImpl();
         // 初始化v8和nodejs
         logger.info("初始化v8和nodejs...");
         v8 = v8Context.getV8();
@@ -49,8 +48,7 @@ public class VueRendererImpl implements VueRenderer {
 
         // 全局设置渲染模式并且处理promise异常
         v8.executeScript("" +
-                "" +
-                "process.env.SSR_ENV = 'ssrs';" +
+                "process.env.SSR_ENV = 'server';" +
                 "process.env.VUE_ENV = 'server';" +
                 "process.env.NODE_ENV = 'production';" +
                 "process.on('unhandledRejection', function(reason, p) {" +
@@ -191,6 +189,11 @@ public class VueRendererImpl implements VueRenderer {
             v8.getLocker().release();
             logger.info("executeV8CLI 释放v8线程锁...");
         } catch (Exception e) {
+            // handle error
+            String err = "<h1>" + e.getMessage() + "</h1>";
+            htmlMap.put("status", 0);
+            htmlMap.put("data", err);
+            htmlMap.put("msg", "{}");
             logger.error("Vue executeV8CLI error:", e);
         }
         logger.info("entry-server.js执行完成");

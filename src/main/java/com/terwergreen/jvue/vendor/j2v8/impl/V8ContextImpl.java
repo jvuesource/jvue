@@ -8,7 +8,6 @@ import com.terwergreen.jvue.vendor.j2v8.Console;
 import com.terwergreen.jvue.vendor.j2v8.V8Context;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,6 +36,7 @@ public class V8ContextImpl implements V8Context {
     }
 
     private void registerConsole() {
+        logger.info("registerConsole");
         Console console = new Console();
         V8Object v8Console = new V8Object(v8);
         v8Console.registerJavaMethod(console, "log", "log", new Class<?>[]{String.class});
