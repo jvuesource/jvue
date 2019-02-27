@@ -123,8 +123,8 @@ module.exports = {
       args[0].debug = process.env.VUE_APP_DEBUG;
       args[0].minify = {
         //压缩HTML文件
-        removeComments: false, //移除HTML中的注释
-        collapseWhitespace: true //删除空白符与换行符
+        removeComments: false, //保留HTML中的注释
+        collapseWhitespace: process.env.NODE_ENV === "production" //删除空白符与换行符
       };
       return args;
     });
