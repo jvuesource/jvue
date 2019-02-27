@@ -20,5 +20,10 @@ yarn ncp node_modules/vue-server-renderer dist/node_modules/vue-server-renderer
 REM vue
 yarn ncp node_modules/vue dist/node_modules/vue
 
-# vue-router
+REM vue-router
 yarn ncp node_modules/vue-router dist/node_modules/vue-router
+
+REM axios
+yarn ncp node_modules/axios dist/node_modules/axios
+yarn ncp node_modules/is-buffer dist/node_modules/is-buffer
+yarn ncp node_modules/follow-redirects dist/node_modules/follow-redirects
