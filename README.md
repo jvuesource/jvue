@@ -88,7 +88,7 @@ cd /home/soft/apache-tomcat-9.0.16/bin && ./catalina.sh run
 
 # Structure
 
-The whole project is a ``Java Spring Boot Maven`` structure,the ``src/main/vue`` is a complete ``Vue`` Project With ``webpack`` structure
+The whole project is a ``Java Spring Boot Maven`` structure,the ``src/main/vue`` is a complete ``Vue`` Project With ``Vue CLI 3`` structure
 
 When build finish,all files merged into ``target/ROOT.war``
 

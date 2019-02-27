@@ -19,7 +19,19 @@ yarn ncp node_modules/serialize-javascript dist/node_modules/serialize-javascrip
 yarn ncp node_modules/vue-server-renderer dist/node_modules/vue-server-renderer
 
 # vue
- yarn ncp node_modules/vue dist/node_modules/vue
+yarn ncp node_modules/vue dist/node_modules/vue
 
 # vue-router
 yarn ncp node_modules/vue-router dist/node_modules/vue-router
+
+# axios
+yarn ncp node_modules/axios dist/node_modules/axios
+yarn ncp node_modules/is-buffer dist/node_modules/is-buffer
+yarn ncp node_modules/follow-redirects dist/node_modules/follow-redirects
+
+# bootstrap-vue
+yarn ncp node_modules/bootstrap-vue dist/node_modules/bootstrap-vue
+rm -rf dist/node_modules/bootstrap-vue/node_modules
+
+# circular-json
+yarn ncp node_modules/circular-json dist/node_modules/circular-json
