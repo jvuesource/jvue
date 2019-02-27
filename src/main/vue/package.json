@@ -13,7 +13,8 @@
     "dev-build": "yarn dev-build-entry-client && yarn dev-build-entry-server && yarn babel --presets=@babel/preset-env -o dist/server.js src/server.js",
     "build": "yarn build-entry-client && yarn build-entry-server && yarn babel -o dist/server.js --presets=@babel/preset-env,minify src/server.js",
     "dev": "webpack-dev-server --help",
-    "dev-start": "node tests/dev-server.js",
+    "dev-start": "cross-env NODE_ENV=development node tests/dev-server.js",
+    "prod-start": "cross-env NODE_ENV=production node tests/dev-server.js",
     "start": "node tests/v8-server.js",
     "test:unit": "vue-cli-service test:unit"
   },

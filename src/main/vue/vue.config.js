@@ -25,8 +25,8 @@ module.exports = {
 
   // 指定生成的 index.html 的输出路径 (相对于 outputDir)。
   // 也可以是一个绝对路径
-  // 默认index.html
-  indexPath: "index.ssr.html",
+  // 默认index.html，修改之后，只有生产环境才会生效
+  // indexPath: "index.html",
 
   // https://cli.vuejs.org/zh/config/#configurewebpack
   configureWebpack: config => {
@@ -119,6 +119,7 @@ module.exports = {
       args[0].template = "./public/index.html";
       args[0].favicon = "./public/favicon.ico";
       args[0].title = pkg.name.concat(" v").concat(pkg.version);
+      args[0].ssrEnv = process.env.SSR_ENV;
       args[0].debug = process.env.VUE_APP_DEBUG;
       return args;
     });

@@ -8,7 +8,6 @@
 // 设置渲染模式
 process.env.SSR_ENV = "server";
 process.env.VUE_ENV = "server";
-process.env.NODE_ENV = "development";
 process.on("unhandledRejection", function(reason, p) {
   console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
 });
@@ -38,7 +37,7 @@ const serve = path => express.static(resolvePath(path));
 //   }
 //   next();
 // });
-// app.use("/", serve("../dist", false));
+app.use("/", serve("../dist", false));
 app.use("/js", serve("../dist/js", false));
 app.use("/css", serve("../dist/css", false));
 app.use("/img", serve("../dist/img", false));
