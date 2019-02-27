@@ -29,24 +29,8 @@ With Vue,Vue CLI 3,webpack,Spring Boot and eclipse j2v8 Script engine for server
 
 ```bash
 cd src/main/vue && npm i -g yarn && yarn
+./build/build.prod.sh
 ```
-
- To get started:
-
-    yarn run dev
-
-  To build & start for production:
-
-    yarn build
-    yarn start
-
-  To build for ssr only
-
-    yarn build:ssr
-
-  To test:
-
-    yarn test
 
 ## Go back to root forder
 
