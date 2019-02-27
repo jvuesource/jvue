@@ -1,5 +1,7 @@
 <template>
   <div class="home">
+    <h1>{{ siteConfigObj }}</h1>
+    <h1>{{ postListArray }}</h1>
     <img alt="Vue logo" src="../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js App" />
   </div>
@@ -14,7 +16,11 @@ const logger = getLogger("views/home");
  * https://ssr.vuejs.org/zh/guide/routing.html#代码分割
  */
 import HelloWorld from "../components/HelloWorld";
+import siteConfigApi from "../api/site-config";
 import postApi from "../api/post";
+import { setSession, getSession } from "../util/storage";
+const CircularJSON = require("circular-json");
+
 /**
  * 由于没有动态更新，所有的生命周期钩子函数中，
  * 只有 beforeCreate 和 created 会在服务器端渲染 (SSR) 过程中被调用。
@@ -24,16 +30,54 @@ export default {
   components: {
     HelloWorld
   },
+  data() {
+    return {
+      siteConfigObj: {},
+      postListArray: []
+    };
+  },
   created: function() {
-    postApi
-      .getPostList()
-      .then((resolve, reject) => {
-        logger.debug(resolve);
-      })
-      .catch(rejected => {
-        logger.error(rejected);
-      });
     logger.info("Home created,set asyncData");
+    const siteConfigData = getSession("siteConfig", "{}");
+    logger.debug("siteConfigData=>" + siteConfigData);
+    this.siteConfigObj = CircularJSON.parse(siteConfigData);
+    const postListData = getSession("postList", "[]");
+    logger.debug("postListData=>" + postListData);
+    this.postListArray = CircularJSON.parse(postListData);
+  },
+  asyncData() {
+    // 触发action后，会返回Promise
+    logger.info("Home page=> asyncData");
+    return new Promise((resolve, reject) => {
+      const getSiteConfigPromise = siteConfigApi.getSiteConfig();
+      const getPostListPromise = postApi.getPostList();
+      Promise.all([getSiteConfigPromise, getPostListPromise])
+        .then(function(values) {
+          logger.debug(CircularJSON.stringify(values));
+          let asyncDataMap = {};
+          const siteConfig = values[0].data;
+          const postList = values[1].data;
+          if (siteConfig.status === 1) {
+            const siteConfigString = CircularJSON.stringify(siteConfig.data);
+            asyncDataMap["siteConfig"] = siteConfigString;
+            setSession("siteConfig", siteConfigString);
+          }
+          if (postList.code === 0) {
+            const postListString = CircularJSON.stringify(postList.data);
+            asyncDataMap["postList"] = postListString;
+            setSession("postList", postListString);
+          }
+          resolve(asyncDataMap);
+        })
+        .catch(reason => {
+          logger.error("asyncData request error,reason=>" + reason);
+          reject(reason);
+        });
+    });
   }
 };
 </script>
+
+<style scoped>
+@import "../components/themes/default/style.css";
+</style>

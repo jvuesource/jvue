@@ -6,11 +6,11 @@
  *2019/2/27 15:01
  **/
 // 设置渲染模式
-process.env.SSR_ENV = "server";
 process.env.VUE_ENV = "server";
 process.on("unhandledRejection", function(reason, p) {
   console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
 });
+console.log("process=>", process);
 
 const path = require("path");
 const resolvePath = file => path.resolve(__dirname, file);

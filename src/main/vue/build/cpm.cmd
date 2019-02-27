@@ -27,3 +27,10 @@ REM axios
 yarn ncp node_modules/axios dist/node_modules/axios
 yarn ncp node_modules/is-buffer dist/node_modules/is-buffer
 yarn ncp node_modules/follow-redirects dist/node_modules/follow-redirects
+
+REM bootstrap-vue
+yarn ncp node_modules/bootstrap-vue dist/node_modules/bootstrap-vue
+del "dist/node_modules/bootstrap-vue/node_modules" /s /q
+
+REM circular-json
+yarn ncp node_modules/circular-json dist/node_modules/circular-json
