@@ -8,18 +8,16 @@
       tag="article"
     >
       <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
+        这里是图片热门文章
       </p>
-      <b-button href="#" variant="primary">Go somewhere</b-button>
+      <b-button href="#" variant="primary">立即查看</b-button>
     </b-card>
-    <b-card title="文字热门文章" sub-title="Card subtitle">
+    <b-card title="文字热门文章" sub-title="文章副标题">
       <p class="card-text">
-        Some quick example text to build on the <em>card title</em> and make up
-        the bulk of the card's content.
+        这里是文字热门文章
       </p>
-      <a href="#" class="card-link">Card link</a>
-      <b-link href="#" class="card-link">Another link</b-link>
+      <a href="#" class="card-link">链接1</a>
+      <b-link href="#" class="card-link">链接2</b-link>
     </b-card>
   </div>
 </template>
