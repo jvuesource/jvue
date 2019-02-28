@@ -729,8 +729,8 @@
 
 "@nuxt/opencollective@^0.2.1":
   version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@nuxt/opencollective/-/opencollective-0.2.1.tgz#8290f1220072637e575c3935733719a78ad2d056"
-  integrity sha512-NP2VSUKRFGutbhWeKgIU0MnY4fmpH8UWxxwTJNPurCQ5BeWhOxp+Gp5ltO39P/Et/J2GYGb3+ALNqZJ+5cGBBw==
+  resolved "http://registry.npm.taobao.org/@nuxt/opencollective/download/@nuxt/opencollective-0.2.1.tgz#8290f1220072637e575c3935733719a78ad2d056"
+  integrity sha1-gpDxIgByY35XXDk1czcZp4rS0FY=
   dependencies:
     chalk "^2.4.1"
     consola "^2.3.0"
@@ -1389,9 +1389,9 @@ acorn@^5.0.0, acorn@^5.5.0, acorn@^5.5.3, acorn@^5.6.2, acorn@^5.7.3:
   integrity sha1-Z6ojG/iBKXS4UjWpZ3Hra9B+onk=
 
 acorn@^6.0.1, acorn@^6.0.2, acorn@^6.0.5, acorn@^6.0.7, acorn@^6.1.0:
-  version "6.1.0"
-  resolved "http://registry.npm.taobao.org/acorn/download/acorn-6.1.0.tgz#b0a3be31752c97a0f7013c5f4903b71a05db6818"
-  integrity sha1-sKO+MXUsl6D3ATxfSQO3GgXbaBg=
+  version "6.1.1"
+  resolved "http://registry.npm.taobao.org/acorn/download/acorn-6.1.1.tgz#7d25ae05bb8ad1f9b699108e1094ecd7884adc1f"
+  integrity sha1-fSWuBbuK0fm2mRCOEJTs14hK3B8=
 
 address@^1.0.3:
   version "1.0.3"
@@ -1713,7 +1713,7 @@ aws4@^1.8.0:
 
 axios@^0.18.0:
   version "0.18.0"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
+  resolved "http://registry.npm.taobao.org/axios/download/axios-0.18.0.tgz#32d53e4851efdc0a11993b6cd000789d70c05102"
   integrity sha1-MtU+SFHv3AoRmTts0AB4nXDAUQI=
   dependencies:
     follow-redirects "^1.3.0"
@@ -2254,8 +2254,8 @@ boolbase@^1.0.0, boolbase@~1.0.0:
 
 bootstrap-vue@^2.0.0-rc.13:
   version "2.0.0-rc.13"
-  resolved "https://registry.yarnpkg.com/bootstrap-vue/-/bootstrap-vue-2.0.0-rc.13.tgz#b1ae0047e78d759039f3d1343bc34f7d8cdeab8a"
-  integrity sha512-XKCHeb3vzdbw3tD7jMOBOA0YuK+1PZo2s5+Vl0uglZKKPIN0V9DljnUv+10xJve6yr88WX0sFWInYObRGFiC/Q==
+  resolved "http://registry.npm.taobao.org/bootstrap-vue/download/bootstrap-vue-2.0.0-rc.13.tgz#b1ae0047e78d759039f3d1343bc34f7d8cdeab8a"
+  integrity sha1-sa4AR+eNdZA589E0O8NPfYzeq4o=
   dependencies:
     "@nuxt/opencollective" "^0.2.1"
     bootstrap "^4.3.1"
@@ -2264,8 +2264,8 @@ bootstrap-vue@^2.0.0-rc.13:
 
 bootstrap@^4.3.1:
   version "4.3.1"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
-  integrity sha512-rXqOmH1VilAt2DyPzluTi2blhk17bO7ef+zLLPlWvG494pDxcM234pJ8wTc/6R40UWizAIIMgxjvxZg5kmsbag==
+  resolved "http://registry.npm.taobao.org/bootstrap/download/bootstrap-4.3.1.tgz#280ca8f610504d99d7b6b4bfc4b68cec601704ac"
+  integrity sha1-KAyo9hBQTZnXtrS/xLaM7GAXBKw=
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -2686,8 +2686,8 @@ circular-json@^0.3.1:
 
 circular-json@^0.5.9:
   version "0.5.9"
-  resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.5.9.tgz#932763ae88f4f7dead7a0d09c8a51a4743a53b1d"
-  integrity sha512-4ivwqHpIFJZBuhN3g/pEcdbnGUywkBblloGbkglyloVjjR3uT6tieI89MVOfbP2tHX5sgb01FuLgAOzebNlJNQ==
+  resolved "http://registry.npm.taobao.org/circular-json/download/circular-json-0.5.9.tgz#932763ae88f4f7dead7a0d09c8a51a4743a53b1d"
+  integrity sha1-kydjroj0996teg0JyKUaR0OlOx0=
 
 class-utils@^0.3.5:
   version "0.3.6"
@@ -2923,8 +2923,8 @@ connect-history-api-fallback@^1.3.0:
 
 consola@^2.3.0:
   version "2.5.6"
-  resolved "https://registry.yarnpkg.com/consola/-/consola-2.5.6.tgz#5ce14dbaf6f5b589c8a258ef80ed97b752fa57d5"
-  integrity sha512-DN0j6ewiNWkT09G3ZoyyzN3pSYrjxWcx49+mHu+oDI5dvW5vzmyuzYsqGS79+yQserH9ymJQbGzeqUejfssr8w==
+  resolved "http://registry.npm.taobao.org/consola/download/consola-2.5.6.tgz#5ce14dbaf6f5b589c8a258ef80ed97b752fa57d5"
+  integrity sha1-XOFNuvb1tYnIoljvgO2Xt1L6V9U=
 
 console-browserify@^1.1.0:
   version "1.1.0"
@@ -7180,8 +7180,8 @@ node-cache@^4.1.1:
 
 node-fetch@^2.3.0:
   version "2.3.0"
-  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.3.0.tgz#1a1d940bbfb916a1d3e0219f037e89e71f8c5fa5"
-  integrity sha512-MOd8pV3fxENbryESLgVIeaGKrdl+uaYhCSSVkjeOb/31/njTpcis5aWfdqgNlHIrKOLRbMnfPINPOML2CIFeXA==
+  resolved "http://registry.npm.taobao.org/node-fetch/download/node-fetch-2.3.0.tgz#1a1d940bbfb916a1d3e0219f037e89e71f8c5fa5"
+  integrity sha1-Gh2UC7+5FqHT4CGfA36J5x+MX6U=
 
 node-forge@0.7.5:
   version "0.7.5"
@@ -7935,8 +7935,8 @@ pn@^1.1.0:
 
 popper.js@^1.14.7:
   version "1.14.7"
-  resolved "https://registry.yarnpkg.com/popper.js/-/popper.js-1.14.7.tgz#e31ec06cfac6a97a53280c3e55e4e0c860e7738e"
-  integrity sha512-4q1hNvoUre/8srWsH7hnoSJ5xVmIL4qgz+s4qf2TnJIMyZFUFMGH+9vE7mXynAlHSZ/NdTmmow86muD0myUkVQ==
+  resolved "http://registry.npm.taobao.org/popper.js/download/popper.js-1.14.7.tgz#e31ec06cfac6a97a53280c3e55e4e0c860e7738e"
+  integrity sha1-4x7AbPrGqXpTKAw+VeTgyGDnc44=
 
 portfinder@^1.0.20, portfinder@^1.0.9:
   version "1.0.20"
@@ -10261,8 +10261,8 @@ vue-eslint-parser@^5.0.0:
 
 vue-functional-data-merge@^2.0.7:
   version "2.0.7"
-  resolved "https://registry.yarnpkg.com/vue-functional-data-merge/-/vue-functional-data-merge-2.0.7.tgz#bdee655181eacdcb1f96ce95a4cc14e75313d1da"
-  integrity sha512-pvLc+H+x2prwBj/uSEIITyxjz/7ZUVVK8uYbrYMmhDvMXnzh9OvQvVEwcOSBQjsubd4Eq41/CSJaWzy4hemMNQ==
+  resolved "http://registry.npm.taobao.org/vue-functional-data-merge/download/vue-functional-data-merge-2.0.7.tgz#bdee655181eacdcb1f96ce95a4cc14e75313d1da"
+  integrity sha1-ve5lUYHqzcsfls6VpMwU51MT0do=
 
 vue-hot-reload-api@^2.3.0:
   version "2.3.3"
@@ -10338,15 +10338,15 @@ vue-template-es2015-compiler@^1.6.0, vue-template-es2015-compiler@^1.9.0:
 
 vue-uweb@^0.2.1:
   version "0.2.1"
-  resolved "https://registry.yarnpkg.com/vue-uweb/-/vue-uweb-0.2.1.tgz#22ef0867b6b5efc312a4b90b2dfccb8f5c2c5b70"
-  integrity sha512-KQ89r9tzPR11Lghx8o4Q+gWjY8JvHxYaD7ESqNx3tjEJKhny8qsscoTWEfeEpQbEcJlbuQZaL9x+/oHZJDG9lQ==
+  resolved "http://registry.npm.taobao.org/vue-uweb/download/vue-uweb-0.2.1.tgz#22ef0867b6b5efc312a4b90b2dfccb8f5c2c5b70"
+  integrity sha1-Iu8IZ7a178MSpLkLLfzLj1wsW3A=
   dependencies:
     deep-equal "^1.0.1"
 
 vue-web-storage@^4.0.0:
   version "4.0.0"
-  resolved "https://registry.yarnpkg.com/vue-web-storage/-/vue-web-storage-4.0.0.tgz#d7e6ea612efde129901ba2baaef128d04d80e5ff"
-  integrity sha512-SMeOuX6pa6gTx2p889Cj62XgAL0m+Sq0umA64VwtM8Sdgc+kAwY6JzSxPdOk5KLqxuflOSEr4174sZqzZ6otCw==
+  resolved "http://registry.npm.taobao.org/vue-web-storage/download/vue-web-storage-4.0.0.tgz#d7e6ea612efde129901ba2baaef128d04d80e5ff"
+  integrity sha1-1+bqYS794SmQG6K6rvEo0E2A5f8=
 
 vue@^2.6.7:
   version "2.6.7"
