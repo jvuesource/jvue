@@ -40,7 +40,7 @@
         >阅读数：{{ post.viewCount }}</span
       >
       <span class="article-ext-info" :title="post.commentCount"
-        >评论数3：{{ post.commentCount }}</span
+        >评论数：{{ post.commentCount }}</span
       >
     </b-card>
   </div>
