@@ -48,11 +48,14 @@ export default {
   created: function() {
     logger.info("Home created,set asyncData");
     const siteConfigData = getSession("siteConfig", "{}");
-    logger.debug("siteConfigData=>" + siteConfigData);
     this.siteConfigObj = CircularJSON.parse(siteConfigData);
+    logger.debug("siteConfigData=>");
+    logger.debug(this.siteConfigObj);
+
     const postListData = getSession("postList", "[]");
-    logger.debug("postListData=>" + postListData);
     this.postListArray = CircularJSON.parse(postListData);
+    logger.debug("postListData=>");
+    logger.debug(this.postListArray);
   },
   asyncData() {
     // 触发action后，会返回Promise

@@ -65,18 +65,25 @@ const getSession = (key, val) => {
     // 优先获取SessionStorage，因为这里是最新更新的数据，点击客户端路由就会更新
     data = getSessionStorageOrDefault(key, val);
     logger.debug("get data from sessionStorage");
-    // 没有Session取window.__INITIAL_STATE__，这里只有出发服务端渲染才会更新
-    if (data.length === 0 && !isEmptyOrUndefined(window.__INITIAL_STATE__)) {
+    logger.debug(data);
+    // 没有Session取window.__INITIAL_STATE__，这里只有触发服务端渲染才会更新
+    logger.debug("storage window.__INITIAL_STATE__=>");
+    logger.debug(window.__INITIAL_STATE__);
+    // 如果Session空，就从window.__INITIAL_STATE__获取值
+    const isEmpty = data === "[]" || data === "{}";
+    if (isEmpty && !isEmptyOrUndefined(window.__INITIAL_STATE__)) {
       logger.debug("get data from window.__INITIAL_STATE__");
       const initDataMap = window.__INITIAL_STATE__[0];
-      data = CircularJSON.stringify(initDataMap[key]);
+      const curStr = CircularJSON.parse(initDataMap[key]);
+      console.log(typeof curStr);
+      data = CircularJSON.stringify(curStr);
     }
   } else {
     // 服务端获取Session
     data = global.getSessionCallback(key);
     logger.debug("getSession from server");
   }
-  logger.debug("data=>" + data);
+  logger.debug("getSession data success");
   return data;
 };
 

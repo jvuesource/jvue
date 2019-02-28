@@ -7,7 +7,6 @@ mkdir "dist/node_modules"
 
 REM core-js
 yarn ncp node_modules/core-js dist/node_modules/core-js
-del -rf dist/node_modules/core-js/modules /q
 
 REM vue-server-renderer
 yarn ncp node_modules/he dist/node_modules/he
@@ -37,3 +36,6 @@ del "dist/node_modules/bootstrap-vue/src" /q
 
 REM circular-json
 yarn ncp node_modules/circular-json dist/node_modules/circular-json
+
+REM source-map
+yarn ncp node_modules/source-map dist/node_modules/source-map
