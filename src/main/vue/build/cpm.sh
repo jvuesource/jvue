@@ -17,6 +17,7 @@ yarn ncp node_modules/lodash.templatesettings dist/node_modules/lodash.templates
 yarn ncp node_modules/resolve dist/node_modules/resolve
 yarn ncp node_modules/serialize-javascript dist/node_modules/serialize-javascript
 yarn ncp node_modules/vue-server-renderer dist/node_modules/vue-server-renderer
+rm -rf dist/node_modules/vue-server-renderer/node_modules
 
 # vue
 yarn ncp node_modules/vue dist/node_modules/vue
