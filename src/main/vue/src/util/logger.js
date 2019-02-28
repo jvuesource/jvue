@@ -6,11 +6,8 @@
  * 19-2-27 下午11:22
  **/
 global.loggerName = "default";
-const isDebugEnabled =
-  process.env.NODE_ENV === "development" &&
-  process.env.VUE_APP_DEBUG === "true";
-const isInfoEnabled =
-  process.env.NODE_ENV === "development" && process.env.VUE_APP_INFO === "true";
+const isDebugEnabled = process.env.VUE_APP_DEBUG === "true";
+const isInfoEnabled = process.env.VUE_APP_INFO === "true";
 const isErrorEnabled = process.env.VUE_APP_ERROR === "true";
 console.log(
   "isDebugEnabled,isInfoEnabled,isErrorEnabled=>",
