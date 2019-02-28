@@ -24,7 +24,7 @@ export default {
         {
           id: 1,
           name: "首页",
-          link: "/home"
+          link: "/"
         },
         {
           id: 2,

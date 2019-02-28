@@ -1,16 +1,10 @@
 <template>
   <b-container fluid>
     <HeaderTime />
-    <!--<Header />-->
-    <!--<Body :post-list="postListArray" />-->
-    <!--<Footer :site-config="siteConfigObj" />-->
-    <!--<FriendLink />-->
-    <div class="home">
-      <h1>{{ siteConfigObj }}</h1>
-      <h1>{{ postListArray }}</h1>
-      <img alt="Vue logo" src="../assets/logo.png" />
-      <HelloWorld msg="Welcome to Your Vue.js App" />
-    </div>
+    <Header />
+    <Body :post-list="postListArray" />
+    <Footer :site-config="siteConfigObj" />
+    <FriendLink />
   </b-container>
 </template>
 
@@ -22,9 +16,8 @@ const logger = getLogger("views/home");
  * 然而在 2.5+ 的版本中，得益于核心算法的升级，异步组件现在可以在应用中的任何地方使用。
  * https://ssr.vuejs.org/zh/guide/routing.html#代码分割
  */
-import HelloWorld from "../components/HelloWorld";
 import HeaderTime from "../components/themes/default/HeaderTime";
-import Header from "../components/themes/default/Header.js.";
+import Header from "../components/themes/default/Header";
 import Body from "../components/themes/default/Body";
 import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
@@ -44,8 +37,7 @@ export default {
     Header,
     Body,
     Footer,
-    FriendLink,
-    HelloWorld
+    FriendLink
   },
   data() {
     return {
