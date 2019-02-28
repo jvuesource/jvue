@@ -8,6 +8,7 @@ mkdir -p dist/node_modules
 
 # core-js
 yarn ncp node_modules/core-js dist/node_modules/core-js
+rm -rf dist/node_modules/core-js/modules
 
 # vue-server-renderer
 yarn ncp node_modules/he dist/node_modules/he
@@ -33,6 +34,7 @@ yarn ncp node_modules/follow-redirects dist/node_modules/follow-redirects
 # bootstrap-vue
 yarn ncp node_modules/bootstrap-vue dist/node_modules/bootstrap-vue
 rm -rf dist/node_modules/bootstrap-vue/node_modules
+rm -rf dist/node_modules/bootstrap-vue/src
 
 # circular-json
 yarn ncp node_modules/circular-json dist/node_modules/circular-json
