@@ -1,10 +1,17 @@
 <template>
-  <div class="home">
-    <h1>{{ siteConfigObj }}</h1>
-    <h1>{{ postListArray }}</h1>
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <b-container fluid>
+    <HeaderTime />
+    <!--<Header />-->
+    <!--<Body :post-list="postListArray" />-->
+    <!--<Footer :site-config="siteConfigObj" />-->
+    <!--<FriendLink />-->
+    <div class="home">
+      <h1>{{ siteConfigObj }}</h1>
+      <h1>{{ postListArray }}</h1>
+      <img alt="Vue logo" src="../assets/logo.png" />
+      <HelloWorld msg="Welcome to Your Vue.js App" />
+    </div>
+  </b-container>
 </template>
 
 <script>
@@ -16,6 +23,11 @@ const logger = getLogger("views/home");
  * https://ssr.vuejs.org/zh/guide/routing.html#代码分割
  */
 import HelloWorld from "../components/HelloWorld";
+import HeaderTime from "../components/themes/default/HeaderTime";
+import Header from "../components/themes/default/Header.js.";
+import Body from "../components/themes/default/Body";
+import Footer from "../components/themes/default/Footer";
+import FriendLink from "../components/themes/default/FriendLink";
 import siteConfigApi from "../api/site-config";
 import postApi from "../api/post";
 import { setSession, getSession } from "../util/storage";
@@ -28,6 +40,11 @@ const CircularJSON = require("circular-json");
 export default {
   name: "home",
   components: {
+    HeaderTime,
+    Header,
+    Body,
+    Footer,
+    FriendLink,
     HelloWorld
   },
   data() {
