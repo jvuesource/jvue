@@ -1,12 +1,15 @@
 <template>
   <div id="aside">
-    <b-card
-      title="图片热门文章"
-      img-src="https://picsum.photos/600/300/?image=25"
-      img-alt="Image"
-      img-center
-      tag="article"
-    >
+    <b-card title="图片热门文章" tag="article">
+      <b-media style="margin-bottom: 1rem;">
+        <b-img
+          blank
+          blank-color="#ccc"
+          title="图片热门文章"
+          alt="图片热门文章"
+          style="width: 100%;height:200px;"
+        />
+      </b-media>
       <p class="card-text">
         这里是图片热门文章
       </p>

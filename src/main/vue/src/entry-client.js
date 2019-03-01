@@ -57,7 +57,10 @@ createApp().then(resolve => {
           logger.debug("matchedComponents asyncData res=>", res);
           next();
         })
-        .catch(next);
+        .catch(rejected => {
+          alert(rejected);
+          next();
+        });
     });
   });
 

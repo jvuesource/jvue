@@ -13,7 +13,6 @@
           v-if="post.thumbnails.length > 0"
           slot="aside"
           :src="post.thumbnails[0]"
-          blank-color="#ccc"
           width="200"
           height="100"
           :title="post.postFullTitle === '' ? '无标题' : post.postFullTitle"
@@ -62,8 +61,8 @@ export default {
   margin: 10px 0;
 }
 /**
-图片带文字的文章
-*/
+  图片带文字的文章
+  */
 .pic-text-article {
   .card-subtitle {
     font-size: 14px;
