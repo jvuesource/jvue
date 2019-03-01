@@ -5,19 +5,19 @@
       tag="article"
       v-for="post in postList"
       :key="post.postId"
-      :title="post.postFullTitle"
+      :title="post.postFullTitle === '' ? '无标题' : post.postFullTitle"
       sub-title="发布于5分钟前"
     >
       <b-media style="margin-bottom: 1rem;">
         <b-img
+          v-if="post.thumbnails.length > 0"
           slot="aside"
-          src="https://picsum.photos/600/300/?image=25"
-          blank-color="#ccc"
-          width="200px;"
-          height="100%;"
-          alt="placeholder"
+          :src="post.thumbnails[0]"
+          width="200"
+          height="100"
+          :title="post.postFullTitle === '' ? '无标题' : post.postFullTitle"
+          :alt="post.postFullTitle === '' ? '无标题' : post.postFullTitle"
         />
-        <h5>{{ post.postFullTitle }}</h5>
         <p class="card-text">
           {{ post.postDesc }}
         </p>
@@ -32,13 +32,13 @@
         >查看全文</b-button
       >
       <span class="article-ext-info">作者：Terwer</span>
-      <span class="article-ext-info" title="50000"
+      <span class="article-ext-info" :title="post.praiseCount"
         >点赞数：{{ post.praiseCount }}</span
       >
-      <span class="article-ext-info" title="1000"
+      <span class="article-ext-info" :title="post.viewCount"
         >阅读数：{{ post.viewCount }}</span
       >
-      <span class="article-ext-info" title="200"
+      <span class="article-ext-info" :title="post.commentCount"
         >评论数：{{ post.commentCount }}</span
       >
     </b-card>
@@ -61,8 +61,8 @@ export default {
   margin: 10px 0;
 }
 /**
-    图片带文字的文章
-    */
+  图片带文字的文章
+  */
 .pic-text-article {
   .card-subtitle {
     font-size: 14px;
