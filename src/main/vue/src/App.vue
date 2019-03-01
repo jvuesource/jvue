@@ -5,8 +5,23 @@
 </template>
 
 <script>
+import { getLogger } from "./util/logger";
+const logger = getLogger("App");
+import { inBrowser } from "./util/dom";
+
 export default {
-  name: "App"
+  name: "App",
+  // 钩子函数
+  mounted() {
+    if (inBrowser) {
+      window.onresize = () => {
+        return (() => {
+          window.screenWidth = document.body.clientWidth;
+          logger.info("resize  window.screenWidth to " + window.screenWidth);
+        })();
+      };
+    }
+  }
 };
 </script>
 

@@ -15,20 +15,9 @@
                 />
               </div>
             </a>
-            <a
-              v-if="isMobile"
-              @click="showPhoneMenu"
-              href="javascript:void(0);"
-              class="phone-nav-trigger float-right"
-              ><span class="phone-nav-icon"></span
-            ></a>
           </div>
         </b-col>
-        <b-col
-          v-if="!isMobile || showHeadNav"
-          sm="10"
-          class="justify-content-center align-self-center"
-        >
+        <b-col sm="10" class="justify-content-center align-self-center">
           <HeaderMenu />
         </b-col>
         <!-- 搜索框 -->
@@ -58,7 +47,6 @@
   </b-row>
 </template>
 <script>
-import { inBrowser } from "../../../util/dom";
 import HeaderMenu from "./HeaderMenu";
 export default {
   name: "Header",
@@ -73,28 +61,7 @@ export default {
       }
     }
   },
-  // 钩子函数
-  mounted() {
-    const that = this;
-    console.log("init screenWidth:" + that.screenWidth);
-    // 屏幕适配
-    that.fitScreen();
-    window.onresize = () => {
-      return (() => {
-        if (inBrowser) {
-          window.screenWidth = document.body.clientWidth;
-          that.screenWidth = window.screenWidth;
-        }
-      })();
-    };
-  },
   watch: {
-    screenWidth() {
-      const that = this;
-      console.log("screenWidth:" + that.screenWidth);
-      // 屏幕适配
-      that.fitScreen();
-    },
     s() {
       const that = this;
       that.searchLink = "/s/" + that.s;
@@ -104,24 +71,8 @@ export default {
   data() {
     return {
       s: "",
-      searchLink: "/s/",
-      isMobile: false,
-      screenWidth: inBrowser ? document.body.clientWidth : 0, // 屏幕尺寸
-      showHeadNav: false
+      searchLink: "/s/"
     };
-  },
-  methods: {
-    fitScreen() {
-      const that = this;
-      if (inBrowser) {
-        // 手机才展开菜单
-        that.isMobile = that.screenWidth < 768;
-        console.log("isMobile:" + that.isMobile);
-      }
-    },
-    showPhoneMenu() {
-      this.showHeadNav = !this.showHeadNav;
-    }
   }
 };
 </script>

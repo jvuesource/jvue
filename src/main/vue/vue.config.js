@@ -44,11 +44,11 @@ module.exports = {
         // 以便可以在之后正确注入异步 chunk。
         // 这也为你的 应用程序/vendor 代码提供了更好的缓存。
         //webpack4的用法：https://github.com/webpack/webpack/issues/6357
-        config.optimization = {
-          splitChunks: {
-            chunks: "all"
-          }
-        };
+        // config.optimization = {
+        //   splitChunks: {
+        //     chunks: "all"
+        //   }
+        // };
 
         // 此插件在输出目录中
         // 生成 `vue-ssr-client-manifest.json`。
@@ -94,6 +94,9 @@ module.exports = {
       default: {
         // serve模式
         console.log("serve模式");
+
+        // config.resolve.symlinks(true);
+        config.devServer = {};
 
         // 两种配置都可以
         config.entry = "./src/entry-client.js";
