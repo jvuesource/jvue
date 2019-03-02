@@ -22,6 +22,10 @@ if (inBrowser) {
   // 持续时间，默认10秒
   Vue.use(Toaster, { timeout: 2000 });
   logger.debug("Register Toaster success");
+} else {
+  // 服务端专用
+  // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+  require("url-search-params-polyfill");
 }
 
 /**

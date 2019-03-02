@@ -57,7 +57,8 @@ export default context => {
             resolve(app);
           })
           .catch(rejected => {
-            logger.error("asyncData rejected=>", rejected);
+            logger.error("asyncData rejected=>");
+            console.error(rejected);
           });
       }, reject);
     });
