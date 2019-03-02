@@ -1,5 +1,5 @@
 <template>
-  <div id="postList">
+  <div id="postList" v-if="postList.length > 0">
     <b-card
       class="pic-text-article"
       tag="article"
@@ -61,8 +61,8 @@ export default {
   margin: 10px 0;
 }
 /**
-  图片带文字的文章
-  */
+    图片带文字的文章
+    */
 .pic-text-article {
   .card-subtitle {
     font-size: 14px;

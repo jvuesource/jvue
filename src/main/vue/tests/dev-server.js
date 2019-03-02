@@ -11,6 +11,8 @@ process.on("unhandledRejection", function(reason, p) {
   console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
 });
 
+const CircularJSON = require("circular-json");
+
 const path = require("path");
 const resolvePath = file => path.resolve(__dirname, file);
 
@@ -51,7 +53,7 @@ app.get("*", (req, res) => {
       description: "description"
     }
   };
-  const context = JSON.stringify(Object.assign({ url: req.url }, seo));
+  const context = CircularJSON.stringify(Object.assign({ url: req.url }, seo));
 
   // 这里无需传入一个应用程序，因为在执行 bundle 时已经自动创建过。
   // 现在我们的服务器与应用程序已经解耦！
@@ -85,7 +87,7 @@ global.setSessionCallback = (key, value) => {
 };
 
 global.getSessionCallback = key => {
-  const value = JSON.stringify("[]");
+  const value = CircularJSON.stringify([]);
   console.log("getSessionCallback key=>", key);
   console.log("getSessionCallback value=>", value);
   return value;

@@ -13,6 +13,8 @@ process.on("unhandledRejection", function(reason, p) {
   console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
 });
 
+const CircularJSON = require("circular-json");
+
 const render = require("../dist/server");
 
 // get context
@@ -23,7 +25,7 @@ const seo = {
     description: "description"
   }
 };
-const context = JSON.stringify(Object.assign({ url: "/" }, seo));
+const context = CircularJSON.stringify(Object.assign({ url: "/" }, seo));
 
 // deal with callback
 global.renderServerCallback = (err, html) => {
@@ -41,7 +43,7 @@ global.setSessionCallback = (key, value) => {
 };
 
 global.getSessionCallback = key => {
-  const value = JSON.stringify("[]");
+  const value = CircularJSON.stringify([]);
   console.log("getSessionCallback key=>", key);
   console.log("getSessionCallback value=>", value);
   return value;

@@ -49,12 +49,14 @@ export default {
     logger.info("Home created,set asyncData");
     const siteConfigData = getSession("siteConfig", "{}");
     this.siteConfigObj = CircularJSON.parse(siteConfigData);
-    logger.debug("siteConfigData=>");
+    logger.debug("this.siteConfigObj=>");
+    logger.debug(typeof this.siteConfigObj);
     logger.debug(this.siteConfigObj);
 
     const postListData = getSession("postList", "[]");
     this.postListArray = CircularJSON.parse(postListData);
-    logger.debug("postListData=>");
+    logger.debug("this.postListArray=>");
+    logger.debug(typeof this.postListArray);
     logger.debug(this.postListArray);
   },
   asyncData() {

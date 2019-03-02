@@ -15,9 +15,14 @@ import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 logger.debug("Register bootstrap-vue success");
 
-import Toaster from "v-toaster";
-// optional set default imeout, the default is 10000 (10 seconds).
-Vue.use(Toaster, { timeout: 5000 });
+// 浏览器专用
+if (inBrowser) {
+  const Toaster = require("v-toaster");
+  // console.log("Toaster=>", Toaster);
+  // 持续时间，默认10秒
+  Vue.use(Toaster, { timeout: 1000 });
+  logger.debug("Register Toaster success");
+}
 
 /**
  * 动态引用依赖库
