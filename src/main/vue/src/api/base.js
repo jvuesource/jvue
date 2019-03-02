@@ -7,6 +7,7 @@
  **/
 import { getLogger } from "../util/logger";
 const logger = getLogger("api/post");
+const CircularJSON = require("circular-json");
 import axios from "axios";
 /**
  * 创建http请求对象
@@ -33,8 +34,16 @@ const getHttp = () => {
  * @param url
  * @returns {AxiosPromise<any>}
  */
-export const sendPost = url => {
+
+/**
+ * 发送post请求
+ * @param url 链接
+ * @param params 参数
+ * @returns {AxiosPromise<any>}
+ */
+export const sendPost = (url, params) => {
   const http = getHttp();
   logger.info("url=>" + url);
-  return http.post(url);
+  logger.info("params=>" + CircularJSON.stringify(params));
+  return http.post(url, params);
 };

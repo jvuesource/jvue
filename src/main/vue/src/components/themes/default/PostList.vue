@@ -48,8 +48,8 @@
 </template>
 
 <script>
-import { getLogger } from "../../../util/logger";
-const logger = getLogger("components/themes/default/PosiList");
+// import { getLogger } from "../../../util/logger";
+// const logger = getLogger("components/themes/default/PosiList");
 import { inBrowser } from "../../../util/dom";
 
 export default {
@@ -58,7 +58,7 @@ export default {
     postList: Array
   },
   mounted() {
-    logger.error("this.isMobile=>" + this.isMobile);
+    // logger.error("this.isMobile=>" + this.isMobile);
   },
   data() {
     return {
@@ -75,8 +75,8 @@ export default {
   margin: 10px 0;
 }
 /**
-    图片带文字的文章
-    */
+图片带文字的文章
+*/
 .pic-text-article {
   .card-subtitle {
     font-size: 14px;

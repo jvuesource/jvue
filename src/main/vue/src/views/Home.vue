@@ -64,7 +64,10 @@ export default {
     logger.info("Home page=> asyncData");
     return new Promise((resolve, reject) => {
       const getSiteConfigPromise = siteConfigApi.getSiteConfig();
-      const getPostListPromise = postApi.getPostList();
+      const getPostListPromise = postApi.getPostList({
+        postType: "post",
+        postStatus: "publish"
+      });
       Promise.all([getSiteConfigPromise, getPostListPromise])
         .then(function(values) {
           logger.debug(CircularJSON.stringify(values));

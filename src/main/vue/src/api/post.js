@@ -9,13 +9,25 @@ import { sendPost } from "./base";
 
 /**
  * 获取文章列表
+ * @param params 参数
  * @returns {AxiosPromise<any>}
  */
-const getPostList = () => {
+const getPostList = params => {
   const GET_POST_LIST = "blog/post/list";
-  return sendPost(GET_POST_LIST);
+  return sendPost(GET_POST_LIST, params);
+};
+
+/**
+ * 获取热门文章列表
+ * @param params 参数
+ * @returns {AxiosPromise<any>}
+ */
+const getHotPostList = params => {
+  const GET_HOT_POST_LIST = "blog/post/hot";
+  return sendPost(GET_HOT_POST_LIST, params);
 };
 
 export default {
-  getPostList
+  getPostList,
+  getHotPostList
 };
