@@ -5,6 +5,10 @@
 alias cv="cd src/main/vue"
 alias rv="cd ../../../"
 
+alias vl="npm run lint"
+
+alias vs="npm run serve"
+
 alias vbuilddev="./build/build.dev.sh"
 alias vbd="./build/build.dev.sh"
 alias vrd="npm run dev-start"
