@@ -45,6 +45,47 @@ export default {
       postListArray: []
     };
   },
+  computed: {
+    k() {
+      return this.$route.params.k || "";
+    }
+  },
+  watch: {
+    $route(to, from) {
+      // to表示的是你要去的那个组件，from 表示的是你从哪个组件过来的，它们是两个对象，你可以把它打印出来，它们也有一个param 属性
+      logger.debug("to=>" + to.path);
+      logger.debug("from=>" + from.path);
+      logger.info("search invoked,key=>" + this.k);
+      this.getSearchResult();
+    }
+  },
+  methods: {
+    getSearchResult() {
+      let that = this;
+      postApi
+        .getPostList({
+          search: that.k,
+          postType: "post",
+          postStatus: "publish"
+        })
+        .then(resolve => {
+          const postList = resolve.data;
+          if (postList.code === 0) {
+            console.log(postList.data);
+            that.postListArray = postList.data;
+            if (that.postListArray.length === 0) {
+              that.$toaster.warning("暂无搜索结果");
+            }
+          } else {
+            that.$toaster.error(postList.msg);
+          }
+        })
+        .catch(reason => {
+          logger.error("getSearchResult request error,reason=>" + reason);
+          that.$toaster.error(reason);
+        });
+    }
+  },
   created: function() {
     logger.info("Home created,set asyncData");
     const siteConfigData = getSession("siteConfig", "{}");

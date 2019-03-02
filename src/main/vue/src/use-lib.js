@@ -20,7 +20,7 @@ if (inBrowser) {
   const Toaster = require("v-toaster");
   // console.log("Toaster=>", Toaster);
   // 持续时间，默认10秒
-  Vue.use(Toaster, { timeout: 1000 });
+  Vue.use(Toaster, { timeout: 2000 });
   logger.debug("Register Toaster success");
 }
 

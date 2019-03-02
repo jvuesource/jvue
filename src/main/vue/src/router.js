@@ -17,6 +17,21 @@ export default new Router({
       //   import(/* webpackChunkName: "homepage" */ "./views/Home.vue")
     },
     {
+      path: "/home",
+      name: "home-long",
+      component: Home
+    },
+    {
+      path: "/s",
+      name: "search",
+      component: Home
+    },
+    {
+      path: "/s/:k",
+      name: "search",
+      component: Home
+    },
+    {
       path: "/about",
       name: "about",
       component: About

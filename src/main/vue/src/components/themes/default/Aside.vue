@@ -1,6 +1,5 @@
 <template>
   <div id="aside">
-    <b-card>热门文章</b-card>
     <b-card
       tag="article"
       v-for="post in hotPosts"
@@ -59,6 +58,15 @@ export default {
     return {
       hotPosts: []
     };
+  },
+  watch: {
+    $route(to, from) {
+      // to表示的是你要去的那个组件，from 表示的是你从哪个组件过来的，它们是两个对象，你可以把它打印出来，它们也有一个param 属性
+      logger.debug("to=>" + to.path);
+      logger.debug("from=>" + from.path);
+      logger.info("search invoked,getHotPostsData");
+      this.getHotPostsData();
+    }
   },
   methods: {
     getHotPostsData() {

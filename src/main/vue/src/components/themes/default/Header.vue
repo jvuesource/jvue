@@ -32,11 +32,13 @@
                 placeholder="输入关键词查找..."
               ></b-form-input>
               <b-input-group-append>
-                <router-link :to="searchLink">
-                  <b-btn id="searchsubmit" type="button" variant="primary"
-                    >搜索</b-btn
-                  >
-                </router-link>
+                <b-btn
+                  id="searchsubmit"
+                  type="button"
+                  variant="primary"
+                  @click="doSearch"
+                  >搜索</b-btn
+                >
               </b-input-group-append>
             </b-input-group>
           </b-form>
@@ -47,6 +49,8 @@
   </b-row>
 </template>
 <script>
+import { getLogger } from "../../../util/logger";
+const logger = getLogger("components/themes/default/Header");
 import HeaderMenu from "./HeaderMenu";
 export default {
   name: "Header",
@@ -63,9 +67,8 @@ export default {
   },
   watch: {
     s() {
-      const that = this;
-      that.searchLink = "/s/" + that.s;
-      console.log(that.searchLink);
+      this.searchLink = "/s/" + this.s;
+      this.doSearch();
     }
   },
   data() {
@@ -73,6 +76,13 @@ export default {
       s: "",
       searchLink: "/s/"
     };
+  },
+  methods: {
+    doSearch() {
+      logger.info("this.searchLink=>" + this.searchLink);
+      this.$router.push({ path: this.searchLink });
+      // this.$router.go(this.searchLink);
+    }
   }
 };
 </script>

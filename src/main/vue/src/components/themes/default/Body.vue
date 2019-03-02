@@ -4,9 +4,16 @@
     <b-col sm="12" md="12" lg="12" xl="8">
       <b-row>
         <b-col sm="12" md="12" lg="12" xl="8">
+          <b-card class="post-type">
+            <button class="btn btn-light">最新文章</button>
+            <button class="btn btn-light">学习笔记</button>
+          </b-card>
           <PostList :post-list="postList" />
         </b-col>
         <b-col sm="12" md="12" lg="12" xl="4">
+          <b-card>
+            <button class="btn btn-light">热门文章</button>
+          </b-card>
           <Aside />
         </b-col>
       </b-row>
@@ -33,6 +40,9 @@ export default {
 <style scoped>
 #body {
   padding-top: 10px;
+}
+.post-type .btn {
+  margin-right: 1.25rem;
 }
 /*
     ##Device = Mobile

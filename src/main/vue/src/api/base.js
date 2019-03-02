@@ -38,11 +38,18 @@ const getHttp = () => {
 /**
  * 发送post请求
  * @param url 链接
- * @param params 参数
+ * @param payloadParms 参数
  * @returns {AxiosPromise<any>}
  */
-export const sendPost = (url, params) => {
+export const sendPost = (url, payloadParms) => {
   const http = getHttp();
+
+  // 把Payload参数转换为http参数
+  let params = new URLSearchParams();
+  for (let key in payloadParms) {
+    params.append(key, payloadParms[key]);
+  }
+
   logger.info("url=>" + url);
   logger.info("params=>" + CircularJSON.stringify(params));
   return http.post(url, params);
