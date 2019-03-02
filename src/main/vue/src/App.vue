@@ -8,6 +8,7 @@
 import { getLogger } from "./util/logger";
 const logger = getLogger("App");
 import { inBrowser } from "./util/dom";
+import "v-toaster/dist/v-toaster.css";
 
 export default {
   name: "App",
@@ -28,6 +29,7 @@ export default {
 <style lang="scss">
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 @import "node_modules/bootstrap-vue/src/index.scss";
+
 #app {
   font-family: "Microsoft YaHei", sans-serif, sans-serif;
   -webkit-font-smoothing: antialiased;

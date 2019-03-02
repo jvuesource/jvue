@@ -1,6 +1,6 @@
 /**
  * server.js
- * yarn babel src/server.js -o dist/server.js
+ * npm run babel src/server.js -o dist/server.js
  *@author Terwer
  *@version 1.0
  *2019/2/27 12:05
