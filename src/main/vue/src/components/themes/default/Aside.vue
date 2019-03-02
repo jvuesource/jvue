@@ -49,7 +49,10 @@ export default {
   name: "Aside",
   created() {
     if (inBrowser) {
+      // this.$toaster.success("获取热门文章成功");
       this.getHotPostsData();
+    } else {
+      console.error("not inBrowser");
     }
   },
   data() {
