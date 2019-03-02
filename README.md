@@ -28,7 +28,7 @@ With Vue,Vue CLI 3,webpack,Spring Boot and eclipse j2v8 Script engine for server
 ## Build Vue
 
 ```bash
-cd src/main/vue && npm i -g yarn && yarn
+cd src/main/vue && npm i
 ./build/build.prod.sh
 ```
 

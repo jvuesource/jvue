@@ -1,42 +1,42 @@
 #!/usr/bin/env bash
 # dos2unix ./build/cpm.sh && ./build/cpm.sh
-# ncp [source] [dest] [--limit=concurrency limit] [--filter=filter] --stopOnErr
+# node_modules/ncp/bin/ncp [source] [dest] [--limit=concurrency limit] [--filter=filter] --stopOnErr
 
 # clean & mkdir
 rm -rf dist/node_modules
 mkdir -p dist/node_modules
 
 # core-js
-yarn ncp node_modules/core-js dist/node_modules/core-js
+node_modules/ncp/bin/ncp node_modules/core-js dist/node_modules/core-js
 
 # vue-server-renderer
-yarn ncp node_modules/he dist/node_modules/he
-yarn ncp node_modules/lodash._reinterpolate dist/node_modules/lodash._reinterpolate
-yarn ncp node_modules/lodash.template dist/node_modules/lodash.template
-yarn ncp node_modules/lodash.templatesettings dist/node_modules/lodash.templatesettings
-yarn ncp node_modules/resolve dist/node_modules/resolve
-yarn ncp node_modules/serialize-javascript dist/node_modules/serialize-javascript
-yarn ncp node_modules/vue-server-renderer dist/node_modules/vue-server-renderer
+node_modules/ncp/bin/ncp node_modules/he dist/node_modules/he
+node_modules/ncp/bin/ncp node_modules/lodash._reinterpolate dist/node_modules/lodash._reinterpolate
+node_modules/ncp/bin/ncp node_modules/lodash.template dist/node_modules/lodash.template
+node_modules/ncp/bin/ncp node_modules/lodash.templatesettings dist/node_modules/lodash.templatesettings
+node_modules/ncp/bin/ncp node_modules/resolve dist/node_modules/resolve
+node_modules/ncp/bin/ncp node_modules/serialize-javascript dist/node_modules/serialize-javascript
+node_modules/ncp/bin/ncp node_modules/vue-server-renderer dist/node_modules/vue-server-renderer
 rm -rf dist/node_modules/vue-server-renderer/node_modules
 
 # vue
-yarn ncp node_modules/vue dist/node_modules/vue
+node_modules/ncp/bin/ncp node_modules/vue dist/node_modules/vue
 
 # vue-router
-yarn ncp node_modules/vue-router dist/node_modules/vue-router
+node_modules/ncp/bin/ncp node_modules/vue-router dist/node_modules/vue-router
 
 # axios
-yarn ncp node_modules/axios dist/node_modules/axios
-yarn ncp node_modules/is-buffer dist/node_modules/is-buffer
-yarn ncp node_modules/follow-redirects dist/node_modules/follow-redirects
+node_modules/ncp/bin/ncp node_modules/axios dist/node_modules/axios
+node_modules/ncp/bin/ncp node_modules/is-buffer dist/node_modules/is-buffer
+node_modules/ncp/bin/ncp node_modules/follow-redirects dist/node_modules/follow-redirects
 
 # bootstrap-vue
-yarn ncp node_modules/bootstrap-vue dist/node_modules/bootstrap-vue
+node_modules/ncp/bin/ncp node_modules/bootstrap-vue dist/node_modules/bootstrap-vue
 rm -rf dist/node_modules/bootstrap-vue/node_modules
 rm -rf dist/node_modules/bootstrap-vue/src
 
 # circular-json
-yarn ncp node_modules/circular-json dist/node_modules/circular-json
+node_modules/ncp/bin/ncp node_modules/circular-json dist/node_modules/circular-json
 
 # source-map
-yarn ncp node_modules/source-map dist/node_modules/source-map
+node_modules/ncp/bin/ncp node_modules/source-map dist/node_modules/source-map

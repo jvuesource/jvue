@@ -58,7 +58,7 @@ createApp().then(resolve => {
           next();
         })
         .catch(rejected => {
-          alert(rejected);
+          app.$toaster.error(rejected);
           next();
         });
     });
