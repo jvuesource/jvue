@@ -67,7 +67,7 @@ export default {
       logger.debug("from=>" + from.path);
       logger.info("search invoked,key=>" + this.k);
       this.currentPage = 1;
-      this.isloadmore=0;
+      this.isloadmore = 0;
       this.getSearchResult();
     }
   },

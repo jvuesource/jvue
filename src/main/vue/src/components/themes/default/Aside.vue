@@ -21,8 +21,8 @@
         <a
           :href="
             post.postSlug === ''
-              ? 'post/' + post.postId + '.html'
-              : 'post/' + post.postSlug + '.html'
+              ? '/post/' + post.postId + '.html'
+              : '/post/' + post.postSlug + '.html'
           "
           class="btn btn-primary"
           >立即查看</a

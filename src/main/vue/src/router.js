@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home";
 import About from "./views/About";
+import Detail from "./views/Detail";
 
 Vue.use(Router);
 
@@ -40,6 +41,16 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       // component: () =>
       //   import(/* webpackChunkName: "aboutpage" */ "./views/About.vue")
+    },
+    {
+      path: "/post/:id.html",
+      name: "detail",
+      component: Detail
+    },
+    {
+      path: "/p/:id.html",
+      name: "detail-short",
+      component: Detail
     }
   ]
 });

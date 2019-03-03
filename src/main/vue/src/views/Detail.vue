@@ -4,41 +4,10 @@
     <Header />
     <b-row>
       <b-col sm="0" md="0" lg="0" xl="2"></b-col>
-      <b-col sm="12" md="12" lg="12" xl="8">
-        <div class="text-left">
-          <div class="visit">
-            谢谢您，您是第
-            <img
-              src="http://www.cutercounter.com/hit.php?id=gvvnqcod&nd=6&style=47"
-              border="0"
-              alt="访客数"
-            />
-            位访客。
-          </div>
-          <br />
-          <h3>网站简介</h3>
-          <br />
-          <div>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span style="font-size: 24px">远</span
-            >方的灯塔是关注与分享互联网及服务端开发技术的个人博客，致力于Java后端开发及服务端技术、软件架构、微服务技术分享。同时也记录个人的一路点滴，所蕴含的包括前端、后端、数据库等知识，欢迎关注。
-          </div>
-          <div>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <span style="font-size: 24px">人</span
-            >生在世，有些事情，有些选择，是不需要理由的。年轻就该去探索，去尝试。人生最大的悲哀不是失败，而是甘于现状，因为他一开始就失败了。
-          </div>
-          <br />
-          <h3>作者简历</h3>
-          <br />
-          <div>
-            2014年7月1日毕业于湖北省长江大学软件工程，在CRM客户关系管理、电子商务、互联网金融、互联网K12教育等领域有丰富的工作经验。
-          </div>
-          <div>
-            专注于项目架构、性能优化、算法研究。在Web开发领域有深入研究，精通Java，目前专注于服务端开发。业余时间喜欢探索移动互联网。
-          </div>
-          <br />
-          <div>作者邮箱：youweics@sina.com</div>
+      <b-col>
+        <b-breadcrumb :items="items" />
+        <div id="postContent">
+          <h1 class="text-center">This is detail {{ postId }}</h1>
         </div>
       </b-col>
       <b-col sm="0" md="0" lg="0" xl="2"></b-col>
@@ -50,7 +19,7 @@
 
 <script>
 import { getLogger } from "../util/logger";
-const logger = getLogger("about");
+const logger = getLogger("detail");
 import { setSession, getSession } from "../util/storage";
 const CircularJSON = require("circular-json");
 import HeaderTime from "../components/themes/default/HeaderTime";
@@ -58,8 +27,21 @@ import Header from "../components/themes/default/Header";
 import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 import siteConfigApi from "../api/site-config";
+
 export default {
-  name: "Home",
+  name: "Detail",
+  computed: {
+    postId() {
+      return this.$route.params.id;
+    }
+  },
+  watch: {
+    $route(to, from) {
+      // to表示的是你要去的那个组件，from 表示的是你从哪个组件过来的，它们是两个对象，你可以把它打印出来，它们也有一个param 属性
+      console.log(to);
+      console.log(from);
+    }
+  },
   components: {
     HeaderTime,
     Header,
@@ -68,6 +50,16 @@ export default {
   },
   data() {
     return {
+      items: [
+        {
+          text: "首页",
+          href: "/"
+        },
+        {
+          text: "文章",
+          active: true
+        }
+      ],
       siteConfigObj: {}
     };
   },
@@ -104,8 +96,10 @@ export default {
 };
 </script>
 
-<style>
-.visit {
-  font-size: 24px;
+<style scoped>
+.breadcrumb {
+  margin-top: 10px;
+}
+#postContent {
 }
 </style>

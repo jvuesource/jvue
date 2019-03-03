@@ -25,8 +25,8 @@
       <b-button
         :href="
           post.postSlug === ''
-            ? 'post/' + post.postId + '.html'
-            : 'post/' + post.postSlug + '.html'
+            ? '/post/' + post.postId + '.html'
+            : '/post/' + post.postSlug + '.html'
         "
         variant="primary"
         >查看全文</b-button
