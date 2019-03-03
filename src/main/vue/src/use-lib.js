@@ -11,15 +11,12 @@ import { inBrowser } from "./util/dom";
 import Vue from "vue";
 
 // 引入通用组件
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-vue/dist/bootstrap-vue.css";
 import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 logger.debug("Register bootstrap-vue success");
 
 // 浏览器专用
 if (inBrowser) {
-  require("v-toaster/dist/v-toaster.css");
   const Toaster = require("v-toaster");
   // console.log("Toaster=>", Toaster);
   // 持续时间，默认10秒

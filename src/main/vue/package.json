@@ -27,7 +27,8 @@
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.6.7",
     "vue-uweb": "^0.2.1",
-    "vue-web-storage": "^4.0.0"
+    "vue-web-storage": "^4.0.0",
+    "bootstrap": "latest"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

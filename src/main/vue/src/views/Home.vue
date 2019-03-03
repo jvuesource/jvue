@@ -9,6 +9,7 @@
     />
     <Footer :site-config="siteConfigObj" />
     <FriendLink />
+    <!--<div v-bind:class="showMask ? 'mask' : ''"></div>-->
   </b-container>
 </template>
 
@@ -50,6 +51,7 @@ export default {
       currentPage: 1,
       isloadmore: 0,
       loadingText: "加载更多",
+      // showMask: false,
       postListArray: []
     };
   },
@@ -95,6 +97,7 @@ export default {
     },
     getSearchResult: function() {
       let that = this;
+      // that.showMask = true;
       if (that.currentPage > 1) {
         that.loadingText = "加载中...";
       }
@@ -106,6 +109,7 @@ export default {
           page: that.currentPage
         })
         .then(resolve => {
+          // that.showMask = false;
           const postList = resolve.data;
           if (postList.code === 0) {
             // console.log(postList.data);
@@ -132,6 +136,7 @@ export default {
           }
         })
         .catch(reason => {
+          that.showMask = false;
           logger.error("getSearchResult request error,reason=>" + reason);
           that.$toaster.error(reason);
         });
@@ -188,6 +193,4 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "../components/themes/default/style.css";
-</style>
+<style scoped></style>

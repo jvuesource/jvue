@@ -14,9 +14,10 @@
           </b-card>
           <PostList :post-list="postList" />
           <div id="pagination" class="loadmore" @click="loadmore">
-            <a id="btn-loadmore" href="javascript:void(0);">{{
-              loadingText
-            }}</a>
+            <p>{{ loadingText === "加载完成" ? "~ 我是有底线滴 ~" : "" }}</p>
+            <a id="btn-loadmore" href="javascript:void(0);">
+              {{ loadingText }}</a
+            >
           </div>
         </b-col>
         <b-col sm="12" md="12" lg="12" xl="4">
