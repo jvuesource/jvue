@@ -41,7 +41,7 @@ const setSessionStorage = (key, value) => {
 const getSessionStorageOrDefault = (key, val) => {
   const value = Vue.$sessionStorage.get(key);
   console.log("Vue.$sessionStorage.get=>key:", key);
-  console.log("Vue.$sessionStorage.get=>value:", value);
+  // console.log("Vue.$sessionStorage.get=>value:", value);
   return isEmptyOrUndefined(value) ? val : value;
 };
 
@@ -65,7 +65,7 @@ const getSession = (key, val) => {
     // 优先获取SessionStorage，因为这里是最新更新的数据，点击客户端路由就会更新
     data = getSessionStorageOrDefault(key, val);
     logger.debug("get data from sessionStorage");
-    logger.debug(data);
+    // logger.debug(data);
     // 没有Session取window.__INITIAL_STATE__，这里只有触发服务端渲染才会更新
     logger.debug("storage window.__INITIAL_STATE__=>");
     logger.debug(window.__INITIAL_STATE__);

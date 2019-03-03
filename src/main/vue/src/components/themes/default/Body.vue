@@ -4,9 +4,26 @@
     <b-col sm="12" md="12" lg="12" xl="8">
       <b-row>
         <b-col sm="12" md="12" lg="12" xl="8">
+          <b-card class="post-type">
+            <button class="btn btn-light" @click="changePostType('post')">
+              最新文章
+            </button>
+            <button class="btn btn-light" @click="changePostType('note')">
+              学习笔记
+            </button>
+          </b-card>
           <PostList :post-list="postList" />
+          <div id="pagination" class="loadmore" @click="loadmore">
+            <p>{{ loadingText === "加载完成" ? "~ 我是有底线滴 ~" : "" }}</p>
+            <a id="btn-loadmore" href="javascript:void(0);">
+              {{ loadingText }}</a
+            >
+          </div>
         </b-col>
         <b-col sm="12" md="12" lg="12" xl="4">
+          <b-card>
+            <button class="btn btn-light">热门文章</button>
+          </b-card>
           <Aside />
         </b-col>
       </b-row>
@@ -21,11 +38,20 @@ import Aside from "./Aside.vue";
 export default {
   name: "Body",
   props: {
+    loadingText: String,
     postList: Array
   },
   components: {
     PostList,
     Aside
+  },
+  methods: {
+    changePostType(tp) {
+      this.$emit("refreshList", tp, 0);
+    },
+    loadmore() {
+      this.$emit("refreshList", "", 1);
+    }
   }
 };
 </script>
@@ -33,6 +59,27 @@ export default {
 <style scoped>
 #body {
   padding-top: 10px;
+}
+.post-type .btn {
+  margin-right: 1.25rem;
+}
+
+.loadmore {
+  padding: 20px 0 30px 0;
+  text-align: center;
+}
+.loadmore a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+  padding: 9px 0;
+  text-align: center;
+  font-size: 14px;
+  background: #f5f5f5;
+}
+.loadmore a:hover {
+  background-color: #efefef;
+  text-decoration: none;
 }
 /*
     ##Device = Mobile

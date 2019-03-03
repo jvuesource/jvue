@@ -9,6 +9,20 @@ import { getLogger } from "./util/logger";
 const logger = getLogger("entry-client");
 import { createApp } from "./app";
 
+// CSS只在客户端引用
+// import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap-vue/dist/bootstrap-vue.css";
+// import "v-toaster/dist/v-toaster.css";
+
+// 公共样式库
+import(/* webpackChunkName: "bootstrap-style" */ "bootstrap/dist/css/bootstrap.css");
+import(/* webpackChunkName: "bootstrap-vue-style" */ "bootstrap-vue/dist/bootstrap-vue.css");
+import(/* webpackChunkName: "v-toaster-style" */ "v-toaster/dist/v-toaster.css");
+
+// 自定义样式库
+// import "components/themes/default/style.css";
+import(/* webpackChunkName: "jvue-style" */ "./components/themes/default/style.css");
+
 // 客户端特定引导逻辑……
 createApp().then(resolve => {
   const app = resolve.app;
@@ -22,6 +36,8 @@ createApp().then(resolve => {
     // the data that we already have. Using router.beforeResolve() so that all
     // async components are resolved.
     router.beforeResolve((to, from, next) => {
+      app.$Progress.start();
+
       logger.info("to=>", to.fullPath);
       logger.info("from=>", from.fullPath);
 
@@ -53,6 +69,7 @@ createApp().then(resolve => {
         })
       )
         .then(res => {
+          app.$Progress.finish();
           // 这里的结果会保存在SessionStorage
           logger.debug("matchedComponents asyncData res=>", res);
           next();

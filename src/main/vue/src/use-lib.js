@@ -20,8 +20,30 @@ if (inBrowser) {
   const Toaster = require("v-toaster");
   // console.log("Toaster=>", Toaster);
   // 持续时间，默认10秒
-  Vue.use(Toaster, { timeout: 1000 });
-  logger.debug("Register Toaster success");
+  Vue.use(Toaster, { timeout: 2000 });
+  logger.info("Register Toaster success");
+
+  // import VueProgressBar from "vue-progressbar";
+  const VueProgressBar = require("vue-progressbar");
+  const options = {
+    color: "#00a4ff",
+    failedColor: "#ff6b68",
+    thickness: "2px",
+    transition: {
+      speed: "0.2s",
+      opacity: "0.6s",
+      termination: 300
+    },
+    autoRevert: true,
+    location: "top",
+    inverse: false
+  };
+  Vue.use(VueProgressBar, options);
+  logger.info("Register VueProgressBar success");
+} else {
+  // 服务端专用
+  // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+  require("url-search-params-polyfill");
 }
 
 /**

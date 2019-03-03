@@ -2,9 +2,14 @@
   <b-container fluid>
     <HeaderTime />
     <Header />
-    <Body :post-list="postListArray" />
+    <Body
+      @refreshList="refreshList"
+      :post-list="postListArray"
+      :loading-text="loadingText"
+    />
     <Footer :site-config="siteConfigObj" />
     <FriendLink />
+    <!--<div v-bind:class="showMask ? 'mask' : ''"></div>-->
   </b-container>
 </template>
 
@@ -42,8 +47,105 @@ export default {
   data() {
     return {
       siteConfigObj: {},
+      postType: "post",
+      currentPage: 1,
+      isloadmore: 0,
+      loadingText: "加载更多",
+      // showMask: false,
       postListArray: []
     };
+  },
+  computed: {
+    k() {
+      return this.$route.params.k || "";
+    }
+  },
+  watch: {
+    $route(to, from) {
+      // to表示的是你要去的那个组件，from 表示的是你从哪个组件过来的，它们是两个对象，你可以把它打印出来，它们也有一个param 属性
+      logger.debug("to=>" + to.path);
+      logger.debug("from=>" + from.path);
+      logger.info("search invoked,key=>" + this.k);
+      this.currentPage = 1;
+      this.isloadmore=0;
+      this.getSearchResult();
+    }
+  },
+  methods: {
+    refreshList(type, isloadmore) {
+      logger.info("type=>" + type);
+      logger.info("isloadmore=>" + isloadmore);
+      if (type !== "") {
+        this.postType = type;
+      }
+      this.isloadmore = isloadmore;
+      if (isloadmore === 1) {
+        ++this.currentPage;
+        logger.info("加载更多");
+      } else {
+        this.currentPage = 1;
+        logger.info("切换类型");
+      }
+      // 获取数据
+      this.getSearchResult();
+      logger.info(
+        "refreshList invoked,type=>" +
+          this.postType +
+          ",isloadmore=>" +
+          this.isloadmore +
+          ",currentPage=>" +
+          this.currentPage
+      );
+    },
+    getSearchResult: function() {
+      let that = this;
+      that.$Progress.start();
+      // that.showMask = true;
+      if (that.currentPage > 1) {
+        that.loadingText = "加载中...";
+      }
+      postApi
+        .getPostList({
+          search: that.k,
+          postType: that.postType,
+          postStatus: "publish",
+          page: that.currentPage
+        })
+        .then(resolve => {
+          that.$Progress.finish();
+          // that.showMask = false;
+          const postList = resolve.data;
+          if (postList.code === 0) {
+            // console.log(postList.data);
+            // 填充数据
+            if (that.isloadmore === 1) {
+              // 加载更多，追加
+              if (postList.data.length === 0) {
+                that.loadingText = "加载完成";
+                that.$toaster.warning("暂无结果");
+              } else {
+                that.loadingText = "加载更多";
+              }
+              for (const idx in postList.data) {
+                const post = postList.data[idx];
+                that.postListArray.push(post);
+              }
+            } else {
+              // 切换，需要重置
+              that.postListArray = postList.data;
+            }
+          } else {
+            that.loadingText = "加载失败";
+            that.$toaster.error(postList.msg);
+          }
+        })
+        .catch(reason => {
+          that.$Progress.finish();
+          that.showMask = false;
+          logger.error("getSearchResult request error,reason=>" + reason);
+          that.$toaster.error(reason);
+        });
+    }
   },
   created: function() {
     logger.info("Home created,set asyncData");
@@ -66,7 +168,8 @@ export default {
       const getSiteConfigPromise = siteConfigApi.getSiteConfig();
       const getPostListPromise = postApi.getPostList({
         postType: "post",
-        postStatus: "publish"
+        postStatus: "publish",
+        page: 1
       });
       Promise.all([getSiteConfigPromise, getPostListPromise])
         .then(function(values) {
@@ -95,6 +198,4 @@ export default {
 };
 </script>
 
-<style scoped>
-@import "../components/themes/default/style.css";
-</style>
+<style scoped></style>
