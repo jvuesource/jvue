@@ -18,6 +18,8 @@ import { createApp } from "./app";
 import(/* webpackChunkName: "bootstrap-style" */ "bootstrap/dist/css/bootstrap.css");
 import(/* webpackChunkName: "bootstrap-vue-style" */ "bootstrap-vue/dist/bootstrap-vue.css");
 import(/* webpackChunkName: "v-toaster-style" */ "v-toaster/dist/v-toaster.css");
+// import(/* webpackChunkName: "vue-hljs-style" */ "vue-hljs/dist/vue-hljs.min.css");
+import(/* webpackChunkName: "vue-hljs-style" */ "./lib/vue-hljs/vs.css");
 
 // 自定义样式库
 // import "components/themes/default/style.css";
@@ -52,6 +54,7 @@ createApp().then(resolve => {
         return diffed || (diffed = prevMatched[i] !== component);
       });
       if (!activated.length) {
+        app.$Progress.finish();
         return next();
       }
 
@@ -61,7 +64,8 @@ createApp().then(resolve => {
           if (Component.asyncData) {
             logger.info("调用asyncData获取数据");
             return Component.asyncData({
-              route: router.currentRoute
+              from: from,
+              to: to
             });
           } else {
             logger.info("未找到asyncData");

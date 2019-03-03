@@ -25,6 +25,7 @@
     "url-search-params-polyfill": "^5.0.0",
     "v-toaster": "^1.0.3",
     "vue": "^2.6.7",
+    "vue-hljs": "^1.1.2",
     "vue-progressbar": "^0.7.5",
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.6.7",

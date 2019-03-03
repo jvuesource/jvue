@@ -22,15 +22,15 @@
           {{ post.postDesc }}
         </p>
       </b-media>
-      <b-button
-        :href="
+      <router-link
+        :to="
           post.postSlug === ''
-            ? 'post/' + post.postId + '.html'
-            : 'post/' + post.postSlug + '.html'
+            ? '/post/' + post.postId + '.html'
+            : '/post/' + post.postSlug + '.html'
         "
-        variant="primary"
-        >查看全文</b-button
       >
+        <b-btn type="button" variant="primary">查看全文</b-btn>
+      </router-link>
       <div class="article-ext" v-if="!isMobile">
         <span class="article-ext-info">作者：Terwer</span>
         <span class="article-ext-info" :title="post.praiseCount"

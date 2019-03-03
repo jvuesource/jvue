@@ -27,7 +27,18 @@ const getHotPostList = params => {
   return sendPost(GET_HOT_POST_LIST, params);
 };
 
+/**
+ * 获取文章详情
+ * @param postSlug 文章ID或者文章别名
+ * @returns {AxiosPromise<any>}
+ */
+const getPost = postSlug => {
+  const GET_POST = "blog/post/" + postSlug;
+  return sendPost(GET_POST);
+};
+
 export default {
   getPostList,
-  getHotPostList
+  getHotPostList,
+  getPost
 };

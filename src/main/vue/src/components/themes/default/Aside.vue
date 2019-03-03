@@ -18,15 +18,15 @@
         {{ post.postFullTitle === "" ? "无标题" : post.postFullTitle }}
       </p>
       <div class="article-ext">
-        <a
-          :href="
+        <router-link
+          :to="
             post.postSlug === ''
-              ? 'post/' + post.postId + '.html'
-              : 'post/' + post.postSlug + '.html'
+              ? '/post/' + post.postId + '.html'
+              : '/post/' + post.postSlug + '.html'
           "
-          class="btn btn-primary"
-          >立即查看</a
         >
+          <b-btn type="button" variant="primary">立即查看</b-btn>
+        </router-link>
         <span class="article-ext-info" :title="post.praiseCount"
           >点赞数：{{ post.praiseCount }}</span
         >

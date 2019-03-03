@@ -35,7 +35,7 @@ export default context => {
             if (Component.asyncData) {
               logger.info("调用asyncData获取数据");
               return Component.asyncData({
-                route: router.currentRoute
+                to: router.currentRoute
               });
             }
           })

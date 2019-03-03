@@ -2,6 +2,10 @@ import Vue from "vue";
 import Router from "vue-router";
 import Home from "./views/Home";
 import About from "./views/About";
+import Detail from "./views/Detail";
+import Login from "./views/Login";
+import Register from "./views/Register";
+import Category from "./views/Category";
 
 Vue.use(Router);
 
@@ -40,6 +44,51 @@ export default new Router({
       // which is lazy-loaded when the route is visited.
       // component: () =>
       //   import(/* webpackChunkName: "aboutpage" */ "./views/About.vue")
+    },
+    {
+      path: "/post/:id.html",
+      name: "detail",
+      component: Detail
+    },
+    {
+      path: "/post/:id",
+      name: "detail-no-ext",
+      component: Detail
+    },
+    {
+      path: "/p/:id.html",
+      name: "detail-short",
+      component: Detail
+    },
+    {
+      path: "/p/:id",
+      name: "detail-short-no-ext",
+      component: Detail
+    },
+    {
+      path: "/auth/login",
+      name: "login",
+      component: Login
+    },
+    {
+      path: "/auth/register",
+      name: "register",
+      component: Register
+    },
+    {
+      path: "/category/:id",
+      name: "category",
+      component: Category
+    },
+    {
+      path: "/cat/:id",
+      name: "category-medium",
+      component: Category
+    },
+    {
+      path: "/c/:id",
+      name: "category-short",
+      component: Category
     }
   ]
 });

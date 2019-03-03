@@ -2,7 +2,7 @@
   <b-container fluid>
     <HeaderTime />
     <Header />
-    <b-row id="header" class="shadow-sm p-0 mb-0 bg-white rounded">
+    <b-row>
       <b-col sm="0" md="0" lg="0" xl="2"></b-col>
       <b-col sm="12" md="12" lg="12" xl="8">
         <div class="text-left">
