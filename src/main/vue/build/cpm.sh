@@ -46,3 +46,7 @@ node_modules/ncp/bin/ncp node_modules/url-search-params-polyfill dist/node_modul
 node_modules/ncp/bin/ncp node_modules/debug dist/node_modules/debug
 node_modules/ncp/bin/ncp node_modules/ms dist/node_modules/ms
 
+# vue-hljs
+node_modules/ncp/bin/ncp node_modules/vue-hljs dist/node_modules/vue-hljs
+node_modules/ncp/bin/ncp node_modules/highlight.js dist/node_modules/highlight.js
+
