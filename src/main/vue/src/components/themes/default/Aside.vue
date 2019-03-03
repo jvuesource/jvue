@@ -86,6 +86,7 @@ export default {
         })
         .catch(reason => {
           logger.error("getHotPostsData request error,reason=>" + reason);
+          that.$toaster.error(reason);
         });
     }
   }

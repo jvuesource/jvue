@@ -2,7 +2,11 @@
   <b-container fluid>
     <HeaderTime />
     <Header />
-    <Body :post-list="postListArray" />
+    <Body
+      @refreshList="refreshList"
+      :post-list="postListArray"
+      :loading-text="loadingText"
+    />
     <Footer :site-config="siteConfigObj" />
     <FriendLink />
   </b-container>
@@ -42,6 +46,10 @@ export default {
   data() {
     return {
       siteConfigObj: {},
+      postType: "post",
+      currentPage: 1,
+      isloadmore: 0,
+      loadingText: "加载更多",
       postListArray: []
     };
   },
@@ -60,23 +68,66 @@ export default {
     }
   },
   methods: {
-    getSearchResult() {
+    refreshList(type, isloadmore) {
+      logger.info("type=>" + type);
+      logger.info("isloadmore=>" + isloadmore);
+      if (type !== "") {
+        this.postType = type;
+      }
+      this.isloadmore = isloadmore;
+      if (isloadmore === 1) {
+        ++this.currentPage;
+        logger.info("加载更多");
+      } else {
+        this.currentPage = 1;
+        logger.info("切换类型");
+      }
+      // 获取数据
+      this.getSearchResult();
+      logger.info(
+        "refreshList invoked,type=>" +
+          this.postType +
+          ",isloadmore=>" +
+          this.isloadmore +
+          ",currentPage=>" +
+          this.currentPage
+      );
+    },
+    getSearchResult: function() {
       let that = this;
+      if (that.currentPage > 1) {
+        that.loadingText = "加载中...";
+      }
       postApi
         .getPostList({
           search: that.k,
-          postType: "post",
-          postStatus: "publish"
+          postType: that.postType,
+          postStatus: "publish",
+          page: that.currentPage
         })
         .then(resolve => {
           const postList = resolve.data;
           if (postList.code === 0) {
-            console.log(postList.data);
-            that.postListArray = postList.data;
-            if (that.postListArray.length === 0) {
-              that.$toaster.warning("暂无搜索结果");
+            // console.log(postList.data);
+            // 填充数据
+            if (that.isloadmore === 1) {
+              // 加载更多，追加
+              if (postList.data.length === 0) {
+                that.loadingText = "加载完成";
+                that.$toaster.warning("暂无结果");
+              } else {
+                that.loadingText = "加载更多";
+              }
+              for (const idx in postList.data) {
+                const post = postList.data[idx];
+                that.postListArray.push(post);
+              }
+            } else {
+              // 切换，需要重置
+              that.postListArray = postList.data;
             }
           } else {
+            that.loadingText = "加载失败";
             that.$toaster.error(postList.msg);
           }
         })
@@ -107,7 +158,8 @@ export default {
       const getSiteConfigPromise = siteConfigApi.getSiteConfig();
       const getPostListPromise = postApi.getPostList({
         postType: "post",
-        postStatus: "publish"
+        postStatus: "publish",
+        page: 1
       });
       Promise.all([getSiteConfigPromise, getPostListPromise])
         .then(function(values) {
