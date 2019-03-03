@@ -20,7 +20,6 @@ import(/* webpackChunkName: "bootstrap-vue-style" */ "bootstrap-vue/dist/bootstr
 import(/* webpackChunkName: "v-toaster-style" */ "v-toaster/dist/v-toaster.css");
 // import(/* webpackChunkName: "vue-hljs-style" */ "vue-hljs/dist/vue-hljs.min.css");
 import(/* webpackChunkName: "vue-hljs-style" */ "./lib/vue-hljs/vs.css");
-import(/* webpackChunkName: "math-jax-script" */ "./lib/mathjax/MathJax.js");
 
 // 自定义样式库
 // import "components/themes/default/style.css";

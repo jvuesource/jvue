@@ -38,7 +38,7 @@ import { getLogger } from "../util/logger";
 const logger = getLogger("detail");
 import { setSession, getSession } from "../util/storage";
 const CircularJSON = require("circular-json");
-import {inBrowser} from "../util/dom"
+import { inBrowser } from "../util/dom";
 import HeaderTime from "../components/themes/default/HeaderTime";
 import Header from "../components/themes/default/Header";
 import Footer from "../components/themes/default/Footer";
@@ -95,15 +95,18 @@ export default {
     logger.debug("postData=>");
     logger.debug(this.postObj);
 
-    // 高亮数学公式
-    if(inBrowser){
+    if (inBrowser) {
+      // 高亮数学公式
       MathJax.Hub.Config({
         tex2jax: {
-          inlineMath: [
-            ["$", "$"], ["\\(", "\\)"]
-          ]
+          inlineMath: [["$", "$"], ["\\(", "\\)"]]
         }
       });
+
+      this.$nextTick(function() {
+        MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+      });
+      logger.info("MathJax hilight success");
     }
   },
   asyncData(route) {
