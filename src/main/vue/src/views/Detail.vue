@@ -53,7 +53,7 @@ export default {
       items: [
         {
           text: "首页",
-          href: "/"
+          to: "/"
         },
         {
           text: "文章",

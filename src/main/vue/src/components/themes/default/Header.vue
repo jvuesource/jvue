@@ -5,7 +5,7 @@
       <b-row class="header-content">
         <b-col sm="2" md="2" xl="2">
           <div class="img-wrap">
-            <a href="/" class="float-left">
+            <router-link to="/" class="float-left">
               <div class="img-align-middle">
                 <img
                   class="logo"
@@ -14,7 +14,7 @@
                   :title="title"
                 />
               </div>
-            </a>
+            </router-link>
           </div>
         </b-col>
         <b-col sm="10" class="justify-content-center align-self-center">
