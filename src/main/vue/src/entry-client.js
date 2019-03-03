@@ -52,6 +52,7 @@ createApp().then(resolve => {
         return diffed || (diffed = prevMatched[i] !== component);
       });
       if (!activated.length) {
+        app.$Progress.finish();
         return next();
       }
 
@@ -61,7 +62,8 @@ createApp().then(resolve => {
           if (Component.asyncData) {
             logger.info("调用asyncData获取数据");
             return Component.asyncData({
-              route: router.currentRoute
+              from: from,
+              to: to
             });
           } else {
             logger.info("未找到asyncData");

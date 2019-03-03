@@ -46,8 +46,10 @@ export const sendPost = (url, payloadParms) => {
 
   // 把Payload参数转换为http参数
   let params = new URLSearchParams();
-  for (let key in payloadParms) {
-    params.append(key, payloadParms[key]);
+  if (payloadParms) {
+    for (let key in payloadParms) {
+      params.append(key, payloadParms[key]);
+    }
   }
 
   logger.info("url=>" + url);

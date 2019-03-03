@@ -6,8 +6,14 @@
       <b-col sm="0" md="0" lg="0" xl="2"></b-col>
       <b-col>
         <b-breadcrumb :items="items" />
-        <div id="postContent">
-          <h1 class="text-center">This is detail {{ postId }}</h1>
+        <h1 class="text-center">
+          {{ postObj.postFullTitle }}
+        </h1>
+        <div id="menu-tree" style="display: none;"></div>
+        <div class="clear"></div>
+        <div id="postContent" v-html="postObj.postContent"></div>
+        <div class="text-center">
+          <span>本文为原创内容，作者：Terwer，转载请注明出处！</span>
         </div>
       </b-col>
       <b-col sm="0" md="0" lg="0" xl="2"></b-col>
@@ -27,6 +33,7 @@ import Header from "../components/themes/default/Header";
 import Footer from "../components/themes/default/Footer";
 import FriendLink from "../components/themes/default/FriendLink";
 import siteConfigApi from "../api/site-config";
+import postApi from "../api/post";
 
 export default {
   name: "Detail",
@@ -60,7 +67,8 @@ export default {
           active: true
         }
       ],
-      siteConfigObj: {}
+      siteConfigObj: {},
+      postObj: {}
     };
   },
   created: function() {
@@ -69,22 +77,40 @@ export default {
     this.siteConfigObj = CircularJSON.parse(siteConfigData);
     logger.debug("siteConfigData=>");
     logger.debug(this.siteConfigObj);
+
+    // 缓存获取文章
+    const postData = getSession("post", "{}");
+    this.postObj = CircularJSON.parse(postData);
+    logger.debug("postData=>");
+    logger.debug(this.postObj);
   },
-  asyncData() {
+  asyncData(route) {
     // 触发action后，会返回Promise
-    logger.info("About page=> asyncData");
+    logger.info("About page=> asyncData,params=>");
+    logger.info(route.to.params);
     return new Promise((resolve, reject) => {
       const getSiteConfigPromise = siteConfigApi.getSiteConfig();
-      Promise.all([getSiteConfigPromise])
+      const postDetailPromise = postApi.getPost(route.to.params.id);
+      Promise.all([getSiteConfigPromise, postDetailPromise])
         .then(function(values) {
           logger.debug(CircularJSON.stringify(values));
           let asyncDataMap = {};
+          // 站点配置
           const siteConfig = values[0].data;
           if (siteConfig.status === 1) {
             const siteConfigString = CircularJSON.stringify(siteConfig.data);
             asyncDataMap["siteConfig"] = siteConfigString;
             setSession("siteConfig", siteConfigString);
           }
+
+          // 文章详情
+          const post = values[1].data;
+          if (post.status === 1) {
+            const postString = CircularJSON.stringify(post.data);
+            asyncDataMap["post"] = postString;
+            setSession("post", postString);
+          }
+
           resolve(asyncDataMap);
         })
         .catch(reason => {
@@ -96,10 +122,57 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss">
 .breadcrumb {
   margin-top: 10px;
 }
+
+// 图片自适应
 #postContent {
+  p {
+    img {
+      max-width: 100% !important;
+    }
+  }
+}
+
+/*生成博客目录的CSS*/
+#menu-tree {
+  float: left;
+  min-height: 20px;
+  padding: 0 15px 5px 0;
+  min-width: 200px;
+  margin-bottom: 10px;
+  background-color: #fbfbfb;
+  border: 1px solid #999;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+}
+#menu-tree li {
+  list-style-type: none;
+  margin-left: 10px;
+  padding: 5px 5px 0 15px;
+  position: relative;
+  width: auto
+}
+#menu-tree li::before {
+  content: '';
+  left: 0;
+  top: 0;
+  position: absolute;
+  border-left: 1px solid #999;
+  height: 100%;
+}
+#menu-tree li > i {
+  font-style: normal;
+  cursor: pointer;
+  margin-left: 5px;
+}
+#menu-tree > li::before {
+  border: 0
+}
+#menu-tree > li:first-child > i {
+  float: right;
 }
 </style>
