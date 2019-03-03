@@ -147,17 +147,17 @@ export default {
   border: 1px solid #999;
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05)
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 #menu-tree li {
   list-style-type: none;
   margin-left: 10px;
   padding: 5px 5px 0 15px;
   position: relative;
-  width: auto
+  width: auto;
 }
 #menu-tree li::before {
-  content: '';
+  content: "";
   left: 0;
   top: 0;
   position: absolute;
@@ -170,7 +170,7 @@ export default {
   margin-left: 5px;
 }
 #menu-tree > li::before {
-  border: 0
+  border: 0;
 }
 #menu-tree > li:first-child > i {
   float: right;
