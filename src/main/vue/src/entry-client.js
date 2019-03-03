@@ -18,6 +18,9 @@ import { createApp } from "./app";
 import(/* webpackChunkName: "bootstrap-style" */ "bootstrap/dist/css/bootstrap.css");
 import(/* webpackChunkName: "bootstrap-vue-style" */ "bootstrap-vue/dist/bootstrap-vue.css");
 import(/* webpackChunkName: "v-toaster-style" */ "v-toaster/dist/v-toaster.css");
+// import(/* webpackChunkName: "vue-hljs-style" */ "vue-hljs/dist/vue-hljs.min.css");
+import(/* webpackChunkName: "vue-hljs-style" */ "./lib/vue-hljs/vs.css");
+import(/* webpackChunkName: "math-jax-script" */ "./lib/mathjax/MathJax.js");
 
 // 自定义样式库
 // import "components/themes/default/style.css";

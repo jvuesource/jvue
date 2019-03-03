@@ -15,6 +15,10 @@ import BootstrapVue from "bootstrap-vue";
 Vue.use(BootstrapVue);
 logger.debug("Register bootstrap-vue success");
 
+import vueHljs from "vue-hljs";
+Vue.use(vueHljs);
+logger.debug("Register vue-hljs success");
+
 // 浏览器专用
 if (inBrowser) {
   const Toaster = require("v-toaster");

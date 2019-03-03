@@ -6,12 +6,22 @@
       <b-col sm="0" md="0" lg="0" xl="2"></b-col>
       <b-col>
         <b-breadcrumb :items="items" />
-        <h1 class="text-center">
-          {{ postObj.postFullTitle }}
-        </h1>
-        <div id="menu-tree" style="display: none;"></div>
+        <div id="postTitle">
+          <router-link
+            :to="
+              postObj.postSlug === ''
+                ? '/post/' + postObj.postId + '.html'
+                : '/post/' + postObj.postSlug + '.html'
+            "
+          >
+            <h1>
+              {{ postObj.postFullTitle }}
+            </h1>
+          </router-link>
+        </div>
+        <div id="menuTree" style="display: none;"></div>
         <div class="clear"></div>
-        <div id="postContent" v-html="postObj.postContent"></div>
+        <div id="postContent" v-html="postObj.postContent" v-highlight></div>
         <div class="text-center">
           <span>本文为原创内容，作者：Terwer，转载请注明出处！</span>
         </div>
@@ -28,6 +38,7 @@ import { getLogger } from "../util/logger";
 const logger = getLogger("detail");
 import { setSession, getSession } from "../util/storage";
 const CircularJSON = require("circular-json");
+import {inBrowser} from "../util/dom"
 import HeaderTime from "../components/themes/default/HeaderTime";
 import Header from "../components/themes/default/Header";
 import Footer from "../components/themes/default/Footer";
@@ -83,6 +94,17 @@ export default {
     this.postObj = CircularJSON.parse(postData);
     logger.debug("postData=>");
     logger.debug(this.postObj);
+
+    // 高亮数学公式
+    if(inBrowser){
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [
+            ["$", "$"], ["\\(", "\\)"]
+          ]
+        }
+      });
+    }
   },
   asyncData(route) {
     // 触发action后，会返回Promise
@@ -127,9 +149,39 @@ export default {
   margin-top: 10px;
 }
 
-// 图片自适应
+#postTitle {
+  a {
+    color: #000;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+  a:hover {
+    color: red;
+  }
+  h1 {
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 20px 0 10px;
+    padding-bottom: 5px;
+  }
+}
+
 #postContent {
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 10px 0;
+  }
+  h2 {
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 10px 0;
+  }
   p {
+    // 图片自适应
     img {
       max-width: 100% !important;
     }
@@ -137,7 +189,7 @@ export default {
 }
 
 /*生成博客目录的CSS*/
-#menu-tree {
+#menuTree {
   float: left;
   min-height: 20px;
   padding: 0 15px 5px 0;
@@ -149,14 +201,14 @@ export default {
   -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
-#menu-tree li {
+#menuTree li {
   list-style-type: none;
   margin-left: 10px;
   padding: 5px 5px 0 15px;
   position: relative;
   width: auto;
 }
-#menu-tree li::before {
+#menuTree li::before {
   content: "";
   left: 0;
   top: 0;
@@ -164,15 +216,15 @@ export default {
   border-left: 1px solid #999;
   height: 100%;
 }
-#menu-tree li > i {
+#menuTree li > i {
   font-style: normal;
   cursor: pointer;
   margin-left: 5px;
 }
-#menu-tree > li::before {
+#menuTree > li::before {
   border: 0;
 }
-#menu-tree > li:first-child > i {
+#menuTree > li:first-child > i {
   float: right;
 }
 </style>
