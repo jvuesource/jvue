@@ -66,6 +66,8 @@ export default {
       logger.debug("to=>" + to.path);
       logger.debug("from=>" + from.path);
       logger.info("search invoked,key=>" + this.k);
+      this.currentPage = 1;
+      this.isloadmore=0;
       this.getSearchResult();
     }
   },
@@ -97,6 +99,7 @@ export default {
     },
     getSearchResult: function() {
       let that = this;
+      that.$Progress.start();
       // that.showMask = true;
       if (that.currentPage > 1) {
         that.loadingText = "加载中...";
@@ -109,6 +112,7 @@ export default {
           page: that.currentPage
         })
         .then(resolve => {
+          that.$Progress.finish();
           // that.showMask = false;
           const postList = resolve.data;
           if (postList.code === 0) {
@@ -136,6 +140,7 @@ export default {
           }
         })
         .catch(reason => {
+          that.$Progress.finish();
           that.showMask = false;
           logger.error("getSearchResult request error,reason=>" + reason);
           that.$toaster.error(reason);

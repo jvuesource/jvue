@@ -19,16 +19,17 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "bootstrap": "latest",
     "bootstrap-vue": "^2.0.0-rc.13",
     "circular-json": "^0.5.9",
     "url-search-params-polyfill": "^5.0.0",
     "v-toaster": "^1.0.3",
     "vue": "^2.6.7",
+    "vue-progressbar": "^0.7.5",
     "vue-router": "^3.0.2",
     "vue-server-renderer": "^2.6.7",
     "vue-uweb": "^0.2.1",
-    "vue-web-storage": "^4.0.0",
-    "bootstrap": "latest"
+    "vue-web-storage": "^4.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",

@@ -36,6 +36,8 @@ createApp().then(resolve => {
     // the data that we already have. Using router.beforeResolve() so that all
     // async components are resolved.
     router.beforeResolve((to, from, next) => {
+      app.$Progress.start();
+
       logger.info("to=>", to.fullPath);
       logger.info("from=>", from.fullPath);
 
@@ -67,6 +69,7 @@ createApp().then(resolve => {
         })
       )
         .then(res => {
+          app.$Progress.finish();
           // 这里的结果会保存在SessionStorage
           logger.debug("matchedComponents asyncData res=>", res);
           next();
