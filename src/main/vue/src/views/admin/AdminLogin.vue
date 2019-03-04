@@ -1,38 +1,38 @@
 <template>
-  <div class="login-wrap">
-    <div class="ms-login">
-      <div class="ms-title">后台管理系统</div>
-      <el-form
-        :model="ruleForm"
-        :rules="rules"
-        ref="ruleForm"
-        label-width="0px"
-        class="ms-content"
-      >
-        <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="username">
-            <el-button slot="prepend" icon="el-icon-lx-people"></el-button>
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="password">
-          <el-input
-            type="password"
-            placeholder="password"
-            v-model="ruleForm.password"
-            @keyup.enter.native="submitForm('ruleForm')"
-          >
-            <el-button slot="prepend" icon="el-icon-lx-lock"></el-button>
-          </el-input>
-        </el-form-item>
-        <div class="login-btn">
-          <el-button type="primary" @click="submitForm('ruleForm')"
+    <div class="login-wrap">
+      <div class="ms-login">
+        <div class="ms-title">后台管理系统</div>
+        <el-form
+                :model="ruleForm"
+                :rules="rules"
+                ref="ruleForm"
+                label-width="0px"
+                class="ms-content"
+        >
+          <el-form-item prop="username">
+            <el-input v-model="ruleForm.username" placeholder="username">
+              <el-button slot="prepend" icon="jvue-icon-fa fa-user"></el-button>
+            </el-input>
+          </el-form-item>
+          <el-form-item prop="password">
+            <el-input
+                    type="password"
+                    placeholder="password"
+                    v-model="ruleForm.password"
+                    @keyup.enter.native="submitForm('ruleForm')"
+            >
+              <el-button slot="prepend" icon="jvue-icon-fa fa-lock"></el-button>
+            </el-input>
+          </el-form-item>
+          <div class="login-btn">
+            <el-button type="primary" @click="submitForm('ruleForm')"
             >登录</el-button
-          >
-        </div>
-        <p class="login-tips">Tips : 用户名和密码随便填。</p>
-      </el-form>
+            >
+          </div>
+          <p class="login-tips">Tips : 用户名和密码随便填。</p>
+        </el-form>
+      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -70,6 +70,11 @@ export default {
 
 <style>
 @import "../../assets/admin/admin.css"; /*默认主题*/
+
+#app{
+  width: 100% !important;
+  height: 100% !important;
+}
 
 .login-wrap {
   position: relative;
