@@ -76,6 +76,9 @@
 </template>
 <script>
 import bus from "./bus";
+import { setSession, getSession } from "../../util/storage";
+const ADMIN_PATH = process.env.VUE_APP_ADMIN_PATH;
+
 export default {
   data() {
     return {
@@ -87,7 +90,7 @@ export default {
   },
   computed: {
     username() {
-      let username = localStorage.getItem("ms_username");
+      let username = getSession("ms_username");
       return username ? username : this.name;
     }
   },
@@ -95,8 +98,9 @@ export default {
     // 用户名下拉菜单选择事件
     handleCommand(command) {
       if (command === "loginout") {
-        localStorage.removeItem("ms_username");
-        this.$router.push("/login");
+        setSession("ms_username", null);
+        const loginPath = ADMIN_PATH + "/login";
+        this.$router.push(loginPath);
       }
     },
     // 侧边栏折叠

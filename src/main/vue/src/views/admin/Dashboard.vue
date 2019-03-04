@@ -110,6 +110,7 @@
     <el-row :gutter="20">
       <el-col :span="12">
         <el-card shadow="hover">
+          <!--
           <schart
             ref="bar"
             class="schart"
@@ -118,10 +119,12 @@
             type="bar"
             :options="options"
           ></schart>
+          -->
         </el-card>
       </el-col>
       <el-col :span="12">
         <el-card shadow="hover">
+          <!--
           <schart
             ref="line"
             class="schart"
@@ -130,6 +133,7 @@
             type="line"
             :options="options2"
           ></schart>
+          -->
         </el-card>
       </el-col>
     </el-row>
@@ -137,13 +141,14 @@
 </template>
 
 <script>
-import Schart from "vue-schart";
-import bus from "../../components/admin/bus";
+import { getSession } from "../../util/storage";
+// import Schart from "vue-schart";
+// import bus from "../../components/admin/bus";
 export default {
   name: "Dashboard",
   data() {
     return {
-      name: localStorage.getItem("ms_username"),
+      name: getSession("ms_username"),
       todoList: [
         {
           title: "今天要修复100个bug",
@@ -219,7 +224,7 @@ export default {
     };
   },
   components: {
-    Schart
+    // Schart
   },
   computed: {
     role() {
@@ -228,37 +233,37 @@ export default {
   },
   created() {
     this.handleListener();
-    this.changeDate();
+    // this.changeDate();
   },
   activated() {
     this.handleListener();
   },
   deactivated() {
-    window.removeEventListener("resize", this.renderChart);
-    bus.$off("collapse", this.handleBus);
+    // window.removeEventListener("resize", this.renderChart);
+    // bus.$off("collapse", this.handleBus);
   },
   methods: {
     changeDate() {
-      const now = new Date().getTime();
-      this.data.forEach((item, index) => {
-        const date = new Date(now - (6 - index) * 86400000);
-        item.name = `${date.getFullYear()}/${date.getMonth() +
-          1}/${date.getDate()}`;
-      });
+      // const now = new Date().getTime();
+      // this.data.forEach((item, index) => {
+      //   const date = new Date(now - (6 - index) * 86400000);
+      //   item.name = `${date.getFullYear()}/${date.getMonth() +
+      //     1}/${date.getDate()}`;
+      // });
     },
     handleListener() {
-      bus.$on("collapse", this.handleBus);
+      // bus.$on("collapse", this.handleBus);
       // 调用renderChart方法对图表进行重新渲染
-      window.addEventListener("resize", this.renderChart);
+      // window.addEventListener("resize", this.renderChart);
     },
     handleBus(msg) {
-      setTimeout(() => {
-        this.renderChart();
-      }, 300);
+      // setTimeout(() => {
+      //   this.renderChart();
+      // }, 300);
     },
     renderChart() {
-      this.$refs.bar.renderChart();
-      this.$refs.line.renderChart();
+      // this.$refs.bar.renderChart();
+      // this.$refs.line.renderChart();
     }
   }
 };

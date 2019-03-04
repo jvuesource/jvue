@@ -7,6 +7,7 @@
  **/
 import { getLogger } from "./util/logger";
 const logger = getLogger("entry-client");
+import { getSession } from "./util/storage";
 import { createApp } from "./app";
 
 // CSS只在客户端引用
@@ -55,7 +56,7 @@ createApp().then(resolve => {
       let diffed = false;
 
       //使用钩子函数对路由进行权限跳转
-      const role = localStorage.getItem("ms_username");
+      const role = getSession("ms_username");
       console.log("role=>", role);
       const adminLoginPath = ADMIN_PATH + "/login";
       if (!role && to.path !== adminLoginPath) {

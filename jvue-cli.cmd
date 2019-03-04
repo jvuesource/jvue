@@ -8,7 +8,7 @@ chcp 65001
 doskey cv=cd src/main/vue $*
 doskey rv=cd ../../../ $*
 
-doskey vi=npm i -S $*
+doskey vg=npm i -S $*
 
 doskey vl=npm run lint $*
 
@@ -27,10 +27,10 @@ doskey vb=%cd%/src/main/vue/build/build.prod.cmd
 doskey vr=npm run prod-start
 doskey v8r=npm run v8-prod-start
 
-echo "用法"
+echo "用法:"
 echo "cv     进入vue项目根目录"
 echo "rv     返回java项目根目录"
-echo "vi     安装vue依赖"
+echo "vg     安装vue依赖"
 echo "vl     格式化vue项目代码"
 echo "vs     开发环境预览"
 echo "vbd    开发环境构建"
