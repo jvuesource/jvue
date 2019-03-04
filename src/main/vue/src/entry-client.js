@@ -25,6 +25,9 @@ import(/* webpackChunkName: "vue-hljs-style" */ "./lib/vue-hljs/vs.css");
 // import "components/themes/default/style.css";
 import(/* webpackChunkName: "jvue-style" */ "./components/themes/default/style.css");
 
+// 后台管理地址
+const ADMIN_PATH = process.env.VUE_APP_ADMIN_PATH;
+
 // 客户端特定引导逻辑……
 createApp().then(resolve => {
   const app = resolve.app;
@@ -50,6 +53,14 @@ createApp().then(resolve => {
       logger.info("matched=>", matched);
       logger.info("prevMatched=>", prevMatched);
       let diffed = false;
+
+      //使用钩子函数对路由进行权限跳转
+      const role = localStorage.getItem("ms_username");
+      console.log("role=>", role);
+      const adminLoginPath = ADMIN_PATH + "/login";
+      if (!role && to.path !== adminLoginPath) {
+        return next(adminLoginPath);
+      }
 
       // 查找当前活动的组件
       const activated = matched.filter((component, i) => {
