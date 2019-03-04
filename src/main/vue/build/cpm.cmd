@@ -48,3 +48,13 @@ node node_modules/ncp/bin/ncp node_modules/ms dist/node_modules/ms
 REM vue-hljs
 node node_modules/ncp/bin/ncp node_modules/vue-hljs dist/node_modules/vue-hljs
 node node_modules/ncp/bin/ncp node_modules/highlight.js dist/node_modules/highlight.js
+
+REM element-ui
+node node_modules/ncp/bin/ncp node_modules/element-ui dist/node_modules/element-ui
+node node_modules/ncp/bin/ncp node_modules/deepmerge dist/node_modules/deepmerge
+node node_modules/ncp/bin/ncp node_modules/resize-observer-polyfill dist/node_modules/resize-observer-polyfill
+node node_modules/ncp/bin/ncp node_modules/throttle-debounce dist/node_modules/throttle-debounce
+node node_modules/ncp/bin/ncp node_modules/normalize-wheel dist/node_modules/normalize-wheel
+node node_modules/ncp/bin/ncp node_modules/async-validator dist/node_modules/async-validator
+node node_modules/ncp/bin/ncp node_modules/babel-runtime dist/node_modules/babel-runtime
+node node_modules/ncp/bin/ncp node_modules/babel-helper-vue-jsx-merge-props dist/node_modules/babel-helper-vue-jsx-merge-props
