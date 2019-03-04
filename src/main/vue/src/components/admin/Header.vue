@@ -7,6 +7,14 @@
     <div class="logo">后台管理系统</div>
     <div class="header-right">
       <div class="header-user-con">
+        <!-- 访问前台 -->
+        <div class="btn-front">
+          <router-link to="/" target="_blank">
+            <el-tooltip effect="dark" content="预览" placement="bottom">
+              <i class="jvue-icon-fa fa-firefox"></i>
+            </el-tooltip>
+          </router-link>
+        </div>
         <!-- 全屏显示 -->
         <div class="btn-fullscreen" @click="handleFullScreen">
           <el-tooltip
@@ -49,6 +57,17 @@
             <el-dropdown-item divided command="loginout"
               >退出登录</el-dropdown-item
             >
+          </el-dropdown-menu>
+        </el-dropdown>
+        <!-- 切换主题 -->
+        <el-dropdown>
+          <span class="el-dropdown-link">
+            切换主题 <i class="el-icon-caret-bottom"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>默认(蓝色)</el-dropdown-item>
+            <el-dropdown-item>深色</el-dropdown-item>
+            <el-dropdown-item>绿色</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -149,6 +168,9 @@ export default {
   height: 70px;
   align-items: center;
 }
+.btn-front a {
+  color: white;
+}
 .btn-fullscreen {
   transform: rotate(45deg);
   margin-right: 5px;
@@ -178,6 +200,7 @@ export default {
 }
 .user-name {
   margin-left: 10px;
+  margin-right: 10px;
 }
 .user-avator {
   margin-left: 20px;

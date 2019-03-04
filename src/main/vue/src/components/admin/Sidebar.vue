@@ -47,6 +47,9 @@
 
 <script>
 import bus from "./bus";
+
+// 字体图标
+// http://element-cn.eleme.io/#/zh-CN/component/icon
 export default {
   name: "Sidebar",
   data() {
@@ -54,22 +57,22 @@ export default {
       collapse: false,
       items: [
         {
-          icon: "el-icon-lx-home",
+          icon: "jvue-icon-fa fa-home",
           index: "dashboard",
           title: "系统首页"
         },
         {
-          icon: "el-icon-lx-cascades",
+          icon: "jvue-icon-fa fa-table",
           index: "table",
           title: "基础表格"
         },
         {
-          icon: "el-icon-lx-copy",
+          icon: "jvue-icon-fa fa-bars",
           index: "tabs",
           title: "tab选项卡"
         },
         {
-          icon: "el-icon-lx-calendar",
+          icon: "jvue-icon-fa fa-id-card",
           index: "3",
           title: "表单相关",
           subs: [
@@ -98,12 +101,12 @@ export default {
           ]
         },
         {
-          icon: "el-icon-lx-emoji",
+          icon: "jvue-icon-fa fa-user-circle",
           index: "icon",
           title: "自定义图标"
         },
         {
-          icon: "el-icon-lx-favor",
+          icon: "jvue-icon-fa fa-bar-chart",
           index: "charts",
           title: "schart图表"
         },
@@ -123,7 +126,7 @@ export default {
           ]
         },
         {
-          icon: "el-icon-lx-warn",
+          icon: "jvue-icon-fa fa-exclamation-circle",
           index: "7",
           title: "错误处理",
           subs: [
