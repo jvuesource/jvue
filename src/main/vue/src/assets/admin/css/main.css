@@ -5,11 +5,9 @@
 
 html,
 body,
-#app,
 .wrapper {
     width: 100%;
     height: 100%;
-    overflow-x: hidden;
 }
 
 body {
@@ -51,6 +49,6 @@ a {
     border-radius: 5px;
 }
 
-.header-right{
+.wrapper .header-right{
     padding-right: 21px !important;
 }
