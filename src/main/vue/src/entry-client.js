@@ -40,8 +40,10 @@ createApp().then(resolve => {
     router.beforeResolve((to, from, next) => {
       app.$Progress.start();
 
-      logger.info("to=>", to.fullPath);
-      logger.info("from=>", from.fullPath);
+      logger.info("to=>");
+      console.log(to);
+      logger.info("from=>");
+      console.log(from);
 
       const matched = router.getMatchedComponents(to);
       const prevMatched = router.getMatchedComponents(from);
