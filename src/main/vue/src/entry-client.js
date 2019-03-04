@@ -7,6 +7,7 @@
  **/
 import { getLogger } from "./util/logger";
 const logger = getLogger("entry-client");
+import { getSession } from "./util/storage";
 import { createApp } from "./app";
 
 // CSS只在客户端引用
@@ -25,6 +26,9 @@ import(/* webpackChunkName: "vue-hljs-style" */ "./lib/vue-hljs/vs.css");
 // import "components/themes/default/style.css";
 import(/* webpackChunkName: "jvue-style" */ "./components/themes/default/style.css");
 
+// 后台管理地址
+const ADMIN_PATH = process.env.VUE_APP_ADMIN_PATH;
+
 // 客户端特定引导逻辑……
 createApp().then(resolve => {
   const app = resolve.app;
@@ -40,14 +44,24 @@ createApp().then(resolve => {
     router.beforeResolve((to, from, next) => {
       app.$Progress.start();
 
-      logger.info("to=>", to.fullPath);
-      logger.info("from=>", from.fullPath);
+      logger.info("to=>");
+      console.log(to);
+      logger.info("from=>");
+      console.log(from);
 
       const matched = router.getMatchedComponents(to);
       const prevMatched = router.getMatchedComponents(from);
       logger.info("matched=>", matched);
       logger.info("prevMatched=>", prevMatched);
       let diffed = false;
+
+      //使用钩子函数对路由进行权限跳转
+      const role = getSession("ms_username");
+      console.log("role=>", role);
+      const adminLoginPath = ADMIN_PATH + "/login";
+      if (!role && to.path !== adminLoginPath) {
+        return next(adminLoginPath);
+      }
 
       // 查找当前活动的组件
       const activated = matched.filter((component, i) => {

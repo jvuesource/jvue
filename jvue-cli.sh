@@ -5,6 +5,8 @@
 alias cv="cd src/main/vue"
 alias rv="cd ../../../"
 
+alias vg="npm i -S"
+
 alias vl="npm run lint"
 
 alias vs="npm run serve"
@@ -27,3 +29,16 @@ alias jrc="mvn clean package exec:java"
 
 alias jrun="mvn clean package spring-boot:run"
 alias jr="mvn clean package spring-boot:run"
+
+echo "用法:"
+echo "cv     进入vue项目根目录"
+echo "rv     返回java项目根目录"
+echo "vg     安装vue依赖"
+echo "vl     格式化vue项目代码"
+echo "vs     开发环境预览"
+echo "vbd    开发环境构建"
+echo "vrd    开发环境Express运行"
+echo "v8rd   开发环境测试"
+echo "vb     生产环境构建"
+echo "vr     生产环境Express运行"
+echo "v8r    生产环境测试"

@@ -19,6 +19,12 @@ import vueHljs from "vue-hljs";
 Vue.use(vueHljs);
 logger.debug("Register vue-hljs success");
 
+import ElementUI from "element-ui";
+Vue.use(ElementUI, {
+  size: "small"
+});
+logger.debug("Register element-ui success");
+
 // 浏览器专用
 if (inBrowser) {
   const Toaster = require("v-toaster");
@@ -44,6 +50,8 @@ if (inBrowser) {
   };
   Vue.use(VueProgressBar, options);
   logger.info("Register VueProgressBar success");
+
+  // admin需要使用的库
 } else {
   // 服务端专用
   // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
