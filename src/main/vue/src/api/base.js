@@ -45,12 +45,12 @@ export const sendPost = (url, payloadParms) => {
   const http = getHttp();
 
   // 把Payload参数转换为http参数
-  let params = new URLSearchParams();
-  if (payloadParms) {
-    for (let key in payloadParms) {
-      params.append(key, payloadParms[key]);
-    }
-  }
+  const params = new URLSearchParams(payloadParms);
+  // if (payloadParms) {
+  //   for (let key in payloadParms) {
+  //     params.append(key, payloadParms[key]);
+  //   }
+  // }
 
   logger.info("url=>" + url);
   logger.info("params=>" + CircularJSON.stringify(params));
