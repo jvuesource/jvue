@@ -18,13 +18,13 @@
     "v8-prod-start": "cross-env NODE_ENV=production node tests/v8-server.js"
   },
   "dependencies": {
+    "@ungap/url-search-params": "^0.1.2",
     "axios": "^0.18.0",
     "bootstrap": "latest",
     "bootstrap-vue": "^2.0.0-rc.13",
     "circular-json": "^0.5.9",
     "element-ui": "^2.6.1",
     "font-awesome": "^4.7.0",
-    "url-search-params-polyfill": "^5.0.0",
     "v-toaster": "^1.0.3",
     "vue": "^2.6.7",
     "vue-hljs": "^1.1.2",

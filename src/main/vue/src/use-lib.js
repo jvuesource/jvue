@@ -54,8 +54,6 @@ if (inBrowser) {
   // admin需要使用的库
 } else {
   // 服务端专用
-  // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
-  require("url-search-params-polyfill");
 }
 
 /**

@@ -7,8 +7,8 @@
  **/
 import { getLogger } from "../util/logger";
 const logger = getLogger("api/post");
-const CircularJSON = require("circular-json");
-import axios from "axios";
+const axios = require("axios");
+
 /**
  * 创建http请求对象
  * @returns {AxiosInstance}
@@ -30,12 +30,6 @@ const getHttp = () => {
 };
 
 /**
- * 发生post请求
- * @param url
- * @returns {AxiosPromise<any>}
- */
-
-/**
  * 发送post请求
  * @param url 链接
  * @param payloadParms 参数
@@ -45,14 +39,11 @@ export const sendPost = (url, payloadParms) => {
   const http = getHttp();
 
   // 把Payload参数转换为http参数
+  const URLSearchParams = require("@ungap/url-search-params");
   const params = new URLSearchParams(payloadParms);
-  // if (payloadParms) {
-  //   for (let key in payloadParms) {
-  //     params.append(key, payloadParms[key]);
-  //   }
-  // }
-
   logger.info("url=>" + url);
-  logger.info("params=>" + CircularJSON.stringify(params));
-  return http.post(url, params);
+  logger.info("params=>");
+  console.log(params);
+
+  return http.post(url);
 };
