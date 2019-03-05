@@ -41,10 +41,8 @@ node_modules/ncp/bin/ncp node_modules/circular-json dist/node_modules/circular-j
 # source-map
 node_modules/ncp/bin/ncp node_modules/source-map dist/node_modules/source-map
 
-# url-search-params-polyfill
-node_modules/ncp/bin/ncp node_modules/url-search-params-polyfill dist/node_modules/url-search-params-polyfill
-node_modules/ncp/bin/ncp node_modules/debug dist/node_modules/debug
-node_modules/ncp/bin/ncp node_modules/ms dist/node_modules/ms
+# @ungap/url-search-params
+node_modules/ncp/bin/ncp node_modules/@ungap/url-search-params dist/node_modules/@ungap/url-search-params
 
 # vue-hljs
 node_modules/ncp/bin/ncp node_modules/vue-hljs dist/node_modules/vue-hljs
