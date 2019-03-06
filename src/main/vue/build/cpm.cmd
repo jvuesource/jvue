@@ -40,10 +40,6 @@ node node_modules/ncp/bin/ncp node_modules/circular-json dist/node_modules/circu
 REM source-map
 node node_modules/ncp/bin/ncp node_modules/source-map dist/node_modules/source-map
 
-REM @ungap/url-search-params
-mkdir "dist/node_modules/@ungap"
-node node_modules/ncp/bin/ncp node_modules/@ungap/url-search-params dist/node_modules/@ungap/url-search-params
-
 REM vue-hljs
 node node_modules/ncp/bin/ncp node_modules/vue-hljs dist/node_modules/vue-hljs
 node node_modules/ncp/bin/ncp node_modules/highlight.js dist/node_modules/highlight.js
@@ -57,3 +53,8 @@ node node_modules/ncp/bin/ncp node_modules/normalize-wheel dist/node_modules/nor
 node node_modules/ncp/bin/ncp node_modules/async-validator dist/node_modules/async-validator
 node node_modules/ncp/bin/ncp node_modules/babel-runtime dist/node_modules/babel-runtime
 node node_modules/ncp/bin/ncp node_modules/babel-helper-vue-jsx-merge-props dist/node_modules/babel-helper-vue-jsx-merge-props
+
+REM url-search-params-polyfill
+node node_modules/ncp/bin/ncp node_modules/url-search-params-polyfill dist/node_modules/url-search-params-polyfill
+node node_modules/ncp/bin/ncp node_modules/debug dist/node_modules/debug
+node node_modules/ncp/bin/ncp node_modules/ms dist/node_modules/ms
