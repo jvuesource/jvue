@@ -140,6 +140,7 @@ export default {
           }
         })
         .catch(reason => {
+          that.loadingText = "网络异常";
           that.$Progress.finish();
           that.showMask = false;
           logger.error("getSearchResult request error,reason=>" + reason);

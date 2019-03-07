@@ -40,9 +40,8 @@ node node_modules/ncp/bin/ncp node_modules/circular-json dist/node_modules/circu
 REM source-map
 node node_modules/ncp/bin/ncp node_modules/source-map dist/node_modules/source-map
 
-REM @ungap/url-search-params
-mkdir "dist/node_modules/@ungap"
-node node_modules/ncp/bin/ncp node_modules/@ungap/url-search-params dist/node_modules/@ungap/url-search-params
+REM url-search-params-polyfill
+node node_modules/ncp/bin/ncp node_modules/url-search-params-polyfill dist/node_modules/url-search-params-polyfill
 
 REM vue-hljs
 node node_modules/ncp/bin/ncp node_modules/vue-hljs dist/node_modules/vue-hljs

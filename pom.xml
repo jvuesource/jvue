@@ -60,6 +60,12 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.8.1</version>
         </dependency>
+        <!-- commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.7</version>
+        </dependency>
         <!-- commons-configuration -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -73,19 +79,19 @@
             <version>2.6</version>
         </dependency>
         <!-- j2v8 -->
-        <!-- j2v8_linux_x86_64
+        <!-- j2v8_linux_x86_64 -->
         <dependency>
             <groupId>com.eclipsesource.j2v8</groupId>
             <artifactId>j2v8_linux_x86_64</artifactId>
             <version>4.8.3</version>
         </dependency>
-        -->
-        <!-- j2v8_win32_x86_64 -->
+        <!-- j2v8_win32_x86_64
         <dependency>
             <groupId>com.eclipsesource.j2v8</groupId>
             <artifactId>j2v8_win32_x86_64</artifactId>
             <version>4.8.3</version>
         </dependency>
+        -->
         <!-- 分页插件 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
@@ -133,12 +139,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency>
-        <!-- 本地Tomcat -->
-        <dependency>
-            <groupId>org.apache.tomcat.maven</groupId>
-            <artifactId>tomcat7-maven-plugin</artifactId>
-            <version>2.2</version>
         </dependency>
 
         <!-- Web前端开发库 -->
@@ -195,28 +195,6 @@
                 </executions>
                 <configuration>
                     <mainClass>com.terwergreen.jvue.CLI</mainClass>
-                </configuration>
-            </plugin>
-
-            <!-- 配置Tomcat插件 -->
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-
-                <configuration>
-                    <!--服务器端口号-->
-                    <port>8080</port>
-                    <!-- 项目发布的路径,默认就是tomcat/webapps目录,可以指定深层次目录,留"/",则默认在webapps目录下部署ROOT.war包-->
-                    <path>/jvue</path>
-                    <!-- 注意tomcat7此处的url，不能随意修改,后缀必须是text,不能是html. 如果是本地tomcat部署,用localhost和ip都可以 -->
-                    <url>http://localhost:8080/manager/text</url>
-                    <!--解决中文参数乱码问题-->
-                    <uriEncoding>UTF-8</uriEncoding>
-                    <update>true</update>
-                    <!--配置在tomcat\conf\tomcat-users.xml中定义的用户名-->
-                    <username>admin</username>
-                    <password>123456</password>
                 </configuration>
             </plugin>
         </plugins>
