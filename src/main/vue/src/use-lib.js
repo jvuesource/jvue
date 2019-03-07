@@ -25,6 +25,9 @@ Vue.use(ElementUI, {
 });
 logger.debug("Register element-ui success");
 
+import "url-search-params-polyfill";
+logger.debug("Register url-search-params-polyfill success");
+
 // 浏览器专用
 if (inBrowser) {
   const Toaster = require("v-toaster");
