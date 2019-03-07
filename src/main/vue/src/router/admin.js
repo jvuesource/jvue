@@ -16,7 +16,7 @@ export default [
   {
     path: ADMIN_PATH,
     component: resolve => require(["../views/admin/AdminHome.vue"], resolve),
-    meta: { title: "自述文件" },
+    meta: { title: "系统首页" },
     children: [
       {
         path: ADMIN_PATH + "/dashboard",
@@ -25,10 +25,16 @@ export default [
         meta: { title: "系统首页" }
       },
       {
-        path: ADMIN_PATH + "/table",
+        path: ADMIN_PATH + "/post/manage/list",
         component: resolve =>
-          require(["../views/admin/Dashboard.vue"], resolve),
-        meta: { title: "测试表格" }
+          require(["../views/admin/postManage/PostList.vue"], resolve),
+        meta: { title: "文章" }
+      },
+      {
+        path: ADMIN_PATH + "/post/manage/edit",
+        component: resolve =>
+          require(["../views/admin/postManage/PostEdit.vue"], resolve),
+        meta: { title: "文章" }
       }
     ]
   },
