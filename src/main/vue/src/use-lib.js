@@ -25,9 +25,8 @@ Vue.use(ElementUI, {
 });
 logger.debug("Register element-ui success");
 
-// URLSearchParams
 import "url-search-params-polyfill";
-logger.debug("Register URLSearchParams success");
+logger.debug("Register url-search-params-polyfill success");
 
 // 浏览器专用
 if (inBrowser) {

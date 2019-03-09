@@ -24,7 +24,7 @@ doskey v8rd=npm run v8-dev-start
 echo 生产环境构建脚本路径：%cd%/build/build.prod.cmd
 doskey vbuild=%cd%/src/main/vue/build/build.prod.cmd
 doskey vb=%cd%/src/main/vue/build/build.prod.cmd
-doskey vm=%cd%/src/main/vue/build/cpm.sh
+doskey vm=%cd%/src/main/vue/build/cpm.cmd
 doskey vr=npm run prod-start
 doskey v8r=npm run v8-prod-start
 
@@ -38,6 +38,6 @@ echo "vbd    开发环境构建"
 echo "vrd    开发环境Express运行"
 echo "v8rd   开发环境测试"
 echo "vb     生产环境构建"
-echo "vm     拷贝依赖"
+echo "vm     安装依赖"
 echo "vr     生产环境Express运行"
 echo "v8r    生产环境测试"

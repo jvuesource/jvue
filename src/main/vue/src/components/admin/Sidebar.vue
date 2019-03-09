@@ -47,6 +47,7 @@
 
 <script>
 import bus from "./bus";
+const ADMIN_PATH = process.env.VUE_APP_ADMIN_PATH;
 
 // 字体图标
 // http://element-cn.eleme.io/#/zh-CN/component/icon
@@ -58,18 +59,23 @@ export default {
       items: [
         {
           icon: "jvue-icon-fa fa-home",
-          index: "dashboard",
+          index: ADMIN_PATH + "/dashboard",
           title: "系统首页"
         },
         {
           icon: "jvue-icon-fa fa-table",
-          index: "table",
-          title: "基础表格"
-        },
-        {
-          icon: "jvue-icon-fa fa-bars",
-          index: "tabs",
-          title: "tab选项卡"
+          index: "2",
+          title: "文章",
+          subs: [
+            {
+              index: ADMIN_PATH + "/post/manage/list",
+              title: "所有文章"
+            },
+            {
+              index: ADMIN_PATH + "/post/manage/edit",
+              title: "写文章"
+            }
+          ]
         },
         {
           icon: "jvue-icon-fa fa-id-card",
