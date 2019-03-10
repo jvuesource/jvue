@@ -6,7 +6,7 @@
     "clean": "rimraf dist",
     "lint": "vue-cli-service lint",
     "serve": "cross-env NODE_ENV=development vue-cli-service serve",
-    "dev-build-entry-client": "cross-env SSR_ENV=client  vue-cli-service build --mode development",
+    "dev-build-entry-client": "cross-env SSR_ENV=client vue-cli-service build --mode development",
     "build-entry-client": "cross-env SSR_ENV=client vue-cli-service build",
     "dev-build-entry-server": "cross-env SSR_ENV=server vue-cli-service build --mode development --no-clean",
     "build-entry-server": "cross-env SSR_ENV=server vue-cli-service build --no-clean",
