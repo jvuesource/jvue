@@ -2,7 +2,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="jvue">
+<mapper namespace="com.terwergreen.jvue">
     <!-- 根据类型获取文章 -->
     <resultMap id="postMap" type="com.terwergreen.jvue.pojo.Post">
         <id column="post_id" property="postId"/>

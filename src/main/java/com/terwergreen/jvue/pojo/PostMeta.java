@@ -17,5 +17,4 @@ public class PostMeta {
     private Integer postId;
     private String metaKey;
     private String metaValue;
-    private Integer count;
 }

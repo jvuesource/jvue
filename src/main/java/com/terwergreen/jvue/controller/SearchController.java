@@ -1,11 +1,7 @@
 package com.terwergreen.jvue.controller;
 
-import com.terwergreen.jvue.core.CommonService;
-import com.terwergreen.jvue.vendor.vue.VueRenderer;
-import com.terwergreen.jvue.vendor.vue.VueUtil;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,14 +22,10 @@ import java.util.Map;
 public class SearchController {
     private final Log logger = LogFactory.getLog(this.getClass());
 
-    @Autowired
-    private VueRenderer vueRenderer;
-
-    // @Autowired
-    // private CommonService commonService;
+     // @Resource
+     // private CommonService commonService;
 
     @RequestMapping(value = "/s/{k}", produces = "text/html;charset=UTF-8")
-    @ResponseBody
     public String search(HttpServletRequest request, @PathVariable String k) {
         // 设置路由上下文
         Map<String, Object> httpContext = new HashMap<>();
@@ -50,9 +42,6 @@ public class SearchController {
 
         logger.info("httpContext=>" + httpContext);
 
-        // 返回服务端渲染后的结果
-        // 直接返回html
-        Map<String, Object> resultMap = vueRenderer.renderContent(httpContext, request);
-        return VueUtil.resultMapToString(resultMap);
+        return "index";
     }
 }
