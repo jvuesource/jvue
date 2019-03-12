@@ -16,15 +16,15 @@
   <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/npm/l/vue.svg" alt="License"></a>
 </p>
 
-# Important Changes in JVue 3
+# Important Changes in JVue 4
 
-<p style="color:red;">Duo to performance,v3.x removed j2v8,v2.x still support j2v8</p> 
+Use Docker for deploy
 
 # Introduction
 
 ## jvue
 Next light-weight,responsive project
-With Vue,Vue CLI 3,webpack and Spring Boot for server-side-rendering
+With Docker,Vue,Vue CLI 3,webpack and Spring Boot
 
 # Build setup
 
